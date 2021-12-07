@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -22,25 +23,27 @@ public class Game {
 
     void play(Stage stage) throws IOException {
 
+
         AnchorPane layout = new AnchorPane();
-        Image imgbg = new Image("newBG.jpg");
-        BackgroundSize bgsize = new BackgroundSize(1000, 550, false, false, false, false);
-        BackgroundImage bgimg= new BackgroundImage(imgbg, BackgroundRepeat.REPEAT , BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, bgsize);
-        Background bg = new Background(bgimg);
+        Image background_image = new Image("newBG.jpg");
+        BackgroundSize bgSize = new BackgroundSize(1000, 550, false, false, false, false);
+        BackgroundImage bgImg= new BackgroundImage(background_image, BackgroundRepeat.REPEAT , BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, bgSize);
+        Background bg = new Background(bgImg);
         layout.setBackground(bg);
 
-        Image islandIMG = new Image("island.png");
-        ImageView islandIV = new ImageView();
-        islandIV.setImage(islandIMG);
+//        Image islandIMG = new Image("island.png");
+        ImageView islandIV = new ImageView("island.png");
+//        islandIV.setImage(islandIMG);
 
         islandIV.setLayoutY(211);
         islandIV.setLayoutX(66);
         islandIV.setFitHeight(285);
         islandIV.setFitWidth(328);
 
-        Image heroIMG = new Image("hero.png");
-        ImageView heroIV = new ImageView();
-        heroIV.setImage(heroIMG);
+//        Hero hero = new Hero(new Location(202, 314), "hero.png", 1, 10/55, 1, 1);
+//        Image heroIMG = new Image("hero.png");
+        ImageView heroIV = new ImageView("hero.png");
+//        heroIV.setImage(heroIMG);
 
         heroIV.setLayoutX(202);
         heroIV.setLayoutY(314);
@@ -48,16 +51,14 @@ public class Game {
         heroIV.setFitWidth(45);
 
 
-        ImageView island2 = new ImageView();
-        island2.setImage(islandIMG);
+        ImageView island2 = new ImageView("island.png");
 
         island2.setLayoutY(250);
         island2.setLayoutX(505);
         island2.setFitHeight(285);
         island2.setFitWidth(328);
 
-        ImageView island3 = new ImageView();
-        island3.setImage(islandIMG);
+        ImageView island3 = new ImageView("island.png");
 
         island3.setLayoutY(214);
         island3.setLayoutX(921);
@@ -71,7 +72,7 @@ public class Game {
 
         TranslateTransition jump = new TranslateTransition();
         jump.setNode(heroIV);
-        jump.setDuration(Duration.millis(600));
+        jump.setDuration(Duration.millis(550));
         jump.setCycleCount(Animation.INDEFINITE);
         jump.setByY(-100);
         jump.setAutoReverse(true);
@@ -79,23 +80,19 @@ public class Game {
 
         TranslateTransition move = new TranslateTransition();
         move.setNode(heroIV);
-        move.setDuration(Duration.millis(200));
+        move.setDuration(Duration.millis(100));
         move.setCycleCount(1);
         move.setAutoReverse(false);
         move.setByX(100);
-        move.setOnFinished(e->{jump.play();});
+        move.setOnFinished(e-> jump.play());
 
-        newScene.setOnMouseClicked(mouseEvent -> {
-            jump.pause();
-            move.play();
+        newScene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.SPACE) {
+                jump.pause();
+                move.play();
+            }
         });
-
         HelloApplication.Gstage.setScene(newScene);
         HelloApplication.Gstage.show();
-
-
-
-
-
     }
 }
