@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="839.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plswrk.willherofx.HelloController">
+   <children>
+      <ImageView fx:id="Background" fitHeight="461.0" fitWidth="868.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/newBG.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="86.0" fitWidth="175.0" layoutX="58.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/T_Islands_01.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="95.0" fitWidth="131.0" layoutX="314.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/T_Islands_06.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="119.0" fitWidth="175.0" layoutX="554.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/T_Islands_07.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero" fitHeight="26.0" fitWidth="27.0" layoutX="117.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/hero.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="46.0" fitWidth="24.0" layoutX="154.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/Tree3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="55.0" fitWidth="48.0" layoutX="185.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/Tree10.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="55.0" fitWidth="48.0" layoutX="398.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/Tree8.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="55.0" fitWidth="48.0" layoutX="331.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/Tree3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="576.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/Tree8.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="27.0" layoutX="639.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../AP_Project_WillHero/src/main/resources/Tree3.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
