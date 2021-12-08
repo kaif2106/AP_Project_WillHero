@@ -15,69 +15,50 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-public class Hero extends GameElement{
-    private ImageView hero_image;
+public class Hero extends Living{
+
     private double velocityX;
     private double velocityY;
-    Hero(ImageView hero_image, double velocityX, double velocityY) {
-        this.hero_image = hero_image;
+    Hero(ImageView hero_image, double velocityX, double velocityY, double x, double y) {
+        super(hero_image, 100, x, y);
         this.velocityX = velocityX;
         this.velocityY = velocityY;
     }
-    //    public void update(double time)
-//    {
-//        this.setLocation(this.getLocation().getX()+velocityX * time, this.getLocation().getY()+ velocityY * time);
-//    }
-//    @FXML
-    public TranslateTransition jump() throws IOException {
-        TranslateTransition jump = new TranslateTransition();
-        jump.setNode(hero_image);
-        jump.setDuration(Duration.millis(600));
-        jump.setCycleCount(1);
-        jump.setByY(-100);
 
-//        jump.setAutoReverse(true);
-        jump.play();
+    @Override
+    public void on_collision() {
 
-        return jump;
     }
-//
-//        stage.setScene(scene);
-//        stage.show();
-//        TranslateTransition jump = new TranslateTransition();
-//        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        jump.setNode(imageView);
-//        jump.setDuration(Duration.millis(600));
-//        jump.setCycleCount(Animation.INDEFINITE);
-//        jump.setByY(-100);
-//        jump.setAutoReverse(true);
-//        jump.play();
-//    public ImageView getImageView() {
-//        return imageView;
-//    }
+
+    @Override
+    public void die() {
+        try {
+            this.getImage().setImage(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/MonsterFatality.png")).toURI().toString()));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public TranslateTransition move(Scene scene, TranslateTransition jump){
         TranslateTransition move = new TranslateTransition();
-        move.setNode(hero_image);
+        move.setNode(this.getImage());
         move.setDuration(Duration.millis(200));
         move.setCycleCount(1);
         move.setAutoReverse(false);
         move.setByX(100);
-        move.setOnFinished(e->{jump.play();});
-        scene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.SPACE) {
-                jump.pause();
-                move.play();
-            }
-        });
+        this.setCurr_pos_x(this.getCurr_pos_x() + 100);
+//        this.getImage().setLayoutX(this.getImage().getLayoutX() + 100);
+//        System.out.println(node.getLayoutX());
         return move;
     }
+
     public double getVelocityX() {
         return velocityX;
     }
@@ -91,4 +72,5 @@ public class Hero extends GameElement{
     public void setVelocityY(double velocityY) {
         this.velocityY = velocityY;
     }
+
 }
