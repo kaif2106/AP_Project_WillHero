@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -17,6 +18,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -25,8 +27,8 @@ public class Hero extends Living{
 
     private double velocityX;
     private double velocityY;
-    Hero(ImageView hero_image, double velocityX, double velocityY, double x, double y) {
-        super(hero_image, 50, x, y);
+    Hero(ImageView hero_image, List<Image> imageList , double jumpHeight, double velocityX, double velocityY, double x, double y) {
+        super(hero_image, imageList, jumpHeight, x, y);
         this.velocityX = velocityX;
         this.velocityY = velocityY;
     }

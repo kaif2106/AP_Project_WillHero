@@ -13,26 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Chest {
+public abstract class Chest extends GameElement{
     private boolean isOpen;
-    private double curr_pos_x;
-    private double curr_pos_y;
-    private final List<Image> imageList;
-    private final ImageView image;
     Chest(ImageView image, List<Image> imageList, double start_pos_x, double start_pos_y) {
-        this.image = image;
-        this.imageList = imageList;
-        curr_pos_x = start_pos_x;
-        curr_pos_y = start_pos_y;
+        super(image, imageList, start_pos_x, start_pos_y);
         isOpen = false;
-    }
-
-    public List<Image> getImageList() {
-        return imageList;
-    }
-
-    public ImageView getImage() {
-        return image;
     }
 
     public void open() throws URISyntaxException {
@@ -41,7 +26,9 @@ public abstract class Chest {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         timeline.setAutoReverse(false);
-        for(int i=0; i<imageList.size(); i++) {
+        ImageView image = this.getImage();
+        List<Image> imageList = this.getImageList();
+        for(int i=0; i<this.getImageList().size(); i++) {
             int finalI = i;
             timeline.getKeyFrames().add(new KeyFrame(
                     Duration.millis(50*(i+1)),
@@ -63,14 +50,6 @@ public abstract class Chest {
     }
     public boolean getIsOpen(){
         return isOpen;
-    }
-
-    public double getCurr_pos_x() {
-        return curr_pos_x;
-    }
-
-    public void setCurr_pos_x(double curr_pos_x) {
-        this.curr_pos_x = curr_pos_x;
     }
 
     public abstract void on_collision();

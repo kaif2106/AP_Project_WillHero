@@ -3,6 +3,7 @@ package plswrk.willherofx;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -31,7 +32,7 @@ public class GamePlay {
     Button resume, restart, exit_pause, exit_end;
 
     @FXML
-    ImageView hero, orc1, island1, island2, island3, weapon_chest1;
+    ImageView hero, orc1, island1, island2, island3, weapon_chest1, coin_chest1, TNT1;
 
     @FXML
     Pane endPane;
@@ -40,13 +41,15 @@ public class GamePlay {
     private Hero hero_obj;
     private Orc orc_obj;
     private Weapon_Chest weapon_chest_obj;
+    private Coin_Chest coin_chest_obj;
+    private TNT TNT_obj;
 
-    public void initialise(Scene scene) {
+    public void InitialiseAll_FXML_Objects(Scene scene) {
         hero = (ImageView) scene.lookup("#hero");
         orc1 = (ImageView) scene.lookup("#orc1");
         weapon_chest1 = (ImageView) scene.lookup("#weapon_chest1");
-        hero_obj = new Hero(hero, 1.0, 2.0, hero.getLayoutX(), hero.getLayoutY());
-        orc_obj = new Orc(orc1, 20, orc1.getLayoutX(), orc1.getLayoutY());
+        coin_chest1 = (ImageView) scene.lookup("#coin_chest1");
+        TNT1 = (ImageView) scene.lookup("#TNT1");
         layout = (AnchorPane) scene.lookup("#layout");
         pauseMenuPane = (Pane) scene.lookup("#pauseMenuPane");
         endPane = (Pane) scene.lookup("#endPane");
@@ -58,50 +61,99 @@ public class GamePlay {
         island1 = (ImageView) scene.lookup("#island1");
         island2 = (ImageView) scene.lookup("#island2");
         island3 = (ImageView) scene.lookup("#island3");
-        Island island1_obj = new Island(island1,island1.getLayoutX(), island1.getLayoutY());
-        Island island2_obj = new Island(island2,island2.getLayoutX(), island2.getLayoutY());
-        Island island3_obj = new Island(island3,island3.getLayoutX(), island3.getLayoutY());
-        Image image1 = new Image("wep_0000 #50076.png");
-        Image image2 = new Image("wep_0001 #18659.png");
-        Image image3 = new Image("wep_0002 #18442.png");
-        Image image4 = new Image("wep_0003.png");
-        Image image5 = new Image("wep_0004 #36957.png");
-        Image image6 = new Image("wep_0005 #37946.png");
-        Image image7 = new Image("wep_0006 #42713.png");
-        Image image8 = new Image("wep_0007 #45764.png");
-        Image image9 = new Image("wep_0008 #32756.png");
-        Image image10 = new Image("wep_0009 #50124.png");
-        Image image11 = new Image("wep_0010 #21871.png");
-        List<Image> imageList = new ArrayList<>();
-        imageList.add(image1);
-        imageList.add(image2);
-        imageList.add(image3);
-        imageList.add(image4);
-        imageList.add(image5);
-        imageList.add(image6);
-        imageList.add(image7);
-        imageList.add(image8);
-        imageList.add(image9);
-        imageList.add(image10);
-        imageList.add(image11);
-        weapon_chest_obj = new Weapon_Chest(weapon_chest1, imageList, new Weapon("Sword", 0, 30.0, new Range(3,3)), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
-        weapon_chest_obj.getImage().setImage(image1);
+        BackgroundSize backgroundSize = new BackgroundSize(1000, 550, false, false, false, false);
+        BackgroundImage backgroundImage = new BackgroundImage(new Image("newBG.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, backgroundSize);
+        Background bg = new Background(backgroundImage);
+        layout.setBackground(bg);
+        pauseMenuPane.setVisible(false);
+        endPane.setVisible(false);
+    }
+    public void InitializeAll_ClassObjects() {
+        hero_obj = new Hero(hero, null, 65, 1.0, 2.0, hero.getLayoutX(), hero.getLayoutY());
+
+        Island island1_obj = new Island(island1, island1.getLayoutX(), island1.getLayoutY());
+        Island island2_obj = new Island(island2, island2.getLayoutX(), island2.getLayoutY());
+        Island island3_obj = new Island(island3, island3.getLayoutX(), island3.getLayoutY());
         islands = new ArrayList<>();
         islands.add(island1_obj);
         islands.add(island2_obj);
         islands.add(island3_obj);
-        pauseMenuPane.setVisible(false);
-        endPane.setVisible(false);
-        Image imgbg = new Image("newBG.jpg");
-        BackgroundSize bgsize = new BackgroundSize(1000, 550, false, false, false, false);
-        BackgroundImage bgimg= new BackgroundImage(imgbg, BackgroundRepeat.REPEAT , BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, bgsize);
-        Background bg = new Background(bgimg);
-        layout.setBackground(bg);
+
+        Image Weapon_chest_open1 = new Image("wep_0000 #50076.png");
+        Image Weapon_chest_open2 = new Image("wep_0001 #18659.png");
+        Image Weapon_chest_open3 = new Image("wep_0002 #18442.png");
+        Image Weapon_chest_open4 = new Image("wep_0003.png");
+        Image Weapon_chest_open5 = new Image("wep_0004 #36957.png");
+        Image Weapon_chest_open6 = new Image("wep_0005 #37946.png");
+        Image Weapon_chest_open7 = new Image("wep_0006 #42713.png");
+        Image Weapon_chest_open8 = new Image("wep_0007 #45764.png");
+        Image Weapon_chest_open9 = new Image("wep_0008 #32756.png");
+        Image Weapon_chest_open10 = new Image("wep_0009 #50124.png");
+        Image Weapon_chest_open11 = new Image("wep_0010 #21871.png");
+        List<Image> Weapon_chest_List = new ArrayList<>();
+        Weapon_chest_List.add(Weapon_chest_open1);
+        Weapon_chest_List.add(Weapon_chest_open2);
+        Weapon_chest_List.add(Weapon_chest_open3);
+        Weapon_chest_List.add(Weapon_chest_open4);
+        Weapon_chest_List.add(Weapon_chest_open5);
+        Weapon_chest_List.add(Weapon_chest_open6);
+        Weapon_chest_List.add(Weapon_chest_open7);
+        Weapon_chest_List.add(Weapon_chest_open8);
+        Weapon_chest_List.add(Weapon_chest_open9);
+        Weapon_chest_List.add(Weapon_chest_open10);
+        Weapon_chest_List.add(Weapon_chest_open11);
+        weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_List, new Weapon("Sword", 0, 30.0, new Range(3, 3)), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
+
+        Image orc_death1 = new Image("orcDeath1.png");
+        Image orc_death2 = new Image("orcDeath2.png");
+        Image orc_death3 = new Image("orcDeath3.png");
+        Image orc_death4 = new Image("orcDeath4.png");
+        List<Image> orc_deathImages = new ArrayList<>();
+        orc_deathImages.add(orc_death1);
+        orc_deathImages.add(orc_death2);
+        orc_deathImages.add(orc_death3);
+        orc_deathImages.add(orc_death4);
+        orc_obj = new Orc(orc1, orc_deathImages, 50, orc1.getLayoutX(), orc1.getLayoutY());
+
+        Image Coin_chest_open1 = new Image("wep_0000 #51930.png");
+        Image Coin_chest_open2 = new Image("wep_0001 #38556.png");
+        Image Coin_chest_open3 = new Image("wep_0002 #57623.png");
+        Image Coin_chest_open4 = new Image("wep_0003 #46880.png");
+        Image Coin_chest_open5 = new Image("wep_0004 #26021.png");
+        Image Coin_chest_open6 = new Image("wep_0005 #50050.png");
+        Image Coin_chest_open7 = new Image("wep_0006 #56893.png");
+        Image Coin_chest_open8 = new Image("wep_0007 #37947.png");
+        Image Coin_chest_open9 = new Image("wep_0008 #30876.png");
+        Image Coin_chest_open10 = new Image("wep_0009 #57652.png");
+        Image Coin_chest_open11 = new Image("wep_0010 #129.png");
+        List<Image> Coin_chest_List = new ArrayList<>();
+        Coin_chest_List.add(Coin_chest_open1);
+        Coin_chest_List.add(Coin_chest_open2);
+        Coin_chest_List.add(Coin_chest_open3);
+        Coin_chest_List.add(Coin_chest_open4);
+        Coin_chest_List.add(Coin_chest_open5);
+        Coin_chest_List.add(Coin_chest_open6);
+        Coin_chest_List.add(Coin_chest_open7);
+        Coin_chest_List.add(Coin_chest_open8);
+        Coin_chest_List.add(Coin_chest_open9);
+        Coin_chest_List.add(Coin_chest_open10);
+        Coin_chest_List.add(Coin_chest_open11);
+        coin_chest_obj = new Coin_Chest(coin_chest1, Coin_chest_List, 50, coin_chest1.getLayoutX(), coin_chest1.getLayoutY());
+
+        Image TNT_explode1 = new Image("TNT_explode1.png");
+        Image TNT_explode2 = new Image("TNT_explode2.png");
+        Image TNT_explode3 = new Image("TNT_explode3.png");
+        Image TNT_explode4 = new Image("TNT_explode4.png");
+        List<Image> TNT_explodeImages = new ArrayList<>();
+        TNT_explodeImages.add(TNT_explode1);
+        TNT_explodeImages.add(TNT_explode2);
+        TNT_explodeImages.add(TNT_explode3);
+        TNT_explodeImages.add(TNT_explode4);
+        TNT_obj = new TNT(TNT1, TNT_explodeImages, TNT1.getLayoutX(), TNT1.getLayoutY(), new Range(30, 30));
     }
     public void start(Scene scene) throws IOException {
-        initialise(scene);
-        boolean isjumping = true;
-        boolean islanding = false;
+        InitialiseAll_FXML_Objects(scene);
+        InitializeAll_ClassObjects();
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
         Pair<TranslateTransition, TranslateTransition> orc_hop = hop(orc_obj);
         scene.setOnKeyPressed(e -> {
@@ -131,7 +183,7 @@ public class GamePlay {
             }
         });
 
-        orc_obj.getOrc_image().setOnMouseClicked(e -> {
+        orc_obj.getImage().setOnMouseClicked(e -> {
             orc_hop.getFirst().pause();
             orc_hop.getSecond().pause();
             orc_obj.die();
@@ -203,6 +255,18 @@ public class GamePlay {
             } catch (URISyntaxException ex) {
                 ex.printStackTrace();
             }
+        });
+
+        coin_chest_obj.getImage().setOnMouseClicked(mouseEvent -> {
+            try {
+                coin_chest_obj.open();
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        TNT_obj.getImage().setOnMouseClicked(mouseEvent -> {
+            TNT_obj.explode();
         });
         HelloApplication.Gstage.setScene(scene);
         HelloApplication.Gstage.show();
