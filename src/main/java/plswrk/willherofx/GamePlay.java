@@ -106,9 +106,28 @@ public class GamePlay {
         Pair<TranslateTransition, TranslateTransition> orc_hop = hop(orc_obj);
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE) {
-//                hero_hop.getFirst().pause();
-//                hero_hop.getSecond().pause();
-                hero_obj.move(scene, hero_hop.getFirst()).play();
+                if(hero_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
+                hero_hop.getFirst().pause();
+            }
+            if(hero_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
+                hero_hop.getSecond().pause();
+            }
+//            if(orc_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
+//                orc_hop.getFirst().pause();
+//            }
+//            if(orc_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
+//                orc_hop.getSecond().pause();
+//            }
+                TranslateTransition hero_mov = hero_obj.move(scene, hero_hop.getFirst());
+                hero_mov.play();
+                hero_mov.setOnFinished(event -> {
+                    if(hero_hop.getFirst().getStatus()== Animation.Status.PAUSED) {
+                        hero_hop.getFirst().play();
+                    }
+                    if(hero_hop.getSecond().getStatus()== Animation.Status.PAUSED) {
+                        hero_hop.getSecond().play();
+                    }
+                });
             }
         });
 

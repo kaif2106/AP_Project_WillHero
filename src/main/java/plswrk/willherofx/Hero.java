@@ -26,7 +26,7 @@ public class Hero extends Living{
     private double velocityX;
     private double velocityY;
     Hero(ImageView hero_image, double velocityX, double velocityY, double x, double y) {
-        super(hero_image, 100, x, y);
+        super(hero_image, 50, x, y);
         this.velocityX = velocityX;
         this.velocityY = velocityY;
     }

@@ -36,7 +36,7 @@
             <Image url="@../../hero.png" />
          </image>
       </ImageView>
-      <Pane fx:id="pauseMenuPane" layoutX="243.0" layoutY="108.0" prefHeight="357.0" prefWidth="518.0">
+      <Pane fx:id="pauseMenuPane" layoutX="243.0" layoutY="108.0" prefHeight="357.0" prefWidth="388.0">
          <children>
             <Button fx:id="resume" layoutX="121.0" layoutY="31.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Resume">
                <font>
@@ -55,7 +55,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="endPane" layoutX="242.0" layoutY="108.0" prefHeight="357.0" prefWidth="518.0">
+      <Pane fx:id="endPane" layoutX="241.0" layoutY="108.0" prefHeight="357.0" prefWidth="388.0">
          <children>
             <Button fx:id="restart" layoutX="118.0" layoutY="130.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Restart">
                <font>
@@ -67,7 +67,7 @@
                   <Font size="25.0" />
                </font>
             </Button>
-            <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="112.0" layoutY="21.0" pickOnBounds="true" x="10.0">
+            <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="113.0" layoutY="21.0" pickOnBounds="true" x="10.0">
                <image>
                   <Image url="@../../GameOver.png" />
                </image>
@@ -88,7 +88,7 @@
             <Image url="@../../Tree8.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="780.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="711.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../orc.png" />
          </image>
