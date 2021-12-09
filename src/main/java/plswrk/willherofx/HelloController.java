@@ -36,8 +36,8 @@ public class HelloController{
     public void switchToGamePlay() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GamePlay.fxml"));
         scene = new Scene(fxmlLoader.load());
-        HelloApplication.Gstage.setScene(scene);
-        HelloApplication.Gstage.show();
+        //HelloApplication.Gstage.setScene(scene);
+//        HelloApplication.Gstage.show();
         GamePlay gamePlay = new GamePlay();
         gamePlay.start(scene);
     }

@@ -13,12 +13,7 @@
             <Image url="@../../newBG.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="100.0" fitWidth="72.0" layoutX="955.0" layoutY="292.0" opacity="0.71" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Tree8.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="97.0" fitWidth="58.0" layoutX="121.0" layoutY="259.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="97.0" fitWidth="58.0" layoutX="121.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Tree2.png" />
          </image>
@@ -33,10 +28,6 @@
             <Image url="@../../hero.png" />
          </image>
       </ImageView>
-      <Button fx:id="gameStartButton" layoutX="402.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#switchToGamePlay" prefHeight="105.0" prefWidth="229.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 50px;" text="Play">
-         <font>
-            <Font size="46.0" />
-         </font></Button>
       <ImageView fx:id="island2" fitHeight="285.0" fitWidth="328.0" layoutX="504.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../T_Islands_04.png" />
@@ -45,6 +36,45 @@
       <ImageView fx:id="island1" fitHeight="285.0" fitWidth="328.0" layoutX="66.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../T_Islands_09.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="120.0" fitWidth="58.0" layoutX="534.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Tree12.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="129.0" fitWidth="88.0" layoutX="719.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Tree11%20%2350105.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="584.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../orc.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="659.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../newwep_0000%20%2351930.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="125.0" fitWidth="104.0" layoutX="1076.0" layoutY="267.0" opacity="0.71" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Tree8.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="weapon_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="971.0" layoutY="335.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../newwep_0001.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="gameStartButton" layoutX="402.0" layoutY="215.0" mnemonicParsing="false" onMouseClicked="#switchToGamePlay" prefHeight="105.0" prefWidth="229.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 50px;" text="Play">
+         <font>
+            <Font size="46.0" />
+         </font></Button>
+      <ImageView fx:id="TNT1" fitHeight="56.0" fitWidth="58.0" layoutX="897.0" layoutY="334.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../TNT_explode1.png" />
          </image>
       </ImageView>
    </children>

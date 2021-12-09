@@ -1,17 +1,15 @@
 package plswrk.willherofx;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Chest extends GameElement{
     private boolean isOpen;
@@ -23,30 +21,14 @@ public abstract class Chest extends GameElement{
     public void open() throws URISyntaxException {
         isOpen = true;
         System.out.println("Chest opened");
-        Timeline timeline = new Timeline();
-        timeline.setCycleCount(1);
-        timeline.setAutoReverse(false);
-        ImageView image = this.getImage();
-        List<Image> imageList = this.getImageList();
-        for(int i=0; i<this.getImageList().size(); i++) {
-            int finalI = i;
-            timeline.getKeyFrames().add(new KeyFrame(
-                    Duration.millis(50*(i+1)),
-                    (ActionEvent event) -> image.setImage(imageList.get(finalI))
-            ));
+        AtomicInteger imageIndex = new AtomicInteger(0);
+        Timeline coinChestOpenAnimationTimeline = new Timeline(new KeyFrame(Duration.millis(100), eventDispatchChain -> {
+            getImage().setImage(getImageList().get(imageIndex.getAndIncrement()));
         }
-        timeline.play();
-//        Image transition_image1 = new Image("file:src/main/resources/images/wep_0001 #18659.png");
-//        Image transition_image2 = new Image("file:src/main/resources/images/wep_0002 #18442.png");
-//        Image transition_image3 = new Image("file:src/main/resources/images/wep_0003.png");
-//        Image transition_image4 = new Image("file:src/main/resources/images/wep_0004 #36957.png");
-//        Image transition_image5 = new Image("file:src/main/resources/images/wep_0005 #37946.png");
-//        Image transition_image6 = new Image("file:src/main/resources/images/wep_0006 #42713.png");
-//        Image transition_image7 = new Image("file:src/main/resources/images/wep_0007 #45764.png");
-//        Image transition_image8 = new Image("file:src/main/resources/images/wep_0008 #32756.png");
-//        Image transition_image9 = new Image("file:src/main/resources/images/wep_0009 #50124.png");
-//        Image transition_image10 = new Image("file:src/main/resources/images/wep_0010 #21871.png");
-//        SequentialTransition sequentialTransition = new SequentialTransition(this.getImage(),transition_image1);
+        ));
+        coinChestOpenAnimationTimeline.setCycleCount(getImageList().size());
+        coinChestOpenAnimationTimeline.play();
+
     }
     public boolean getIsOpen(){
         return isOpen;

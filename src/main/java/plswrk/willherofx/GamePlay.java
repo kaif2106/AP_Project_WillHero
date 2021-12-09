@@ -1,6 +1,7 @@
 package plswrk.willherofx;
 
 import javafx.animation.Animation;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
@@ -61,15 +63,16 @@ public class GamePlay {
         island1 = (ImageView) scene.lookup("#island1");
         island2 = (ImageView) scene.lookup("#island2");
         island3 = (ImageView) scene.lookup("#island3");
+        pauseMenuPane.setVisible(false);
+        endPane.setVisible(false);
         BackgroundSize backgroundSize = new BackgroundSize(1000, 550, false, false, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("newBG.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, backgroundSize);
         Background bg = new Background(backgroundImage);
         layout.setBackground(bg);
-        pauseMenuPane.setVisible(false);
-        endPane.setVisible(false);
+
     }
     public void InitializeAll_ClassObjects() {
-        hero_obj = new Hero(hero, null, 65, 1.0, 2.0, hero.getLayoutX(), hero.getLayoutY());
+        hero_obj = new Hero(hero, null, 100, 1.0, 2.0, hero.getLayoutX(), hero.getLayoutY());
 
         Island island1_obj = new Island(island1, island1.getLayoutX(), island1.getLayoutY());
         Island island2_obj = new Island(island2, island2.getLayoutX(), island2.getLayoutY());
@@ -113,7 +116,7 @@ public class GamePlay {
         orc_deathImages.add(orc_death2);
         orc_deathImages.add(orc_death3);
         orc_deathImages.add(orc_death4);
-        orc_obj = new Orc(orc1, orc_deathImages, 50, orc1.getLayoutX(), orc1.getLayoutY());
+        orc_obj = new Orc(orc1, orc_deathImages, 100, orc1.getLayoutX(), orc1.getLayoutY());
 
         Image Coin_chest_open1 = new Image("wep_0000 #51930.png");
         Image Coin_chest_open2 = new Image("wep_0001 #38556.png");
@@ -161,17 +164,12 @@ public class GamePlay {
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE) {
                 if(hero_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
-                hero_hop.getFirst().pause();
-            }
-            if(hero_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
-                hero_hop.getSecond().pause();
-            }
-//            if(orc_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
-//                orc_hop.getFirst().pause();
-//            }
-//            if(orc_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
-//                orc_hop.getSecond().pause();
-//            }
+                    hero_hop.getFirst().pause();
+                }
+                if(hero_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
+                    hero_hop.getSecond().pause();
+                }
+//
                 TranslateTransition hero_mov = hero_obj.move(scene, hero_hop.getFirst());
                 hero_mov.play();
                 hero_mov.setOnFinished(event -> {
@@ -182,6 +180,22 @@ public class GamePlay {
                         hero_hop.getSecond().play();
                     }
                 });
+
+
+//                Timeline coinChestOpenAnimationTimeline = new Timeline(new KeyEvent(Duration.millis(1000),
+//                        ev -> coin_chest1.setImage(.get(imageIndex++))));
+//
+//                timeline.setCycleCount(images.size());
+//                timeline.play();
+
+                if(hero_obj.getCurr_pos_x() <= coin_chest_obj.getCurr_pos_x() + coin_chest_obj.getImage().getFitWidth() && hero_obj.getCurr_pos_x() >= coin_chest_obj.getCurr_pos_x()
+                    && hero_obj.getCurr_pos_y() <= coin_chest_obj.getCurr_pos_y() + coin_chest_obj.getImage().getFitHeight() && hero_obj.getCurr_pos_y() >= coin_chest_obj.getCurr_pos_y()){
+                    try {
+                        coin_chest_obj.open();
+                    } catch (URISyntaxException ex) {
+                        ex.printStackTrace();
+                    }
+                }
             }
         });
 
@@ -192,7 +206,6 @@ public class GamePlay {
         });
 
         pause.setOnMouseClicked(mouseEvent -> {
-//            System.out.println(hero_obj.getCurr_pos_y() + " " + hero_obj.getImage().getLayoutY());
             if(hero_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
                 hero_hop.getFirst().pause();
             }
@@ -209,7 +222,6 @@ public class GamePlay {
         });
 
         resume.setOnMouseClicked(mouseEvent -> {
-//            System.out.println(hero_obj.getCurr_pos_y() + " " + hero_obj.getImage().getLayoutY());
             pauseMenuPane.setVisible(false);
             if(hero_hop.getFirst().getStatus()== Animation.Status.PAUSED) {
                 hero_hop.getFirst().play();
@@ -223,7 +235,6 @@ public class GamePlay {
             if(orc_hop.getSecond().getStatus()== Animation.Status.PAUSED) {
                 orc_hop.getSecond().play();
             }
-//            fall.play();
         });
 
         exit_pause.setOnMouseClicked(mouseEvent -> {
@@ -234,14 +245,16 @@ public class GamePlay {
                 e.printStackTrace();
             }
         });
+
         restart.setOnMouseClicked(mouseEvent -> {
             HelloController controller = new HelloController();
-                    try {
-                        controller.switchToGamePlay();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+            try {
+                controller.switchToGamePlay();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         exit_end.setOnMouseClicked(mouseEvent -> {
             HelloController controller = new HelloController();
             try {
@@ -249,7 +262,7 @@ public class GamePlay {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-                });
+        });
 
         weapon_chest_obj.getImage().setOnMouseClicked(mouseEvent -> {
             try {
@@ -270,25 +283,24 @@ public class GamePlay {
         TNT_obj.getImage().setOnMouseClicked(mouseEvent -> {
             TNT_obj.explode();
         });
+
         HelloApplication.Gstage.setScene(scene);
         HelloApplication.Gstage.show();
     }
+
     public Pair<TranslateTransition, TranslateTransition> hop(Living character) {
+
         ImageView character_image = character.getImage();
         TranslateTransition jump = new TranslateTransition(Duration.millis(520), character_image);
         jump.setByY((-1)*character.getJumpHeight());
         jump.setCycleCount(1);
         jump.setAutoReverse(false);
 
-//        jump.getNode().setLayoutY(character_image.getLayoutY() - character.getJumpHeight());
-//        jump.play();
 
         TranslateTransition fall = new TranslateTransition(Duration.millis(25), character_image);
         fall.setByY(5);
         fall.setCycleCount(1);
-//        fall.getNode().setLayoutY(character_image.getLayoutY() + 5);
         fall.setOnFinished(actionEvent -> {
-//            character_image.setLayoutY(5);
             character.setCurr_pos_y(character.getCurr_pos_y() + 5);
             boolean gameEnd = false;
             if(character.getCurr_pos_y() + character_image.getFitHeight() >=600){
@@ -311,6 +323,9 @@ public class GamePlay {
 
                 }
             }
+            if(!temp && !gameEnd) {
+                fall.play();
+            }
 //            for(ImageView island : islands) {
 ////                if(character_image== hero_obj.getImage())
 //                    System.out.println(character_image.getLayoutX() + " " + island.getLayoutX());
@@ -324,9 +339,7 @@ public class GamePlay {
 //                    jump.play();
 //                }
 //            }
-            if(!temp && !gameEnd) {
-                fall.play();
-            }
+
         });
 
         jump.setOnFinished(actionEvent -> {

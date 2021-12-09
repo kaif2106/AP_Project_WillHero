@@ -8,16 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="layout" layoutX="-1.0" maxHeight="550.0" maxWidth="1236.0" minHeight="550.0" minWidth="1000.0" prefHeight="550.0" prefWidth="1236.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="layout" layoutX="-1.0" maxHeight="550.0" maxWidth="1236.0" minHeight="550.0" minWidth="1000.0" prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plswrk.willherofx.GamePlay">
    <children>
-      <ImageView fx:id="pause" fitHeight="92.0" fitWidth="82.0" layoutX="1148.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pause" fitHeight="92.0" fitWidth="82.0" layoutX="924.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../newPauseIMG.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="island1" fitHeight="285.0" fitWidth="328.0" layoutX="17.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../T_Islands_01.png" />
          </image>
       </ImageView>
       <ImageView fx:id="island3" fitHeight="285.0" fitWidth="328.0" layoutX="888.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
@@ -25,19 +20,14 @@
             <Image url="@../../T_Islands_01.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="island2" fitHeight="285.0" fitWidth="328.0" layoutX="488.0" layoutY="398.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="island2" fitHeight="285.0" fitWidth="328.0" layoutX="504.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../T_Islands_01.png" />
+            <Image url="@../../T_Islands_04.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="120.0" fitWidth="58.0" layoutX="534.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="120.0" fitWidth="58.0" layoutX="534.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Tree12.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="97.0" fitWidth="58.0" layoutX="42.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Tree1.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="125.0" fitWidth="104.0" layoutX="1076.0" layoutY="267.0" opacity="0.71" pickOnBounds="true" preserveRatio="true">
@@ -45,28 +35,23 @@
             <Image url="@../../Tree8.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="129.0" fitWidth="88.0" layoutX="719.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="129.0" fitWidth="88.0" layoutX="719.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Tree11%20%2350105.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="584.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="584.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../orc.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="weapon_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="982.0" layoutY="335.0" pickOnBounds="true">
+      <ImageView fx:id="weapon_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="971.0" layoutY="335.0" pickOnBounds="true">
          <image>
-            <Image url="@../../wep_0000%20%2350076.png" />
+            <Image url="@../../newwep_0001.png" />
          </image></ImageView>
-      <ImageView fitHeight="113.0" fitWidth="72.0" layoutX="181.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="97.0" fitWidth="58.0" layoutX="121.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Tree2.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="73.0" fitWidth="31.0" layoutX="285.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Tree5.png" />
          </image>
       </ImageView>
       <ImageView fx:id="TNT1" fitHeight="56.0" fitWidth="58.0" layoutX="897.0" layoutY="334.0" pickOnBounds="true">
@@ -74,29 +59,53 @@
             <Image url="@../../TNT_explode1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="hero" fitHeight="30.0" fitWidth="54.0" layoutX="127.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="island1" fitHeight="285.0" fitWidth="328.0" layoutX="66.0" layoutY="343.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../T_Islands_09.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="659.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../newwep_0000%20%2351930.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hero" fitHeight="30.0" fitWidth="54.0" layoutX="202.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../hero.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="659.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../wep_0000%20%2351930.png" />
-         </image>
-      </ImageView>
-      <Pane fx:id="endPane" centerShape="false" layoutX="510.0" layoutY="109.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false" visible="false">
+      <Pane fx:id="pauseMenuPane" layoutX="430.0" layoutY="96.0" prefHeight="357.0" prefWidth="165.0">
          <children>
-            <Button fx:id="restart" layoutX="21.0" layoutY="115.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="183.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Restart">
+            <Button fx:id="resume" layoutX="-48.0" layoutY="16.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Resume">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <Button fx:id="exit_end" layoutX="18.0" layoutY="213.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="183.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Exit">
+            <Button fx:id="exit_pause" layoutX="-48.0" layoutY="213.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Exit">
                <font>
                   <Font size="25.0" />
                </font>
             </Button>
-            <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="-28.0" layoutY="7.0" pickOnBounds="true" x="10.0">
+            <Button fx:id="save" layoutX="-47.0" layoutY="115.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Save">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="endPane" centerShape="false" layoutX="400.0" layoutY="90.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
+         <children>
+            <Button fx:id="restart" layoutX="-17.0" layoutY="115.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Restart">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="exit_end" layoutX="-17.0" layoutY="213.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Exit">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="-28.0" layoutY="6.0" pickOnBounds="true" x="10.0">
                <image>
                   <Image url="@../../GameOver.png" />
                </image>
@@ -104,25 +113,6 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
-         </children>
-      </Pane>
-      <Pane fx:id="pauseMenuPane" layoutX="540.0" layoutY="108.0" prefHeight="357.0" prefWidth="165.0" visible="false">
-         <children>
-            <Button fx:id="resume" layoutX="-9.0" layoutY="16.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="183.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 38px;" text="Resume">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button fx:id="exit_pause" layoutX="-12.0" layoutY="213.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="183.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Exit">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button fx:id="save" depthTest="ENABLE" layoutX="-9.0" layoutY="115.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="183.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Save">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
          </children>
       </Pane>
    </children>
