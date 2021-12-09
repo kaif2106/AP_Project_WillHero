@@ -21,20 +21,21 @@ public class TNT extends GameElement implements Obstacle{
         timeline.setAutoReverse(false);
         ImageView image = this.getImage();
         List<Image> imageList = this.getImageList();
+        int j=0;
         for(int i=0; i<10; i++){
-            int j=0;
-            for ( ; j < this.getImageList().size(); j++) {
-                int finalI = j;
+            int k=0;
+            for ( ; k < this.getImageList().size(); k++) {
+                int finalI = k;
                 timeline.getKeyFrames().add(new KeyFrame(
-                        Duration.millis(100 * (j + 1)*(i+1)),
+                        Duration.millis(70*(j++)),
                         (ActionEvent event) -> image.setImage(imageList.get(finalI))
                 ));
             }
-            int k = j-2;
+            k--;
             for ( ; k >= 0; k--) {
                 int finalI = k;
                 timeline.getKeyFrames().add(new KeyFrame(
-                        Duration.millis(100 * (j++)*(i+1)),
+                        Duration.millis(70 * (j++)),
                         (ActionEvent event) -> image.setImage(imageList.get(finalI))
                 ));
             }

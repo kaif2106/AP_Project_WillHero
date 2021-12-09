@@ -144,11 +144,13 @@ public class GamePlay {
         Image TNT_explode2 = new Image("TNT_explode2.png");
         Image TNT_explode3 = new Image("TNT_explode3.png");
         Image TNT_explode4 = new Image("TNT_explode4.png");
+        Image TNT_explode5 = new Image("TNT_explode5.png");
         List<Image> TNT_explodeImages = new ArrayList<>();
         TNT_explodeImages.add(TNT_explode1);
         TNT_explodeImages.add(TNT_explode2);
         TNT_explodeImages.add(TNT_explode3);
         TNT_explodeImages.add(TNT_explode4);
+        TNT_explodeImages.add(TNT_explode5);
         TNT_obj = new TNT(TNT1, TNT_explodeImages, TNT1.getLayoutX(), TNT1.getLayoutY(), new Range(30, 30));
     }
     public void start(Scene scene) throws IOException {

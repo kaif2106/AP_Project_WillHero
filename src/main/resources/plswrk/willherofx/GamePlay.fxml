@@ -35,47 +35,6 @@
             <Image url="@../../Tree12.png" />
          </image>
       </ImageView>
-      <Pane fx:id="pauseMenuPane" layoutX="408.0" layoutY="108.0" prefHeight="357.0" prefWidth="165.0">
-         <children>
-            <Button fx:id="resume" layoutX="-48.0" layoutY="16.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Resume">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button fx:id="exit_pause" layoutX="-48.0" layoutY="213.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Exit">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button fx:id="save" layoutX="-47.0" layoutY="115.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Save">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
-      <Pane fx:id="endPane" centerShape="false" layoutX="377.0" layoutY="108.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
-         <children>
-            <Button fx:id="restart" layoutX="-17.0" layoutY="115.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Restart">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <Button fx:id="exit_end" layoutX="-17.0" layoutY="213.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Exit">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Button>
-            <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="-28.0" layoutY="6.0" pickOnBounds="true" x="10.0">
-               <image>
-                  <Image url="@../../GameOver.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
-         </children>
-      </Pane>
       <ImageView fitHeight="97.0" fitWidth="58.0" layoutX="42.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Tree1.png" />
@@ -125,5 +84,46 @@
             <Image url="@../../wep_0000%20%2351930.png" />
          </image>
       </ImageView>
+      <Pane fx:id="pauseMenuPane" layoutX="540.0" layoutY="108.0" prefHeight="357.0" prefWidth="165.0">
+         <children>
+            <Button fx:id="resume" layoutX="-48.0" layoutY="16.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Resume">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="exit_pause" layoutX="-48.0" layoutY="213.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Exit">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+            <Button fx:id="save" layoutX="-47.0" layoutY="115.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Save">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+            <Pane fx:id="endPane" centerShape="false" layoutX="-30.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
+               <children>
+                  <Button fx:id="restart" layoutX="-17.0" layoutY="115.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Restart">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="exit_end" layoutX="-17.0" layoutY="213.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Exit">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
+                  <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="-28.0" layoutY="6.0" pickOnBounds="true" x="10.0">
+                     <image>
+                        <Image url="@../../GameOver.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
