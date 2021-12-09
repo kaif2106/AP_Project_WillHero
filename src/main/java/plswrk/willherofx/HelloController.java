@@ -43,12 +43,11 @@ public class HelloController{
     }
 
     @FXML
-    public void switchToStartGame(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("StartGamePage.fxml")));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void switchToStartGame()throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StartGamePage.fxml"));
+        scene = new Scene(fxmlLoader.load());
+        HelloApplication.Gstage.setScene(scene);
+        HelloApplication.Gstage.show();
     }
 
 

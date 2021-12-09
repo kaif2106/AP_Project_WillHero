@@ -28,7 +28,7 @@ public class GamePlay {
     ImageView pause;
 
     @FXML
-    Button resume, restart;
+    Button resume, restart, exit_pause, exit_end;
 
     @FXML
     ImageView hero, orc1, island1, island2, island3, weapon_chest1;
@@ -53,6 +53,8 @@ public class GamePlay {
         pause = (ImageView) scene.lookup("#pause");
         resume = (Button) scene.lookup("#resume");
         restart = (Button) scene.lookup("#restart");
+        exit_pause = (Button) scene.lookup("#exit_pause");
+        exit_end = (Button) scene.lookup("#exit_end");
         island1 = (ImageView) scene.lookup("#island1");
         island2 = (ImageView) scene.lookup("#island2");
         island3 = (ImageView) scene.lookup("#island3");
@@ -151,6 +153,14 @@ public class GamePlay {
 //            fall.play();
         });
 
+        exit_pause.setOnMouseClicked(mouseEvent -> {
+            HelloController controller = new HelloController();
+            try {
+                controller.switchToStartGame();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         restart.setOnMouseClicked(mouseEvent -> {
             HelloController controller = new HelloController();
                     try {
@@ -158,6 +168,14 @@ public class GamePlay {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                });
+        exit_end.setOnMouseClicked(mouseEvent -> {
+            HelloController controller = new HelloController();
+            try {
+                controller.switchToStartGame();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
                 });
         weapon_chest_obj.getImage().setOnMouseClicked(e -> {
             try {
@@ -204,7 +222,6 @@ public class GamePlay {
                     fall.pause();
                     temp = true;
                     jump.play();
-                    System.out.println();
 
                 }
             }
