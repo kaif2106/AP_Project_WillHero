@@ -5,17 +5,37 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public abstract class Chest extends GameElement{
+public abstract class Chest{
     private boolean isOpen;
-    Chest(ImageView chest_image, double x, double y) {
-        super(chest_image, x, y);
+    private double curr_pos_x;
+    private double curr_pos_y;
+    private List<Image> imageList;
+    private ImageView image;
+    Chest(List<Image> imageList, double start_pos_x, double start_pos_y) {
+        image = new ImageView();
+        this.imageList = imageList;
+        curr_pos_x = start_pos_x;
+        curr_pos_y = start_pos_y;
         isOpen = false;
+    }
+
+    public List<Image> getImageList() {
+        return imageList;
+    }
+
+    public ImageView getImage() {
+        return image;
     }
 
     public void open() throws URISyntaxException {
         isOpen = true;
+            for (Image value : imageList) {
+            image.setImage(value);
+        }
 //        Image transition_image1 = new Image("file:src/main/resources/images/wep_0001 #18659.png");
 //        Image transition_image2 = new Image("file:src/main/resources/images/wep_0002 #18442.png");
 //        Image transition_image3 = new Image("file:src/main/resources/images/wep_0003.png");
@@ -31,5 +51,14 @@ public abstract class Chest extends GameElement{
     public boolean getIsOpen(){
         return isOpen;
     }
+
+    public double getCurr_pos_x() {
+        return curr_pos_x;
+    }
+
+    public void setCurr_pos_x(double curr_pos_x) {
+        this.curr_pos_x = curr_pos_x;
+    }
+
     public abstract void on_collision();
 }

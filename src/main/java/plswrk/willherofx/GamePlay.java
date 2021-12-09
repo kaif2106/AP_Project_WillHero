@@ -1,5 +1,6 @@
 package plswrk.willherofx;
 
+import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -12,7 +13,9 @@ import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GamePlay {
     @FXML
@@ -28,7 +31,7 @@ public class GamePlay {
     Button resume;
 
     @FXML
-    ImageView hero, orc1, island1, island2, island3;
+    ImageView hero, orc1, island1, island2, island3, weapon_chest1;
 
     @FXML
     Pane endPane;
@@ -36,11 +39,12 @@ public class GamePlay {
     private ArrayList<Island> islands;
     private Hero hero_obj;
     private Orc orc_obj;
-
+    private Weapon_Chest weapon_chest_obj;
 
     public void initialise(Scene scene) {
         hero = (ImageView) scene.lookup("#hero");
         orc1 = (ImageView) scene.lookup("#orc1");
+        weapon_chest1 = (ImageView) scene.lookup("#weapon_chest1");
         hero_obj = new Hero(hero, 1.0, 2.0, hero.getLayoutX(), hero.getLayoutY());
         orc_obj = new Orc(orc1, 20, orc1.getLayoutX(), orc1.getLayoutY());
         layout = (AnchorPane) scene.lookup("#layout");
@@ -54,6 +58,31 @@ public class GamePlay {
         Island island1_obj = new Island(island1,island1.getLayoutX(), island1.getLayoutY());
         Island island2_obj = new Island(island2,island2.getLayoutX(), island2.getLayoutY());
         Island island3_obj = new Island(island3,island3.getLayoutX(), island3.getLayoutY());
+        Image image1 = new Image("wep_0000 #50076.png");
+        Image image2 = new Image("wep_0001 #18659.png");
+        Image image3 = new Image("wep_0002 #18442.png");
+        Image image4 = new Image("wep_0003.png");
+        Image image5 = new Image("wep_0004 #36957.png");
+        Image image6 = new Image("wep_0005 #37946.png");
+        Image image7 = new Image("wep_0006 #42713.png");
+        Image image8 = new Image("wep_0007 #45764.png");
+        Image image9 = new Image("wep_0008 #32756.png");
+        Image image10 = new Image("wep_0009 #50124.png");
+        Image image11 = new Image("wep_0010 #21871.png");
+        List<Image> imageList = new ArrayList<>();
+        imageList.add(image1);
+        imageList.add(image2);
+        imageList.add(image3);
+        imageList.add(image4);
+        imageList.add(image5);
+        imageList.add(image6);
+        imageList.add(image7);
+        imageList.add(image8);
+        imageList.add(image9);
+        imageList.add(image10);
+        imageList.add(image11);
+        weapon_chest_obj = new Weapon_Chest(imageList, new Weapon("Sword", 0, 30.0, new Range(3,3)), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
+        weapon_chest_obj.getImage().setImage(image1);
         islands = new ArrayList<>();
         islands.add(island1_obj);
         islands.add(island2_obj);
@@ -68,8 +97,8 @@ public class GamePlay {
     }
     public void start(Scene scene) throws IOException {
         initialise(scene);
-
-//        Weapon_Chest weapon_chest_obj = new Weapon_Chest((ImageView) root.lookup("#weapon_chest1"), new Weapon("Sword", 0, 30.0, new Range(3,3)));
+        boolean isjumping = true;
+        boolean islanding = false;
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
         Pair<TranslateTransition, TranslateTransition> orc_hop = hop(orc_obj);
         scene.setOnKeyPressed(e -> {
@@ -87,24 +116,46 @@ public class GamePlay {
         });
 
         pause.setOnMouseClicked(mouseEvent -> {
-            hero_hop.getFirst().pause();
-            hero_hop.getSecond().pause();
-            orc_hop.getFirst().pause();
-            orc_hop.getSecond().pause();
+//            System.out.println(hero_obj.getCurr_pos_y() + " " + hero_obj.getImage().getLayoutY());
+            if(hero_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
+                hero_hop.getFirst().pause();
+            }
+            if(hero_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
+                hero_hop.getSecond().pause();
+            }
+            if(orc_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
+                orc_hop.getFirst().pause();
+            }
+            if(orc_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
+                orc_hop.getSecond().pause();
+            }
             pauseMenuPane.setVisible(true);
         });
 
         resume.setOnMouseClicked(mouseEvent -> {
+//            System.out.println(hero_obj.getCurr_pos_y() + " " + hero_obj.getImage().getLayoutY());
             pauseMenuPane.setVisible(false);
-            hero_hop.getFirst().pause();
-            hero_hop.getSecond().pause();
-            orc_hop.getFirst().pause();
-            orc_hop.getSecond().pause();
+            if(hero_hop.getFirst().getStatus()== Animation.Status.PAUSED) {
+                hero_hop.getFirst().play();
+            }
+            if(hero_hop.getSecond().getStatus()== Animation.Status.PAUSED) {
+                hero_hop.getSecond().play();
+            }
+            if(orc_hop.getFirst().getStatus()== Animation.Status.PAUSED) {
+                orc_hop.getFirst().play();
+            }
+            if(orc_hop.getSecond().getStatus()== Animation.Status.PAUSED) {
+                orc_hop.getSecond().play();
+            }
 //            fall.play();
         });
-//        weapon_chest_obj.getWeapon_chest_image().setOnMouseClicked(e -> {
-//
-//        });
+        weapon_chest_obj.getImage().setOnMouseClicked(e -> {
+            try {
+                weapon_chest_obj.open();
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+        });
         HelloApplication.Gstage.setScene(scene);
         HelloApplication.Gstage.show();
     }
@@ -139,10 +190,12 @@ public class GamePlay {
                 }
             }
             if(targetIsland != null){
-                if(targetIsland.getCurr_pos_y() > character.getCurr_pos_y() && (targetIsland.getCurr_pos_y()) <= (character.getCurr_pos_y() + character_image.getFitHeight())){
+                if(targetIsland.getCurr_pos_y() > character.getCurr_pos_y() && targetIsland.getCurr_pos_y() <= (character.getCurr_pos_y() + character_image.getFitHeight())){
                     fall.pause();
                     temp = true;
                     jump.play();
+                    System.out.println();
+
                 }
             }
 //            for(ImageView island : islands) {

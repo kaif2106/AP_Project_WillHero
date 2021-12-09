@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Gstage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StartGamePage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Gstage.setTitle("Will Hero");
         Image icon = new Image("icon.png");
@@ -36,12 +36,6 @@ public class HelloApplication extends Application {
 
     @FXML
     public Button gameStartButton;
-
-    @FXML
-    void change() throws IOException {
-        Game game = new Game();
-        game.play(Gstage);
-    }
 
     public static void main(String[] args) {
         launch();

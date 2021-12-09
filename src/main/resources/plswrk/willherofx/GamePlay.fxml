@@ -95,8 +95,7 @@
       </ImageView>
       <ImageView fx:id="weapon_chest1" fitHeight="45.0" fitWidth="54.0" layoutX="901.0" layoutY="350.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../wep_0000 #50076.png" />
-         </image>
-      </ImageView>
+            <Image url="@../../wep_0000%20%2350076.png" />
+         </image></ImageView>
    </children>
 </AnchorPane>
