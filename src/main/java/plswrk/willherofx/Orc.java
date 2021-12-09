@@ -2,6 +2,7 @@ package plswrk.willherofx;
 
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -18,12 +19,8 @@ public class Orc extends Living {
 
     @Override
     public void die() {
-        try {
-            orc_image.setImage(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/MonsterFatality.png")).toURI().toString()));
-            System.out.println("Monster Fatality");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        orc_image.setImage(new Image("/MonsterFatality.png"));
+        System.out.println("Monster Fatality");
     }
 
     @Override

@@ -1,22 +1,26 @@
 package plswrk.willherofx;
 
+import javafx.animation.KeyFrame;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Chest{
+public abstract class Chest {
     private boolean isOpen;
     private double curr_pos_x;
     private double curr_pos_y;
-    private List<Image> imageList;
-    private ImageView image;
-    Chest(List<Image> imageList, double start_pos_x, double start_pos_y) {
-        image = new ImageView();
+    private final List<Image> imageList;
+    private final ImageView image;
+    Chest(ImageView image, List<Image> imageList, double start_pos_x, double start_pos_y) {
+        this.image = image;
         this.imageList = imageList;
         curr_pos_x = start_pos_x;
         curr_pos_y = start_pos_y;
@@ -33,9 +37,18 @@ public abstract class Chest{
 
     public void open() throws URISyntaxException {
         isOpen = true;
-            for (Image value : imageList) {
-            image.setImage(value);
+        System.out.println("Chest opened");
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.setAutoReverse(false);
+        for(int i=0; i<imageList.size(); i++) {
+            int finalI = i;
+            timeline.getKeyFrames().add(new KeyFrame(
+                    Duration.millis(50*(i+1)),
+                    (ActionEvent event) -> image.setImage(imageList.get(finalI))
+            ));
         }
+        timeline.play();
 //        Image transition_image1 = new Image("file:src/main/resources/images/wep_0001 #18659.png");
 //        Image transition_image2 = new Image("file:src/main/resources/images/wep_0002 #18442.png");
 //        Image transition_image3 = new Image("file:src/main/resources/images/wep_0003.png");

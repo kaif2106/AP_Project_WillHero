@@ -8,8 +8,8 @@ import java.util.List;
 public class Weapon_Chest extends Chest{
     Weapon weapon;
 
-    public Weapon_Chest(List<Image> imageList, Weapon weapon, double x, double y) {
-        super(imageList, x, y);
+    public Weapon_Chest(ImageView chest_image, List<Image> imageList, Weapon weapon, double x, double y) {
+        super(chest_image, imageList, x, y);
         this.weapon = weapon;
     }
 

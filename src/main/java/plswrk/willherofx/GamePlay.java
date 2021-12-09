@@ -84,7 +84,7 @@ public class GamePlay {
         imageList.add(image9);
         imageList.add(image10);
         imageList.add(image11);
-        weapon_chest_obj = new Weapon_Chest(imageList, new Weapon("Sword", 0, 30.0, new Range(3,3)), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
+        weapon_chest_obj = new Weapon_Chest(weapon_chest1, imageList, new Weapon("Sword", 0, 30.0, new Range(3,3)), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
         weapon_chest_obj.getImage().setImage(image1);
         islands = new ArrayList<>();
         islands.add(island1_obj);
@@ -177,7 +177,8 @@ public class GamePlay {
                 e.printStackTrace();
             }
                 });
-        weapon_chest_obj.getImage().setOnMouseClicked(e -> {
+
+        weapon_chest_obj.getImage().setOnMouseClicked(mouseEvent -> {
             try {
                 weapon_chest_obj.open();
             } catch (URISyntaxException ex) {
