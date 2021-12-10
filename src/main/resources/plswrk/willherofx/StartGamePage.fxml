@@ -46,7 +46,7 @@
       </ImageView>
       <ImageView fitHeight="129.0" fitWidth="88.0" layoutX="719.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Tree11%20%2350105.png" />
+            <Image url="@../../Tree11 #50105.png" />
          </image>
       </ImageView>
       <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="584.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
@@ -56,7 +56,7 @@
       </ImageView>
       <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="659.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../newwep_0000%20%2351930.png" />
+            <Image url="@../../wep_0000 #50076.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="125.0" fitWidth="104.0" layoutX="1076.0" layoutY="267.0" opacity="0.71" pickOnBounds="true" preserveRatio="true">
