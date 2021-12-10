@@ -93,7 +93,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="endPane" centerShape="false" layoutX="400.0" layoutY="90.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
+      <Pane fx:id="endPane" centerShape="false" layoutX="400.0" layoutY="96.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
          <children>
             <Button fx:id="restart" layoutX="-17.0" layoutY="115.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0" style="-fx-background-color: lightgreen; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: orange; -fx-font-family: impact; -fx-border-width: 3px; -fx-font-size: 40px;" text="Restart">
                <font>

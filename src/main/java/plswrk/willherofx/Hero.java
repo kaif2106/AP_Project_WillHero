@@ -47,20 +47,6 @@ public class Hero extends Living{
         }
     }
 
-
-    public TranslateTransition move(Scene scene, TranslateTransition jump){
-        TranslateTransition move = new TranslateTransition();
-        move.setNode(this.getImage());
-        move.setDuration(Duration.millis(200));
-        move.setCycleCount(1);
-        move.setAutoReverse(false);
-        move.setByX(100);
-        this.setCurr_pos_x(this.getCurr_pos_x() + 100);
-//        this.getImage().setLayoutX(this.getImage().getLayoutX() + 100);
-//        System.out.println(node.getLayoutX());
-        return move;
-    }
-
     public double getVelocityX() {
         return velocityX;
     }

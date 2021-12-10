@@ -22,12 +22,12 @@ public class TNT extends GameElement implements Obstacle{
         ImageView image = this.getImage();
         List<Image> imageList = this.getImageList();
         int j=0;
-        for(int i=0; i<10; i++){
+        for(int i=0; i<5; i++){
             int k=0;
             for ( ; k < this.getImageList().size(); k++) {
                 int finalI = k;
                 timeline.getKeyFrames().add(new KeyFrame(
-                        Duration.millis(70*(j++)),
+                        Duration.millis(60*(j++)),
                         (ActionEvent event) -> image.setImage(imageList.get(finalI))
                 ));
             }
@@ -35,7 +35,7 @@ public class TNT extends GameElement implements Obstacle{
             for ( ; k >= 0; k--) {
                 int finalI = k;
                 timeline.getKeyFrames().add(new KeyFrame(
-                        Duration.millis(70 * (j++)),
+                        Duration.millis(60 * (j++)),
                         (ActionEvent event) -> image.setImage(imageList.get(finalI))
                 ));
             }

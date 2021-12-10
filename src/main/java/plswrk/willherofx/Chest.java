@@ -19,16 +19,17 @@ public abstract class Chest extends GameElement{
     }
 
     public void open() throws URISyntaxException {
-        isOpen = true;
-        System.out.println("Chest opened");
-        AtomicInteger imageIndex = new AtomicInteger(0);
-        Timeline coinChestOpenAnimationTimeline = new Timeline(new KeyFrame(Duration.millis(100), eventDispatchChain -> {
-            getImage().setImage(getImageList().get(imageIndex.getAndIncrement()));
+        if(!isOpen) {
+            isOpen = true;
+            System.out.println("Chest opened");
+            AtomicInteger imageIndex = new AtomicInteger(0);
+            Timeline coinChestOpenAnimationTimeline = new Timeline(new KeyFrame(Duration.millis(100), eventDispatchChain -> {
+                getImage().setImage(getImageList().get(imageIndex.getAndIncrement()));
+            }
+            ));
+            coinChestOpenAnimationTimeline.setCycleCount(getImageList().size());
+            coinChestOpenAnimationTimeline.play();
         }
-        ));
-        coinChestOpenAnimationTimeline.setCycleCount(getImageList().size());
-        coinChestOpenAnimationTimeline.play();
-
     }
     public boolean getIsOpen(){
         return isOpen;

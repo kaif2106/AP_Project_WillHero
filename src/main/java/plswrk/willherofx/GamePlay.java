@@ -169,8 +169,7 @@ public class GamePlay {
                 if(hero_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
                     hero_hop.getSecond().pause();
                 }
-//
-                TranslateTransition hero_mov = hero_obj.move(scene, hero_hop.getFirst());
+                TranslateTransition hero_mov = move(hero_obj, 100);
                 hero_mov.play();
                 hero_mov.setOnFinished(event -> {
                     if(hero_hop.getFirst().getStatus()== Animation.Status.PAUSED) {
@@ -180,22 +179,6 @@ public class GamePlay {
                         hero_hop.getSecond().play();
                     }
                 });
-
-
-//                Timeline coinChestOpenAnimationTimeline = new Timeline(new KeyEvent(Duration.millis(1000),
-//                        ev -> coin_chest1.setImage(.get(imageIndex++))));
-//
-//                timeline.setCycleCount(images.size());
-//                timeline.play();
-
-                if(hero_obj.getCurr_pos_x() <= coin_chest_obj.getCurr_pos_x() + coin_chest_obj.getImage().getFitWidth() && hero_obj.getCurr_pos_x() >= coin_chest_obj.getCurr_pos_x()
-                    && hero_obj.getCurr_pos_y() <= coin_chest_obj.getCurr_pos_y() + coin_chest_obj.getImage().getFitHeight() && hero_obj.getCurr_pos_y() >= coin_chest_obj.getCurr_pos_y()){
-                    try {
-                        coin_chest_obj.open();
-                    } catch (URISyntaxException ex) {
-                        ex.printStackTrace();
-                    }
-                }
             }
         });
 
@@ -318,7 +301,9 @@ public class GamePlay {
                 }
             }
             if(targetIsland != null){
-                if(targetIsland.getCurr_pos_y() > character.getCurr_pos_y() && targetIsland.getCurr_pos_y() <= (character.getCurr_pos_y() + character_image.getFitHeight())){
+                if((targetIsland.getCurr_pos_y() > character.getCurr_pos_y()) &&
+                        ((character.getCurr_pos_y() + character_image.getFitHeight()) <= (targetIsland.getCurr_pos_y()+3)) &&
+                        (targetIsland.getCurr_pos_y() <= (character.getCurr_pos_y() + character_image.getFitHeight()))){
                     fall.pause();
                     temp = true;
                     jump.play();
@@ -328,44 +313,26 @@ public class GamePlay {
             if(!temp && !gameEnd) {
                 fall.play();
             }
-//            for(ImageView island : islands) {
-////                if(character_image== hero_obj.getImage())
-//                    System.out.println(character_image.getLayoutX() + " " + island.getLayoutX());
-//                boolean land_condition = (character_image.getLayoutX()+character_image.getFitWidth())>=island.getLayoutX()
-//                        && character_image.getLayoutX()<(island.getLayoutX()+island.getFitWidth())
-//                        && (character_image.getLayoutY()+character_image.getFitHeight())>=island.getLayoutY() && (character_image.getLayoutY()+character_image.getFitHeight())<=(island.getLayoutY() +3);
-//                if(land_condition){
-////                if (character_image.getBoundsInParent().intersects(island.getBoundsInParent())) {
-//                    fall.pause();
-//                    temp = true;
-//                    jump.play();
-//                }
-//            }
-
         });
 
         jump.setOnFinished(actionEvent -> {
-//            character_image.setLayoutY((-1)*character.getJumpHeight());
             character.setCurr_pos_y(character.getCurr_pos_y() - character.getJumpHeight());
             fall.play();
         });
 
         jump.play();
-
-//        for(ImageView island : islands) {
-////            boolean land_condition = character_image.getLayoutX()>island.getLayoutX()
-////                    && character_image.getBoundsInParent().getMinX()<island.getLayoutX()
-////                    && character_image.getBoundsInParent().getMaxY()>=island.getBoundsInParent().getMinY() && character_image.getBoundsInParent().getMaxY()<=island.getBoundsInParent().getMinY()+3;
-//            boolean land_condition = (character_image.getLayoutX()+character_image.getFitWidth())>=island.getLayoutX()
-//                    && character_image.getLayoutX()<(island.getLayoutX()+island.getFitWidth())
-//                    && (character_image.getLayoutY()+character_image.getFitHeight())>=island.getLayoutY() && (character_image.getLayoutY()+character_image.getFitHeight())<=(island.getLayoutY() +3);
-//            if (land_condition) {
-//                fall.pause();
-//                jump.play();
-//            }
-//        }
         return new Pair<>(jump, fall);
     }
 
-
+    public TranslateTransition move(Living character, double x) {
+        ImageView character_image = character.getImage();
+        TranslateTransition move = new TranslateTransition();
+        move.setNode(character_image);
+        move.setDuration(Duration.millis(200));
+        move.setCycleCount(1);
+        move.setAutoReverse(false);
+        character.setCurr_pos_x(character.getCurr_pos_x() + x);
+        move.setByX(x);
+        return move;
+    }
 }
