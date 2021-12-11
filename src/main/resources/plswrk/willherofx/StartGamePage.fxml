@@ -24,6 +24,11 @@
             <Image url="@../../T_Islands_01.png" />
          </image>
       </ImageView>
+      <ImageView fitHeight="129.0" fitWidth="88.0" layoutX="719.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Tree11%20%2350105.png" />
+         </image>
+      </ImageView>
       <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="202.0" layoutY="316.0" opacity="0.85" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../hero.png" />
@@ -42,11 +47,6 @@
       <ImageView fitHeight="120.0" fitWidth="58.0" layoutX="534.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Tree12.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="129.0" fitWidth="88.0" layoutX="719.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Tree11 #50105.png" />
          </image>
       </ImageView>
       <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="584.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">

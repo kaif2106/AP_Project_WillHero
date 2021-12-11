@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="layout" layoutX="-1.0" maxHeight="681.0" maxWidth="1236.0" minHeight="550.0" minWidth="1000.0" prefHeight="681.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plswrk.willherofx.GamePlay">
+<AnchorPane fx:id="layout" layoutX="-1.0" maxHeight="694.0" maxWidth="1236.0" minHeight="550.0" minWidth="1000.0" prefHeight="694.0" prefWidth="1238.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plswrk.willherofx.GamePlay">
    <children>
       <ImageView fx:id="pause" fitHeight="92.0" fitWidth="82.0" layoutX="658.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -120,7 +120,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="pauseMenuPane" layoutX="568.0" layoutY="184.0" prefHeight="315.0" prefWidth="260.0">
+      <Pane fx:id="pauseMenuPane" layoutX="570.0" layoutY="184.0" prefHeight="315.0" prefWidth="260.0">
          <children>
             <ImageView fx:id="pauseMenu" disable="true" fitHeight="357.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
                <image>
