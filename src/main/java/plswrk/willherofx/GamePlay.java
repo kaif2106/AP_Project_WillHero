@@ -317,7 +317,7 @@ public class GamePlay {
             character.setCurr_pos_y(character.getCurr_pos_y() + 5);
             boolean gameEnd = false;
             if(character == hero_obj){
-                if (character.getCurr_pos_y() + character_image.getFitHeight() >= 600) {
+                if (character.getCurr_pos_y() + character_image.getFitHeight() >= 750) {
                     endPane.setVisible(true);
                     gameEnd = true;
                 }
