@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class HelloController{
     @FXML
-    private Button StartButton, LoadButton;
+    private Button gameStartButton, LoadButton;
 //    @FXML
 //    ImageView hero, orc1;
 
@@ -36,8 +36,6 @@ public class HelloController{
     public void switchToGamePlay() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GamePlay.fxml"));
         scene = new Scene(fxmlLoader.load());
-        //HelloApplication.Gstage.setScene(scene);
-//        HelloApplication.Gstage.show();
         GamePlay gamePlay = new GamePlay();
         gamePlay.start(scene);
     }
@@ -49,7 +47,4 @@ public class HelloController{
         HelloApplication.Gstage.setScene(scene);
         HelloApplication.Gstage.show();
     }
-
-
-
 }

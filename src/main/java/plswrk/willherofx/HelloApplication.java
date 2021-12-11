@@ -9,8 +9,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,7 +24,10 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     public static Stage Gstage;
-
+    @FXML
+    public Button gameStartButton;
+//    @FXML
+//    public ImageView
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -31,12 +38,23 @@ public class HelloApplication extends Application {
         Image icon = new Image("icon.png");
         Gstage.getIcons().add(icon);
         Gstage.setScene(scene);
+        gameStartButton = (Button) Gstage.getScene().lookup("#gameStartButton");
+        setEffect(gameStartButton);
         Gstage.show();
     }
 
-    @FXML
-    public Button gameStartButton;
-
+    public static void setEffect(Button button) {
+        Effect original_effect = button.getEffect();
+        button.setOnMouseEntered(event -> {
+            DropShadow shadow = new DropShadow(20, Color.BLACK);
+            shadow.setWidth(32.68);
+            shadow.setHeight(32.68);
+            button.setEffect(shadow);
+        });
+        button.setOnMouseExited(event -> {
+            button.setEffect(original_effect);
+        });
+    }
     public static void main(String[] args) {
         launch();
     }

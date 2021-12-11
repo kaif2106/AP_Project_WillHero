@@ -7,11 +7,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
@@ -28,10 +31,10 @@ public class GamePlay {
     Pane pauseMenuPane;
 
     @FXML
-    ImageView pause;
+    ImageView pause, pauseMenu;
 
     @FXML
-    Button resume, restart, exit_pause, exit_end;
+    Button resume, restart_pause, restart_end, exit_pause, exit_end, save;
 
     @FXML
     ImageView hero, orc1, island1, island2, island3, weapon_chest1, coin_chest1, TNT1;
@@ -57,9 +60,18 @@ public class GamePlay {
         endPane = (Pane) scene.lookup("#endPane");
         pause = (ImageView) scene.lookup("#pause");
         resume = (Button) scene.lookup("#resume");
-        restart = (Button) scene.lookup("#restart");
+        HelloApplication.setEffect(resume);
+        restart_pause = (Button) scene.lookup("#restart_pause");
+        HelloApplication.setEffect(restart_pause);
+        restart_end = (Button) scene.lookup("#restart_end");
+        HelloApplication.setEffect(restart_end);
         exit_pause = (Button) scene.lookup("#exit_pause");
+        HelloApplication.setEffect(exit_pause);
         exit_end = (Button) scene.lookup("#exit_end");
+        HelloApplication.setEffect(exit_end);
+        save = (Button) scene.lookup("#save");
+        HelloApplication.setEffect(save);
+
         island1 = (ImageView) scene.lookup("#island1");
         island2 = (ImageView) scene.lookup("#island2");
         island3 = (ImageView) scene.lookup("#island3");
@@ -69,7 +81,6 @@ public class GamePlay {
         BackgroundImage backgroundImage = new BackgroundImage(new Image("newBG.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, backgroundSize);
         Background bg = new Background(backgroundImage);
         layout.setBackground(bg);
-
     }
     public void InitializeAll_ClassObjects() {
         hero_obj = new Hero(hero, null, 100, 1.0, 2.0, hero.getLayoutX(), hero.getLayoutY());
@@ -187,7 +198,16 @@ public class GamePlay {
             orc_hop.getSecond().pause();
             orc_obj.die();
         });
-
+        Effect original_effect = pause.getEffect();
+        pause.setOnMouseEntered(event -> {
+            DropShadow shadow = new DropShadow(20, Color.BLACK);
+            shadow.setWidth(32.68);
+            shadow.setHeight(32.68);
+            pause.setEffect(shadow);
+        });
+        pause.setOnMouseExited(event -> {
+            pause.setEffect(original_effect);
+        });
         pause.setOnMouseClicked(mouseEvent -> {
             if(hero_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
                 hero_hop.getFirst().pause();
@@ -221,15 +241,16 @@ public class GamePlay {
         });
 
         exit_pause.setOnMouseClicked(mouseEvent -> {
-            HelloController controller = new HelloController();
+//            HelloController controller = new HelloController();
             try {
-                controller.switchToStartGame();
+                new HelloApplication().start(HelloApplication.Gstage);
+//                controller.switchToStartGame();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
 
-        restart.setOnMouseClicked(mouseEvent -> {
+        restart_pause.setOnMouseClicked(mouseEvent -> {
             HelloController controller = new HelloController();
             try {
                 controller.switchToGamePlay();
@@ -237,11 +258,20 @@ public class GamePlay {
                 e.printStackTrace();
             }
         });
+        restart_end.setOnMouseClicked(mouseEvent -> {
+//            HelloController controller = new HelloController();
+            try {
+                new HelloApplication().start(HelloApplication.Gstage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         exit_end.setOnMouseClicked(mouseEvent -> {
-            HelloController controller = new HelloController();
+//            HelloController controller = new HelloController();
             try {
-                controller.switchToStartGame();
+                new HelloApplication().start(HelloApplication.Gstage);
+//                controller.switchToStartGame();
             } catch (IOException e) {
                 e.printStackTrace();
             }
