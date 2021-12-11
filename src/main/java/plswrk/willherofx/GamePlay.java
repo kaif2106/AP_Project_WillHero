@@ -77,7 +77,7 @@ public class GamePlay {
         island3 = (ImageView) scene.lookup("#island3");
         pauseMenuPane.setVisible(false);
         endPane.setVisible(false);
-        BackgroundSize backgroundSize = new BackgroundSize(1000, 550, false, false, false, false);
+        BackgroundSize backgroundSize = new BackgroundSize(1238, 694, false, false, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("newBG.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, backgroundSize);
         Background bg = new Background(backgroundImage);
         layout.setBackground(bg);
