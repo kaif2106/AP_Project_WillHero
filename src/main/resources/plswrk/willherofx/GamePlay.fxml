@@ -70,7 +70,7 @@
       </ImageView>
       <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="659.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../newwep_0000%20%2351930.png" />
+            <Image url="@../../wep_0000%20%2351930.png" />
          </image>
       </ImageView>
       <ImageView fx:id="hero" fitHeight="30.0" fitWidth="54.0" layoutX="202.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
@@ -120,7 +120,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="pauseMenuPane" layoutX="570.0" layoutY="184.0" prefHeight="315.0" prefWidth="260.0">
+      <Pane fx:id="pauseMenuPane" layoutX="568.0" layoutY="184.0" prefHeight="315.0" prefWidth="260.0">
          <children>
             <ImageView fx:id="pauseMenu" disable="true" fitHeight="357.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
                <image>
