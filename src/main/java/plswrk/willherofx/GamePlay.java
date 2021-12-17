@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -37,12 +38,21 @@ public class GamePlay {
     Button resume, restart_pause, restart_end, exit_pause, exit_end, save;
 
     @FXML
-    ImageView hero, orc1, island1, island2, island3, weapon_chest1, coin_chest1, TNT1;
+    ImageView hero, orc1, island1, island2, island3, island4, island5, weapon_chest1, coin_chest1, TNT1;
+
+    @FXML
+    ImageView t1,t2,t3,t4;
 
     @FXML
     Pane endPane;
 
+    @FXML
+    Polygon dash;
+
+
+    private ArrayList<GameElement> gameElements;
     private ArrayList<Island> islands;
+    private ArrayList<Tree> trees;
     private Hero hero_obj;
     private Orc orc_obj;
     private Weapon_Chest weapon_chest_obj;
@@ -51,6 +61,7 @@ public class GamePlay {
 
     public void InitialiseAll_FXML_Objects(Scene scene) {
         hero = (ImageView) scene.lookup("#hero");
+        dash = (Polygon) scene.lookup("#dash");
         orc1 = (ImageView) scene.lookup("#orc1");
         weapon_chest1 = (ImageView) scene.lookup("#weapon_chest1");
         coin_chest1 = (ImageView) scene.lookup("#coin_chest1");
@@ -75,6 +86,15 @@ public class GamePlay {
         island1 = (ImageView) scene.lookup("#island1");
         island2 = (ImageView) scene.lookup("#island2");
         island3 = (ImageView) scene.lookup("#island3");
+        island4 = (ImageView) scene.lookup("#island4");
+        island5 = (ImageView) scene.lookup("#island5");
+
+        t1 = (ImageView) scene.lookup("#t1");
+        t2 = (ImageView) scene.lookup("#t2");
+        t3 = (ImageView) scene.lookup("#t3");
+        t4 = (ImageView) scene.lookup("#t4");
+
+        dash.setVisible(false);
         pauseMenuPane.setVisible(false);
         endPane.setVisible(false);
         BackgroundSize backgroundSize = new BackgroundSize(1238, 694, false, false, false, false);
@@ -88,10 +108,25 @@ public class GamePlay {
         Island island1_obj = new Island(island1, island1.getLayoutX(), island1.getLayoutY());
         Island island2_obj = new Island(island2, island2.getLayoutX(), island2.getLayoutY());
         Island island3_obj = new Island(island3, island3.getLayoutX(), island3.getLayoutY());
+        Island island4_obj = new Island(island4, island4.getLayoutX(), island4.getLayoutY());
+        Island island5_obj = new Island(island5, island5.getLayoutX(), island5.getLayoutY());
         islands = new ArrayList<>();
         islands.add(island1_obj);
         islands.add(island2_obj);
         islands.add(island3_obj);
+        islands.add(island4_obj);
+        islands.add(island5_obj);
+
+        Tree tree1_obj = new Tree(t1, t1.getLayoutX(), t1.getLayoutY());
+        Tree tree2_obj = new Tree(t2, t2.getLayoutX(), t2.getLayoutY());
+        Tree tree3_obj = new Tree(t3, t3.getLayoutX(), t3.getLayoutY());
+        Tree tree4_obj = new Tree(t4, t4.getLayoutX(), t4.getLayoutY());
+        trees = new ArrayList<>();
+        trees.add(tree1_obj);
+        trees.add(tree2_obj);
+        trees.add(tree3_obj);
+        trees.add(tree4_obj);
+
 
         Image Weapon_chest_open1 = new Image("wep_0000 #50076.png");
         Image Weapon_chest_open2 = new Image("wep_0001 #18659.png");
@@ -166,6 +201,18 @@ public class GamePlay {
         TNT_explodeImages.add(TNT_explode4);
         TNT_explodeImages.add(TNT_explode5);
         TNT_obj = new TNT(TNT1, TNT_explodeImages, TNT1.getLayoutX(), TNT1.getLayoutY(), new Range(30, 30));
+
+
+        gameElements = new ArrayList<>();
+
+        for(Island island : islands) { gameElements.add(island); }
+        for(Tree tree : trees) { gameElements.add(tree); }
+        gameElements.add(TNT_obj);
+        gameElements.add(orc_obj);
+        gameElements.add(weapon_chest_obj);
+        gameElements.add(coin_chest_obj);
+        gameElements.add(hero_obj);
+
     }
     public void start(Scene scene) throws IOException {
         InitialiseAll_FXML_Objects(scene);
@@ -180,15 +227,34 @@ public class GamePlay {
                 if(hero_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
                     hero_hop.getSecond().pause();
                 }
+
+//                TranslateTransition moveDash = new TranslateTransition();
+//                moveDash.setNode(dash);
+//                moveDash.setDuration(Duration.millis(200));
+//                moveDash.setCycleCount(1);
+//                moveDash.setAutoReverse(false);
+//                moveDash.setByX(100);
+//                moveDash.setOnFinished(event -> {dash.setVisible(false);});
+
                 TranslateTransition hero_mov = move(hero_obj, 100);
+                dash.setLayoutY(hero_obj.getImage().getBoundsInParent().getCenterY()-40);
+                dash.setVisible(true);
                 hero_mov.play();
+                moveDashfn(200, 1);
+
                 hero_mov.setOnFinished(event -> {
+
                     if(hero_hop.getFirst().getStatus()== Animation.Status.PAUSED) {
                         hero_hop.getFirst().play();
                     }
                     if(hero_hop.getSecond().getStatus()== Animation.Status.PAUSED) {
                         hero_hop.getSecond().play();
                     }
+
+                    for(GameElement gameElement : gameElements) { gameElement.translateLeft(); }
+                    moveDashfn(5,-1);
+
+
                 });
             }
         });
@@ -345,6 +411,8 @@ public class GamePlay {
             }
         });
 
+
+
         jump.setOnFinished(actionEvent -> {
             character.setCurr_pos_y(character.getCurr_pos_y() - character.getJumpHeight());
             fall.play();
@@ -352,6 +420,17 @@ public class GamePlay {
 
         jump.play();
         return new Pair<>(jump, fall);
+    }
+
+    public void moveDashfn(double dur, int state){
+        TranslateTransition moveDash = new TranslateTransition();
+        moveDash.setNode(dash);
+        moveDash.setDuration(Duration.millis(dur));
+        moveDash.setCycleCount(1);
+        moveDash.setAutoReverse(false);
+        moveDash.setByX(100*state);
+        moveDash.setOnFinished(event -> {dash.setVisible(false);});
+        moveDash.play();
     }
 
     public TranslateTransition move(Living character, double x) {

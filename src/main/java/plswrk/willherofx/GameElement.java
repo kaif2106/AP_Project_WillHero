@@ -1,7 +1,9 @@
 package plswrk.willherofx;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -15,6 +17,17 @@ public abstract class GameElement {
         this.imageList = imageList;
         this.curr_pos_x = start_pos_x;
         this.curr_pos_y = start_pos_y;
+    }
+
+    public void translateLeft(){
+        TranslateTransition move = new TranslateTransition();
+        move.setNode(imageView);
+        move.setDuration(Duration.millis(200));
+        move.setCycleCount(1);
+        move.setAutoReverse(false);
+        this.setCurr_pos_x(this.getCurr_pos_x() - 100);
+        move.setByX(-100);
+        move.play();
     }
 
     public ImageView getImage() {
