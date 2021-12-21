@@ -3,6 +3,7 @@ package plswrk.willherofx;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class Weapon_Chest extends Chest{
@@ -18,7 +19,15 @@ public class Weapon_Chest extends Chest{
     }
 
     @Override
-    public void on_collision() {
+    public void on_collision(double x, double y) {
+        if(x <= this.getCurr_pos_x() + this.getImage().getFitWidth() && x >= this.getCurr_pos_x()
+                && y <= this.getCurr_pos_y() + this.getImage().getFitHeight() && y >= this.getCurr_pos_y()){
+            try {
+                open();
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+        }
 
     }
 }

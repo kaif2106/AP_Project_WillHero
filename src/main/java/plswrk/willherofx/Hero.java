@@ -38,7 +38,7 @@ public class Hero extends Living{
 
 
     @Override
-    public void on_collision() {
+    public void on_collision(double x, double y) {
 
     }
 

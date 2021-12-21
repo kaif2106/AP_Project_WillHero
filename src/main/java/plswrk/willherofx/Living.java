@@ -15,7 +15,7 @@ public abstract class Living extends GameElement {
         this.jumpHeight = jumpHeight;
         this.isAlive = true;
     }
-    public abstract void on_collision();
+    public abstract void on_collision(double x, double y);
     public abstract void die();
     public double getJumpHeight() {
         return jumpHeight;

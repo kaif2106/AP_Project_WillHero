@@ -19,7 +19,7 @@ public abstract class GameElement {
         this.curr_pos_y = start_pos_y;
     }
 
-    public void translateLeft(){
+    public TranslateTransition translateLeft(){
         TranslateTransition move = new TranslateTransition();
         move.setNode(imageView);
         move.setDuration(Duration.millis(200));
@@ -27,7 +27,8 @@ public abstract class GameElement {
         move.setAutoReverse(false);
         this.setCurr_pos_x(this.getCurr_pos_x() - 100);
         move.setByX(-100);
-        move.play();
+        //move.play();
+        return move;
     }
 
     public ImageView getImage() {

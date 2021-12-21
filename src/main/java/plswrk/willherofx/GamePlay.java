@@ -211,7 +211,7 @@ public class GamePlay {
         gameElements.add(orc_obj);
         gameElements.add(weapon_chest_obj);
         gameElements.add(coin_chest_obj);
-        gameElements.add(hero_obj);
+        //gameElements.add(hero_obj);
 
     }
     public void start(Scene scene) throws IOException {
@@ -219,43 +219,48 @@ public class GamePlay {
         InitializeAll_ClassObjects();
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
         Pair<TranslateTransition, TranslateTransition> orc_hop = hop(orc_obj);
+        ArrayList<String> pressedKeys = new ArrayList<String>();
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE) {
-                if(hero_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
-                    hero_hop.getFirst().pause();
-                }
-                if(hero_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
-                    hero_hop.getSecond().pause();
-                }
+                if(!pressedKeys.contains(e.getText())) {
+                    pressedKeys.add(e.getText());
 
-//                TranslateTransition moveDash = new TranslateTransition();
-//                moveDash.setNode(dash);
-//                moveDash.setDuration(Duration.millis(200));
-//                moveDash.setCycleCount(1);
-//                moveDash.setAutoReverse(false);
-//                moveDash.setByX(100);
-//                moveDash.setOnFinished(event -> {dash.setVisible(false);});
-
-                TranslateTransition hero_mov = move(hero_obj, 100);
-                dash.setLayoutY(hero_obj.getImage().getBoundsInParent().getCenterY()-40);
-                dash.setVisible(true);
-                hero_mov.play();
-                moveDashfn(200, 1);
-
-                hero_mov.setOnFinished(event -> {
-
-                    if(hero_hop.getFirst().getStatus()== Animation.Status.PAUSED) {
-                        hero_hop.getFirst().play();
+                    if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
+                        hero_hop.getFirst().pause();
                     }
-                    if(hero_hop.getSecond().getStatus()== Animation.Status.PAUSED) {
-                        hero_hop.getSecond().play();
+                    if (hero_hop.getSecond().getStatus() == Animation.Status.RUNNING) {
+                        hero_hop.getSecond().pause();
                     }
+                    TranslateTransition hero_mov = move(hero_obj, 100);
+                    dash.setLayoutY(hero_obj.getImage().getBoundsInParent().getCenterY() - 40);
+                    dash.setVisible(true);
+                    hero_mov.play();
 
-                    for(GameElement gameElement : gameElements) { gameElement.translateLeft(); }
-                    moveDashfn(5,-1);
+                    coin_chest_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
+                    weapon_chest_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
 
+                    moveDashfn(200, 1);
 
-                });
+                    hero_mov.setOnFinished(event -> {
+
+                        if (hero_hop.getFirst().getStatus() == Animation.Status.PAUSED) {
+                            hero_hop.getFirst().play();
+                        }
+                        if (hero_hop.getSecond().getStatus() == Animation.Status.PAUSED) {
+                            hero_hop.getSecond().play();
+                        }
+                        TranslateTransition eh = hero_obj.translateLeft();
+                        eh.setOnFinished(someEvent -> {
+                            pressedKeys.clear();
+                        });
+                        eh.play();
+                        for (GameElement gameElement : gameElements) {
+                            gameElement.translateLeft().play();
+                        }
+                        moveDashfn(5, -1);
+
+                    });
+                }
             }
         });
 

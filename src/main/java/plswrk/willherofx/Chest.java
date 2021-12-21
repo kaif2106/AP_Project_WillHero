@@ -35,5 +35,5 @@ public abstract class Chest extends GameElement{
         return isOpen;
     }
 
-    public abstract void on_collision();
+    public abstract void on_collision(double x, double y);
 }
