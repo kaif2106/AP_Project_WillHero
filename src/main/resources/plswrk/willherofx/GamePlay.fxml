@@ -20,37 +20,37 @@
             <ColorAdjust brightness="-0.15" contrast="0.16" hue="0.04" />
          </effect>
       </ImageView>
-      <ImageView fx:id="island3" fitHeight="285.0" fitWidth="328.0" layoutX="888.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="island3" fitHeight="285.0" fitWidth="328.0" layoutX="1052.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../T_Islands_01.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="island2" fitHeight="285.0" fitWidth="328.0" layoutX="504.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="island2" fitHeight="285.0" fitWidth="328.0" layoutX="550.0" layoutY="419.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../T_Islands_04.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="t2" fitHeight="120.0" fitWidth="58.0" layoutX="534.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="t2" fitHeight="120.0" fitWidth="58.0" layoutX="580.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Tree12.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="t4" fitHeight="125.0" fitWidth="104.0" layoutX="1076.0" layoutY="267.0" opacity="0.91" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="t4" fitHeight="125.0" fitWidth="104.0" layoutX="1240.0" layoutY="267.0" opacity="0.91" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Tree8.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="t3" fitHeight="129.0" fitWidth="88.0" layoutX="719.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="t3" fitHeight="129.0" fitWidth="88.0" layoutX="765.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Tree11 #50105.png" />
+            <Image url="@../../Tree11%20%2350105.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="584.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="611.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../orc.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="weapon_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="971.0" layoutY="335.0" pickOnBounds="true">
+      <ImageView fx:id="weapon_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="1135.0" layoutY="335.0" pickOnBounds="true">
          <image>
             <Image url="@../../wep1.png" />
          </image></ImageView>
@@ -59,7 +59,7 @@
             <Image url="@../../Tree2.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="TNT1" fitHeight="56.0" fitWidth="58.0" layoutX="897.0" layoutY="334.0" pickOnBounds="true">
+      <ImageView fx:id="TNT1" fitHeight="56.0" fitWidth="58.0" layoutX="1061.0" layoutY="334.0" pickOnBounds="true">
          <image>
             <Image url="@../../TNT_explode1.png" />
          </image>
@@ -69,23 +69,23 @@
             <Image url="@../../T_Islands_09.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="659.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="690.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../coin1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="island4" fitHeight="285.0" fitWidth="328.0" layoutX="1323.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="island4" fitHeight="285.0" fitWidth="328.0" layoutX="1558.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../T_Islands_09.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="island5" fitHeight="285.0" fitWidth="328.0" layoutX="1730.0" layoutY="379.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="island5" fitHeight="285.0" fitWidth="328.0" layoutX="2084.0" layoutY="379.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../T_Islands_01.png" />
          </image>
       </ImageView>
-      <Polygon fx:id="dash" fill="#ff4242" layoutX="163.0" layoutY="287.0" opacity="0.91" points="-8.800003051757812, 43.600006103515625, 49.99998474121094, 50.0, 49.99998474121094, 37.199981689453125" stroke="TRANSPARENT" strokeType="INSIDE" />
-      <ImageView fx:id="hero" fitHeight="30.0" fitWidth="54.0" layoutX="202.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
+      <Polygon fx:id="dash" fill="#ff4242" layoutX="156.0" layoutY="287.0" opacity="0.91" points="-8.800003051757812, 43.600006103515625, 49.99998474121094, 50.0, 49.99998474121094, 37.199981689453125" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <ImageView fx:id="hero" fitHeight="30.0" fitWidth="54.0" layoutX="197.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../hero.png" />
          </image>

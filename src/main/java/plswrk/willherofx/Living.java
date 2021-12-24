@@ -10,10 +10,16 @@ import java.util.List;
 public abstract class Living extends GameElement {
     private boolean isAlive;
     private double jumpHeight;
-    Living(ImageView living_imageView, List<Image> imageList, double jumpHeight, double x, double y){
+    private final double moveDist;
+    private double xDistMoved;
+    private double yDistMoved;
+    Living(ImageView living_imageView, List<Image> imageList, double jumpHeight, double moveDist, double x, double y){
         super(living_imageView,imageList, x, y);
         this.jumpHeight = jumpHeight;
+        this.moveDist = moveDist;
         this.isAlive = true;
+        this.xDistMoved = 0;
+        this.yDistMoved = 0;
     }
     public abstract void on_collision(double x, double y);
     public abstract void die();
@@ -31,5 +37,25 @@ public abstract class Living extends GameElement {
 
     public void setAlive(boolean alive) {
         isAlive = alive;
+    }
+
+    public double getMoveDist() {
+        return moveDist;
+    }
+
+    public double getxDistMoved() {
+        return xDistMoved;
+    }
+
+    public void setxDistMoved(double xDistMoved) {
+        this.xDistMoved = xDistMoved;
+    }
+
+    public double getyDistMoved() {
+        return yDistMoved;
+    }
+
+    public void setyDistMoved(double yDistMoved) {
+        this.yDistMoved = yDistMoved;
     }
 }

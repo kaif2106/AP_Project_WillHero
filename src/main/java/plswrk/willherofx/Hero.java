@@ -28,11 +28,8 @@ public class Hero extends Living{
 
     private double velocityX;
     private double velocityY;
-    Hero(ImageView hero_image, List<Image> imageList , double jumpHeight, double velocityX, double velocityY, double x, double y) {
-        super(hero_image, imageList, jumpHeight, x, y);
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
-
+    Hero(ImageView hero_image, List<Image> imageList , double jumpHeight, double moveDist, double x, double y) {
+        super(hero_image, imageList, jumpHeight, moveDist, x, y);
     }
 
 
@@ -50,19 +47,4 @@ public class Hero extends Living{
             e.printStackTrace();
         }
     }
-
-    public double getVelocityX() {
-        return velocityX;
-    }
-    public double getVelocityY() {
-        return velocityY;
-    }
-
-    public void setVelocityX(double velocityX) {
-        this.velocityX = velocityX;
-    }
-    public void setVelocityY(double velocityY) {
-        this.velocityY = velocityY;
-    }
-
 }

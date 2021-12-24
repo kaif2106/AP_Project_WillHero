@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Orc extends Living {
-    Orc(ImageView orc_imageView, List<Image> imageList, int jump_height, double x, double y) {
-        super(orc_imageView, imageList, jump_height, x, y);
+    Orc(ImageView orc_imageView, List<Image> imageList, double jump_height, double moveDist, double x, double y) {
+        super(orc_imageView, imageList, jump_height, moveDist, x, y);
     }
 
     @Override

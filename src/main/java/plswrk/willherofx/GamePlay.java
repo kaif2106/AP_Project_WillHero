@@ -52,7 +52,6 @@ public class GamePlay {
 
     private ArrayList<GameElement> gameElements;
     private ArrayList<Island> islands;
-    private ArrayList<Tree> trees;
     private Hero hero_obj;
     private Orc orc_obj;
     private Weapon_Chest weapon_chest_obj;
@@ -103,7 +102,7 @@ public class GamePlay {
         layout.setBackground(bg);
     }
     public void InitializeAll_ClassObjects() {
-        hero_obj = new Hero(hero, null, 100, 1.0, 2.0, hero.getLayoutX(), hero.getLayoutY());
+        hero_obj = new Hero(hero, null, 100, 100,hero.getLayoutX(), hero.getLayoutY());
 
         Island island1_obj = new Island(island1, island1.getLayoutX(), island1.getLayoutY());
         Island island2_obj = new Island(island2, island2.getLayoutX(), island2.getLayoutY());
@@ -121,7 +120,7 @@ public class GamePlay {
         Tree tree2_obj = new Tree(t2, t2.getLayoutX(), t2.getLayoutY());
         Tree tree3_obj = new Tree(t3, t3.getLayoutX(), t3.getLayoutY());
         Tree tree4_obj = new Tree(t4, t4.getLayoutX(), t4.getLayoutY());
-        trees = new ArrayList<>();
+        ArrayList<Tree> trees = new ArrayList<>();
         trees.add(tree1_obj);
         trees.add(tree2_obj);
         trees.add(tree3_obj);
@@ -138,7 +137,7 @@ public class GamePlay {
             orc_deathImages.add(new Image(String.format("orcDeath%s.png", i)));
         }
 
-        orc_obj = new Orc(orc1, orc_deathImages, 100, orc1.getLayoutX(), orc1.getLayoutY());
+        orc_obj = new Orc(orc1, orc_deathImages, 100, 0, orc1.getLayoutX(), orc1.getLayoutY());
 
         List<Image> Coin_chest_List = new ArrayList<>();
         for(int i=1; i<=11; i++) {
@@ -157,7 +156,6 @@ public class GamePlay {
         }
         TNT_obj = new TNT(TNT1, TNT_explodeImages, TNT1.getLayoutX(), TNT1.getLayoutY(), new Range(30, 30));
 
-
         gameElements = new ArrayList<>();
 
         gameElements.addAll(islands);
@@ -167,14 +165,15 @@ public class GamePlay {
         gameElements.add(weapon_chest_obj);
         gameElements.add(coin_chest_obj);
         gameElements.add(hero_obj);
-
     }
     public void start(Scene scene) {
         InitialiseAll_FXML_Objects(scene);
         InitializeAll_ClassObjects();
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
         Pair<TranslateTransition, TranslateTransition> orc_hop = hop(orc_obj);
-        ArrayList<String> pressedKeys = new ArrayList<String>();
+        hero_hop.getFirst().play();
+        orc_hop.getFirst().play();
+        ArrayList<String> pressedKeys = new ArrayList<>();
         int moveCount = 0;
 
         scene.setOnKeyPressed(e -> {
@@ -189,35 +188,46 @@ public class GamePlay {
                     if (hero_hop.getSecond().getStatus() == Animation.Status.RUNNING) {
                         hero_hop.getSecond().pause();
                     }
-                    TranslateTransition hero_mov = move(hero_obj, 100);
+                    TranslateTransition hero_mov = move(hero_obj);
                     dash.setLayoutY(hero_obj.getImage().getBoundsInParent().getCenterY() - 40);
+                    System.out.println(hero_obj.getImage().getBoundsInParent().getCenterY());
+                    dash.setLayoutX(hero_obj.getImage().getBoundsInParent().getMinX()-40);
                     dash.setVisible(true);
                     hero_mov.play();
 
-                    coin_chest_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
-                    weapon_chest_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
-                    TNT_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
+//                    coin_chest_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
+//                    weapon_chest_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
+//                    TNT_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
 
-                    moveDashfn(200, 1);
-
+                    TranslateTransition move_dash = moveDash(5, 0);
+                    move_dash.play();
                     hero_mov.setOnFinished(event -> {
+                        if(hero_obj.getxDistMoved()<hero_obj.getMoveDist()){
+                            hero_obj.setxDistMoved(hero_obj.getxDistMoved()+5);
+                            hero_obj.setCurr_pos_x(hero_obj.getCurr_pos_x()+5);
+                            hero_mov.play();
+                        }
+                        else {
+                            hero_obj.setxDistMoved(0);
+                            dash.setVisible(false);
+                            if (hero_hop.getFirst().getStatus() == Animation.Status.PAUSED) {
+                                hero_hop.getFirst().play();
+                            }
+                            if (hero_hop.getSecond().getStatus() == Animation.Status.PAUSED) {
+                                hero_hop.getSecond().play();
+                            }
+                            for (GameElement gameElement : gameElements) {
+                                gameElement.translateLeft(0, pressedKeys).play();
+                            }
+                            moveDash(-2.5, 0).play();
+    //                        TranslateTransition eh = hero_obj.translateLeft(0, pressedKeys);
+    //                        eh.setOnFinished(someEvent -> {
+    //                            pressedKeys.clear();
+    //                        });
+    //                        eh.play();
 
-                        if (hero_hop.getFirst().getStatus() == Animation.Status.PAUSED) {
-                            hero_hop.getFirst().play();
+//                            moveDashfn(5, -1);
                         }
-                        if (hero_hop.getSecond().getStatus() == Animation.Status.PAUSED) {
-                            hero_hop.getSecond().play();
-                        }
-//                        TranslateTransition eh = hero_obj.translateLeft(0, pressedKeys);
-//                        eh.setOnFinished(someEvent -> {
-//                            pressedKeys.clear();
-//                        });
-//                        eh.play();
-                        for (GameElement gameElement : gameElements) {
-                            gameElement.translateLeft(0, pressedKeys).play();
-                        }
-                        moveDashfn(5, -1);
-
                     });
                 }
             }
@@ -330,47 +340,38 @@ public class GamePlay {
         HelloApplication.Gstage.setScene(scene);
         HelloApplication.Gstage.show();
     }
-
-    public TranslateTransition jumpfn(int moveCount, Living character, TranslateTransition fall){
-        ImageView character_image = character.getImage();
-        TranslateTransition jump = new TranslateTransition(Duration.millis(26), character_image);
-        jump.setByY(((-1)*character.getJumpHeight())/20);
-        jump.setCycleCount(1);
-        jump.setAutoReverse(false);
-        character.setCurr_pos_y(character.getCurr_pos_y() - (character.getJumpHeight()/20));
-        jump.setOnFinished(e -> {
-            if(moveCount==19){
-                fall.play();
-                //pressedKeys.clear();
-            }
-            else{
-                jumpfn(moveCount+1, character, fall).play();
-                //move.play();
-            }
-        });
-        //move.play();
-        return jump;
-    }
-
     public Pair<TranslateTransition, TranslateTransition> hop(Living character) {
 
-        ImageView character_image = character.getImage();
-//        TranslateTransition jump = new TranslateTransition(Duration.millis(520/20), character_image);
-//        jump.setByY(((-1)*character.getJumpHeight())/20);
-//        jump.setCycleCount(1);
-//        jump.setAutoReverse(false);
-
-
-        TranslateTransition fall = new TranslateTransition(Duration.millis(25), character_image);
-        fall.setByY(5);
+        TranslateTransition jump = new TranslateTransition(Duration.millis(0.5), character.getImage());
+        jump.setByY(-2.5);
+        jump.setCycleCount(1);
+        jump.setAutoReverse(false);
+//        jump.play();
+        TranslateTransition fall = new TranslateTransition(Duration.millis(0.5), character.getImage());
+        fall.setByY(2.5);
         fall.setCycleCount(1);
+        jump.setOnFinished(event->{
+            if(character.getyDistMoved()< character.getJumpHeight()){
+                character.setCurr_pos_y(character.getCurr_pos_y()-2.5);
+                character.setyDistMoved(character.getyDistMoved()+2.5);
+                jump.play();
+            }
+            else{
+                character.setCurr_pos_y(character.getCurr_pos_y()-2.5);
+//                System.out.println(character.getCurr_pos_y());
+                character.setyDistMoved(0);
+                fall.play();
+            }
+        });
+
+
         fall.setOnFinished(actionEvent -> {
-            character.setCurr_pos_y(character.getCurr_pos_y() + 5);
             //if(character instanceof Hero)
                 //System.out.println("heroY: "+Double.toString(character.getCurr_pos_y()));
+            character.setCurr_pos_y(character.getCurr_pos_y()+2.5);
             boolean gameEnd = false;
             if(character == hero_obj){
-                if (character.getCurr_pos_y() + character_image.getFitHeight() >= 750) {
+                if (character.getCurr_pos_y() + character.getImage().getFitHeight() >= 750) {
                     endPane.setVisible(true);
                     gameEnd = true;
                 }
@@ -378,22 +379,25 @@ public class GamePlay {
             boolean temp = false;
             Island targetIsland = null;
             for(Island island : islands){
-                if((island.getCurr_pos_x() + island.getImage().getFitWidth()) >= character.getCurr_pos_x() && island.getCurr_pos_x() <= (character.getCurr_pos_x() + character_image.getFitWidth())){
+                if((island.getImage().getBoundsInParent().getMaxX()) >= character.getImage().getBoundsInParent().getMinX() && island.getImage().getBoundsInParent().getMinX() <= (character.getImage().getBoundsInParent().getMaxX())){
                     targetIsland = island;
                     break;
                 }
             }
             if(targetIsland != null){
                 if((targetIsland.getCurr_pos_y() > character.getCurr_pos_y()) &&
-                        ((character.getCurr_pos_y() + character_image.getFitHeight()) <= (targetIsland.getCurr_pos_y()+3)) &&
-                        (targetIsland.getCurr_pos_y() <= (character.getCurr_pos_y() + character_image.getFitHeight()))){
+                        ((character.getCurr_pos_y() + character.getImage().getFitHeight()) <= (targetIsland.getCurr_pos_y()+2.5)) &&
+                        (targetIsland.getCurr_pos_y() <= (character.getCurr_pos_y() + character.getImage().getFitHeight()))){
+//                    System.out.println(character.getCurr_pos_y());
+//                    character.getImage().setLayoutY(targetIsland.getCurr_pos_y() - character.getImage().getFitHeight());
+//                    character.setCurr_pos_y(targetIsland.getCurr_pos_y() - character.getImage().getFitHeight());
+//                    System.out.println(character.getImage().getBoundsInParent().getMaxY() + " " + targetIsland.getImage().getBoundsInParent().getMinY());
                     fall.pause();
                     temp = true;
-                    //jump.play();
-                    jumpfn(0, character, fall).play();
+                    jump.play();
                 }
             }
-            if(!temp && !gameEnd) {
+            if(!temp && !gameEnd){
                 fall.play();
             }
         });
@@ -404,32 +408,28 @@ public class GamePlay {
 //
 //            fall.play();
 //        });
-        TranslateTransition jump = jumpfn(0, character, fall);
-        jump.play();
-
         return new Pair<>(jump, fall);
     }
 
-    public void moveDashfn(double dur, int state){
-        TranslateTransition moveDash = new TranslateTransition();
-        moveDash.setNode(dash);
-        moveDash.setDuration(Duration.millis(dur));
+    public TranslateTransition moveDash(double singleMove, int moveCount){
+        TranslateTransition moveDash = new TranslateTransition(Duration.millis(0.085), dash);
         moveDash.setCycleCount(1);
         moveDash.setAutoReverse(false);
-        moveDash.setByX(100*state);
-        moveDash.setOnFinished(event -> {dash.setVisible(false);});
-        moveDash.play();
+        moveDash.setByX(singleMove);
+        moveDash.setOnFinished(e -> {
+            if(moveCount!=39){
+                moveDash(singleMove, moveCount+1).play();
+            }
+        });
+        //move.play();
+        return moveDash;
     }
 
-    public TranslateTransition move(Living character, double x) {
-        ImageView character_image = character.getImage();
-        TranslateTransition move = new TranslateTransition();
-        move.setNode(character_image);
-        move.setDuration(Duration.millis(200));
+    public TranslateTransition move(Living character) {
+        TranslateTransition move = new TranslateTransition(Duration.millis(0.09), character.getImage());
         move.setCycleCount(1);
         move.setAutoReverse(false);
-        character.setCurr_pos_x(character.getCurr_pos_x() + x);
-        move.setByX(x);
+        move.setByX(5);
         return move;
     }
 }
