@@ -208,11 +208,11 @@ public class GamePlay {
                         if (hero_hop.getSecond().getStatus() == Animation.Status.PAUSED) {
                             hero_hop.getSecond().play();
                         }
-                        TranslateTransition eh = hero_obj.translateLeft(0, pressedKeys);
-                        eh.setOnFinished(someEvent -> {
-                            pressedKeys.clear();
-                        });
-                        eh.play();
+//                        TranslateTransition eh = hero_obj.translateLeft(0, pressedKeys);
+//                        eh.setOnFinished(someEvent -> {
+//                            pressedKeys.clear();
+//                        });
+//                        eh.play();
                         for (GameElement gameElement : gameElements) {
                             gameElement.translateLeft(0, pressedKeys).play();
                         }
