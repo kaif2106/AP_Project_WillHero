@@ -127,92 +127,41 @@ public class GamePlay {
         trees.add(tree3_obj);
         trees.add(tree4_obj);
 
-
-        Image Weapon_chest_open1 = new Image("wep_0000 #50076.png");
-        Image Weapon_chest_open2 = new Image("wep_0001 #18659.png");
-        Image Weapon_chest_open3 = new Image("wep_0002 #18442.png");
-        Image Weapon_chest_open4 = new Image("wep_0003.png");
-        Image Weapon_chest_open5 = new Image("wep_0004 #36957.png");
-        Image Weapon_chest_open6 = new Image("wep_0005 #37946.png");
-        Image Weapon_chest_open7 = new Image("wep_0006 #42713.png");
-        Image Weapon_chest_open8 = new Image("wep_0007 #45764.png");
-        Image Weapon_chest_open9 = new Image("wep_0008 #32756.png");
-        Image Weapon_chest_open10 = new Image("wep_0009 #50124.png");
-        Image Weapon_chest_open11 = new Image("wep_0010 #21871.png");
         List<Image> Weapon_chest_List = new ArrayList<>();
-        Weapon_chest_List.add(Weapon_chest_open1);
-        Weapon_chest_List.add(Weapon_chest_open2);
-        Weapon_chest_List.add(Weapon_chest_open3);
-        Weapon_chest_List.add(Weapon_chest_open4);
-        Weapon_chest_List.add(Weapon_chest_open5);
-        Weapon_chest_List.add(Weapon_chest_open6);
-        Weapon_chest_List.add(Weapon_chest_open7);
-        Weapon_chest_List.add(Weapon_chest_open8);
-        Weapon_chest_List.add(Weapon_chest_open9);
-        Weapon_chest_List.add(Weapon_chest_open10);
-        Weapon_chest_List.add(Weapon_chest_open11);
+        for(int i=1; i<=11; i++){
+            Weapon_chest_List.add(new Image(String.format("wep%s.png", i)));
+        }
         weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_List, new Weapon("Sword", 0, 30.0, new Range(3, 3)), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
 
-        Image orc_death1 = new Image("orcDeath1.png");
-        Image orc_death2 = new Image("orcDeath2.png");
-        Image orc_death3 = new Image("orcDeath3.png");
-        Image orc_death4 = new Image("orcDeath4.png");
         List<Image> orc_deathImages = new ArrayList<>();
-        orc_deathImages.add(orc_death1);
-        orc_deathImages.add(orc_death2);
-        orc_deathImages.add(orc_death3);
-        orc_deathImages.add(orc_death4);
+        for(int i=1; i<=4; i++) {
+            orc_deathImages.add(new Image(String.format("orcDeath%s.png", i)));
+        }
+
         orc_obj = new Orc(orc1, orc_deathImages, 100, orc1.getLayoutX(), orc1.getLayoutY());
 
-        Image Coin_chest_open1 = new Image("wep_0000 #51930.png");
-        Image Coin_chest_open2 = new Image("wep_0001 #38556.png");
-        Image Coin_chest_open3 = new Image("wep_0002 #57623.png");
-        Image Coin_chest_open4 = new Image("wep_0003 #46880.png");
-        Image Coin_chest_open5 = new Image("wep_0004 #26021.png");
-        Image Coin_chest_open6 = new Image("wep_0005 #50050.png");
-        Image Coin_chest_open7 = new Image("wep_0006 #56893.png");
-        Image Coin_chest_open8 = new Image("wep_0007 #37947.png");
-        Image Coin_chest_open9 = new Image("wep_0008 #30876.png");
-        Image Coin_chest_open10 = new Image("wep_0009 #57652.png");
-        Image Coin_chest_open11 = new Image("wep_0010 #129.png");
         List<Image> Coin_chest_List = new ArrayList<>();
-        Coin_chest_List.add(Coin_chest_open1);
-        Coin_chest_List.add(Coin_chest_open2);
-        Coin_chest_List.add(Coin_chest_open3);
-        Coin_chest_List.add(Coin_chest_open4);
-        Coin_chest_List.add(Coin_chest_open5);
-        Coin_chest_List.add(Coin_chest_open6);
-        Coin_chest_List.add(Coin_chest_open7);
-        Coin_chest_List.add(Coin_chest_open8);
-        Coin_chest_List.add(Coin_chest_open9);
-        Coin_chest_List.add(Coin_chest_open10);
-        Coin_chest_List.add(Coin_chest_open11);
+        for(int i=1; i<=11; i++) {
+            Coin_chest_List.add(new Image(String.format("coin%s.png", i)));
+        }
         coin_chest_obj = new Coin_Chest(coin_chest1, Coin_chest_List, 50, coin_chest1.getLayoutX(), coin_chest1.getLayoutY());
 
-        Image TNT_explode1 = new Image("TNT_explode1.png");
-        Image TNT_explode2 = new Image("TNT_explode2.png");
-        Image TNT_explode3 = new Image("TNT_explode3.png");
-        Image TNT_explode4 = new Image("TNT_explode4.png");
-        Image TNT_explode5 = new Image("TNT_explode5.png");
-        Image TNT_explode6 = new Image("TNT_explosion1.png");
-
         List<Image> TNT_explodeImages = new ArrayList<>();
-        TNT_explodeImages.add(TNT_explode1);
-        TNT_explodeImages.add(TNT_explode2);
-        TNT_explodeImages.add(TNT_explode3);
-        TNT_explodeImages.add(TNT_explode4);
-        TNT_explodeImages.add(TNT_explode5);
-        TNT_explodeImages.add(TNT_explode6);
-        for(int jj = 2; jj<=18; jj++){
-            TNT_explodeImages.add(new Image(String.format("TNT_explosion%s.png", Integer.toString(jj))));
+
+        for(int i = 1; i<=5; i++){
+            TNT_explodeImages.add(new Image(String.format("TNT_explode%s.png", i)));
+        }
+
+        for(int i = 1; i<=18; i++){
+            TNT_explodeImages.add(new Image(String.format("TNT_explosion%s.png", i)));
         }
         TNT_obj = new TNT(TNT1, TNT_explodeImages, TNT1.getLayoutX(), TNT1.getLayoutY(), new Range(30, 30));
 
 
         gameElements = new ArrayList<>();
 
-        for(Island island : islands) { gameElements.add(island); }
-        for(Tree tree : trees) { gameElements.add(tree); }
+        gameElements.addAll(islands);
+        gameElements.addAll(trees);
         gameElements.add(TNT_obj);
         gameElements.add(orc_obj);
         gameElements.add(weapon_chest_obj);
@@ -220,7 +169,7 @@ public class GamePlay {
         gameElements.add(hero_obj);
 
     }
-    public void start(Scene scene) throws IOException {
+    public void start(Scene scene) {
         InitialiseAll_FXML_Objects(scene);
         InitializeAll_ClassObjects();
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
@@ -229,7 +178,7 @@ public class GamePlay {
         int moveCount = 0;
 
         scene.setOnKeyPressed(e -> {
-            System.out.println("herox: "+Double.toString(hero_obj.getCurr_pos_x()));
+//            System.out.println("herox: "+ hero_obj.getCurr_pos_x());
             if (e.getCode() == KeyCode.SPACE) {
                 if(!pressedKeys.contains(e.getText())) {
                     pressedKeys.add(e.getText());
@@ -259,11 +208,11 @@ public class GamePlay {
                         if (hero_hop.getSecond().getStatus() == Animation.Status.PAUSED) {
                             hero_hop.getSecond().play();
                         }
-//                        TranslateTransition eh = hero_obj.translateLeft(0, pressedKeys);
-//                        eh.setOnFinished(someEvent -> {
-//                            pressedKeys.clear();
-//                        });
-                        //eh.play();
+                        TranslateTransition eh = hero_obj.translateLeft(0, pressedKeys);
+                        eh.setOnFinished(someEvent -> {
+                            pressedKeys.clear();
+                        });
+                        eh.play();
                         for (GameElement gameElement : gameElements) {
                             gameElement.translateLeft(0, pressedKeys).play();
                         }
@@ -384,7 +333,7 @@ public class GamePlay {
 
     public TranslateTransition jumpfn(int moveCount, Living character, TranslateTransition fall){
         ImageView character_image = character.getImage();
-        TranslateTransition jump = new TranslateTransition(Duration.millis(520/20), character_image);
+        TranslateTransition jump = new TranslateTransition(Duration.millis(26), character_image);
         jump.setByY(((-1)*character.getJumpHeight())/20);
         jump.setCycleCount(1);
         jump.setAutoReverse(false);

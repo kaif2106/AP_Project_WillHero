@@ -26,7 +26,7 @@
       </ImageView>
       <ImageView fitHeight="129.0" fitWidth="88.0" layoutX="719.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Tree11%20%2350105.png" />
+            <Image url="@../../Tree11 #50105.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="202.0" layoutY="316.0" opacity="0.85" pickOnBounds="true" preserveRatio="true">
@@ -56,7 +56,7 @@
       </ImageView>
       <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="659.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../wep_0000%20%2351930.png" />
+            <Image url="@../../coin1.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="125.0" fitWidth="104.0" layoutX="1076.0" layoutY="267.0" opacity="0.71" pickOnBounds="true" preserveRatio="true">
@@ -64,9 +64,9 @@
             <Image url="@../../Tree8.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="weapon_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="971.0" layoutY="335.0" pickOnBounds="true">
+      <ImageView fx:id="weapon_chest1" fitHeight="56.0" fitWidth="79.0" layoutX="971.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../newwep_0001.png" />
+            <Image url="@../../wep1.png" />
          </image>
       </ImageView>
       <ImageView fx:id="TNT1" fitHeight="56.0" fitWidth="58.0" layoutX="897.0" layoutY="334.0" pickOnBounds="true">

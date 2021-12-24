@@ -33,7 +33,7 @@ public class TNT extends GameElement implements Obstacle{
         ImageView image = this.getImage();
         List<Image> imageList = this.getImageList();
         int j=0;
-//        for(int i=0; i<5; i++){
+        for(int i=0; i<5; i++){
             int k=0;
             for ( ; k < this.getImageList().size(); k++) {
                 int finalI = k;
@@ -66,7 +66,7 @@ public class TNT extends GameElement implements Obstacle{
                         }
                 ));
             }
-        //}
+        }
         timeline.play();
     }
 
