@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class TNT extends GameElement implements Obstacle{
@@ -15,6 +16,16 @@ public class TNT extends GameElement implements Obstacle{
         super(imageView, imageList, start_pos_x, start_pos_y);
         this.range = range;
     }
+    @Override
+    public void on_collision(double x, double y){
+        //System.out.println("herox: "+Double.toString(x)+" heroy: "+Double.toString(y));
+        //System.out.println("TNTx: "+Double.toString(getCurr_pos_x())+" - "+Double.toString(getCurr_pos_x() + getImage().getFitWidth())+" TNTy: "+Double.toString(getCurr_pos_y()) + " - " + Double.toString(getCurr_pos_y()+getImage().getFitHeight()));
+        if(x <= this.getCurr_pos_x() + this.getImage().getFitWidth() && x >= this.getCurr_pos_x()
+                && y <= this.getCurr_pos_y() + this.getImage().getFitHeight() && y >= this.getCurr_pos_y()){
+            explode();
+        }
+
+    }
     public void explode(){
         Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
@@ -22,13 +33,19 @@ public class TNT extends GameElement implements Obstacle{
         ImageView image = this.getImage();
         List<Image> imageList = this.getImageList();
         int j=0;
-        for(int i=0; i<5; i++){
+//        for(int i=0; i<5; i++){
             int k=0;
             for ( ; k < this.getImageList().size(); k++) {
                 int finalI = k;
                 timeline.getKeyFrames().add(new KeyFrame(
                         Duration.millis(60*(j++)),
-                        (ActionEvent event) -> image.setImage(imageList.get(finalI))
+                        (ActionEvent event) -> {
+                            image.setImage(imageList.get(finalI));
+                            if(finalI>5) {
+                                image.setScaleX(1.5+(finalI*0.1));
+                                image.setScaleY(1.5+(finalI*0.1));
+                            }
+                        }
                 ));
             }
             k--;
@@ -36,10 +53,20 @@ public class TNT extends GameElement implements Obstacle{
                 int finalI = k;
                 timeline.getKeyFrames().add(new KeyFrame(
                         Duration.millis(60 * (j++)),
-                        (ActionEvent event) -> image.setImage(imageList.get(finalI))
+                        (ActionEvent event) -> {
+                            image.setImage(imageList.get(finalI));
+                            if (finalI <= 5) {
+                                image.setScaleX(1);
+                                image.setScaleY(1);
+                            }
+                            else{
+                                image.setScaleX(1.5+(finalI*0.1));
+                                image.setScaleY(1.5+(finalI*0.1));
+                            }
+                        }
                 ));
             }
-        }
+        //}
         timeline.play();
     }
 

@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GameElement {
@@ -19,14 +20,22 @@ public abstract class GameElement {
         this.curr_pos_y = start_pos_y;
     }
 
-    public TranslateTransition translateLeft(){
+    public TranslateTransition translateLeft(int moveCount, ArrayList<String> pressedKeys){
         TranslateTransition move = new TranslateTransition();
         move.setNode(imageView);
-        move.setDuration(Duration.millis(200));
+        move.setDuration(Duration.millis(20));
         move.setCycleCount(1);
         move.setAutoReverse(false);
-        this.setCurr_pos_x(this.getCurr_pos_x() - 100);
-        move.setByX(-100);
+        this.setCurr_pos_x(this.getCurr_pos_x() - 10);
+        move.setByX(-10);
+        move.setOnFinished(e -> {
+            if(moveCount==9){
+                pressedKeys.clear();
+            }
+            else{
+                translateLeft(moveCount+1, pressedKeys).play();
+            }
+        });
         //move.play();
         return move;
     }

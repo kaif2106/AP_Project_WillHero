@@ -194,12 +194,18 @@ public class GamePlay {
         Image TNT_explode3 = new Image("TNT_explode3.png");
         Image TNT_explode4 = new Image("TNT_explode4.png");
         Image TNT_explode5 = new Image("TNT_explode5.png");
+        Image TNT_explode6 = new Image("TNT_explosion1.png");
+
         List<Image> TNT_explodeImages = new ArrayList<>();
         TNT_explodeImages.add(TNT_explode1);
         TNT_explodeImages.add(TNT_explode2);
         TNT_explodeImages.add(TNT_explode3);
         TNT_explodeImages.add(TNT_explode4);
         TNT_explodeImages.add(TNT_explode5);
+        TNT_explodeImages.add(TNT_explode6);
+        for(int jj = 2; jj<=18; jj++){
+            TNT_explodeImages.add(new Image(String.format("TNT_explosion%s.png", Integer.toString(jj))));
+        }
         TNT_obj = new TNT(TNT1, TNT_explodeImages, TNT1.getLayoutX(), TNT1.getLayoutY(), new Range(30, 30));
 
 
@@ -211,7 +217,7 @@ public class GamePlay {
         gameElements.add(orc_obj);
         gameElements.add(weapon_chest_obj);
         gameElements.add(coin_chest_obj);
-        //gameElements.add(hero_obj);
+        gameElements.add(hero_obj);
 
     }
     public void start(Scene scene) throws IOException {
@@ -220,7 +226,10 @@ public class GamePlay {
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
         Pair<TranslateTransition, TranslateTransition> orc_hop = hop(orc_obj);
         ArrayList<String> pressedKeys = new ArrayList<String>();
+        int moveCount = 0;
+
         scene.setOnKeyPressed(e -> {
+            System.out.println("herox: "+Double.toString(hero_obj.getCurr_pos_x()));
             if (e.getCode() == KeyCode.SPACE) {
                 if(!pressedKeys.contains(e.getText())) {
                     pressedKeys.add(e.getText());
@@ -238,6 +247,7 @@ public class GamePlay {
 
                     coin_chest_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
                     weapon_chest_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
+                    TNT_obj.on_collision(hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
 
                     moveDashfn(200, 1);
 
@@ -249,13 +259,13 @@ public class GamePlay {
                         if (hero_hop.getSecond().getStatus() == Animation.Status.PAUSED) {
                             hero_hop.getSecond().play();
                         }
-                        TranslateTransition eh = hero_obj.translateLeft();
-                        eh.setOnFinished(someEvent -> {
-                            pressedKeys.clear();
-                        });
-                        eh.play();
+//                        TranslateTransition eh = hero_obj.translateLeft(0, pressedKeys);
+//                        eh.setOnFinished(someEvent -> {
+//                            pressedKeys.clear();
+//                        });
+                        //eh.play();
                         for (GameElement gameElement : gameElements) {
-                            gameElement.translateLeft().play();
+                            gameElement.translateLeft(0, pressedKeys).play();
                         }
                         moveDashfn(5, -1);
 
@@ -372,13 +382,34 @@ public class GamePlay {
         HelloApplication.Gstage.show();
     }
 
+    public TranslateTransition jumpfn(int moveCount, Living character, TranslateTransition fall){
+        ImageView character_image = character.getImage();
+        TranslateTransition jump = new TranslateTransition(Duration.millis(520/20), character_image);
+        jump.setByY(((-1)*character.getJumpHeight())/20);
+        jump.setCycleCount(1);
+        jump.setAutoReverse(false);
+        character.setCurr_pos_y(character.getCurr_pos_y() - (character.getJumpHeight()/20));
+        jump.setOnFinished(e -> {
+            if(moveCount==19){
+                fall.play();
+                //pressedKeys.clear();
+            }
+            else{
+                jumpfn(moveCount+1, character, fall).play();
+                //move.play();
+            }
+        });
+        //move.play();
+        return jump;
+    }
+
     public Pair<TranslateTransition, TranslateTransition> hop(Living character) {
 
         ImageView character_image = character.getImage();
-        TranslateTransition jump = new TranslateTransition(Duration.millis(520), character_image);
-        jump.setByY((-1)*character.getJumpHeight());
-        jump.setCycleCount(1);
-        jump.setAutoReverse(false);
+//        TranslateTransition jump = new TranslateTransition(Duration.millis(520/20), character_image);
+//        jump.setByY(((-1)*character.getJumpHeight())/20);
+//        jump.setCycleCount(1);
+//        jump.setAutoReverse(false);
 
 
         TranslateTransition fall = new TranslateTransition(Duration.millis(25), character_image);
@@ -386,6 +417,8 @@ public class GamePlay {
         fall.setCycleCount(1);
         fall.setOnFinished(actionEvent -> {
             character.setCurr_pos_y(character.getCurr_pos_y() + 5);
+            //if(character instanceof Hero)
+                //System.out.println("heroY: "+Double.toString(character.getCurr_pos_y()));
             boolean gameEnd = false;
             if(character == hero_obj){
                 if (character.getCurr_pos_y() + character_image.getFitHeight() >= 750) {
@@ -407,8 +440,8 @@ public class GamePlay {
                         (targetIsland.getCurr_pos_y() <= (character.getCurr_pos_y() + character_image.getFitHeight()))){
                     fall.pause();
                     temp = true;
-                    jump.play();
-
+                    //jump.play();
+                    jumpfn(0, character, fall).play();
                 }
             }
             if(!temp && !gameEnd) {
@@ -418,12 +451,13 @@ public class GamePlay {
 
 
 
-        jump.setOnFinished(actionEvent -> {
-            character.setCurr_pos_y(character.getCurr_pos_y() - character.getJumpHeight());
-            fall.play();
-        });
-
+//        jump.setOnFinished(actionEvent -> {
+//
+//            fall.play();
+//        });
+        TranslateTransition jump = jumpfn(0, character, fall);
         jump.play();
+
         return new Pair<>(jump, fall);
     }
 
