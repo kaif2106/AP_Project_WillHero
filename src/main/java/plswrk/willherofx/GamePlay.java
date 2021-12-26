@@ -54,6 +54,7 @@ public class GamePlay {
     private ArrayList<GameElement> gameElements;
     private ArrayList<Island> islands;
     private Hero hero_obj;
+    private ArrayList<Orc> orcList;
     private Orc orc_obj;
     private Orc orc2_obj;
     private Weapon_Chest weapon_chest_obj;
@@ -147,6 +148,10 @@ public class GamePlay {
 
         orc_obj = new Orc(orc1, orc_deathImages, 100, 0, orc1.getLayoutX(), orc1.getLayoutY());
         orc2_obj = new Orc(orc2, orc_deathImages, 100, 0, orc2.getLayoutX(), orc2.getLayoutY());
+        orcList = new ArrayList<Orc>();
+        orcList.add(orc_obj);
+        orcList.add(orc2_obj);
+
         List<Image> Coin_chest_List = new ArrayList<>();
         for(int i=1; i<=11; i++) {
             Coin_chest_List.add(new Image(String.format("wep%s.png", i)));
@@ -198,11 +203,15 @@ public class GamePlay {
         InitialiseAll_FXML_Objects(scene);
         InitializeAll_ClassObjects();
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
-        Pair<TranslateTransition, TranslateTransition> orc_hop = hop(orc_obj);
-        Pair<TranslateTransition, TranslateTransition> orc2_hop = hop(orc2_obj);
+        ArrayList<Pair<TranslateTransition, TranslateTransition>> orcHops = new ArrayList<Pair<TranslateTransition, TranslateTransition>>();
+        for(Orc orc : orcList)
+            orcHops.add(hop(orc));
+            //Pair<TranslateTransition, TranslateTransition> orc_hop = hop(orc_obj);
+        //Pair<TranslateTransition, TranslateTransition> orc2_hop = hop(orc2_obj);
         hero_hop.getFirst().play();
-        orc_hop.getFirst().play();
-        orc2_hop.getFirst().play();
+        for(Pair<TranslateTransition, TranslateTransition> orcHop : orcHops)
+            orcHop.getFirst().play();
+        //orc2_hop.getFirst().play();
         ArrayList<String> pressedKeys = new ArrayList<>();
         int moveCount = 0;
 
@@ -216,12 +225,17 @@ public class GamePlay {
                 if(weapon_chest_obj.getIsOpen()) {
                     knifeIV.setVisible(true);
                 }
-                if(asd.getBoundsInParent().intersects(orc2_obj.getImage().getBoundsInParent())){
-                    orc2_obj.die();
+                for(Orc orc : orcList){
+                    if(asd.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())) orc.die();
                 }
-                if(asd.getBoundsInParent().intersects(orc_obj.getImage().getBoundsInParent())){
-                    orc_obj.die();
-                }
+
+
+//                if(asd.getBoundsInParent().intersects(orc2_obj.getImage().getBoundsInParent())){
+//                    orc2_obj.die();
+//                }
+//                if(asd.getBoundsInParent().intersects(orc_obj.getImage().getBoundsInParent())){
+//                    orc_obj.die();
+//                }
 
             }
         };
@@ -284,11 +298,11 @@ public class GamePlay {
             }
         });
 
-        orc_obj.getImage().setOnMouseClicked(e -> {
-            orc_hop.getFirst().pause();
-            orc_hop.getSecond().pause();
-            orc_obj.die();
-        });
+//        orc_obj.getImage().setOnMouseClicked(e -> {
+//            orc_hop.getFirst().pause();
+//            orc_hop.getSecond().pause();
+//            orc_obj.die();
+//        });
         Effect original_effect = pause.getEffect();
         pause.setOnMouseEntered(event -> {
             DropShadow shadow = new DropShadow(20, Color.BLACK);
@@ -306,18 +320,22 @@ public class GamePlay {
             if(hero_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
                 hero_hop.getSecond().pause();
             }
-            if(orc_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
-                orc_hop.getFirst().pause();
+            for(Pair<TranslateTransition, TranslateTransition> orcHop : orcHops){
+                if(orcHop.getFirst().getStatus()== Animation.Status.RUNNING) {
+                    orcHop.getFirst().pause();
+                }
+                if(orcHop.getSecond().getStatus()== Animation.Status.RUNNING) {
+                    orcHop.getSecond().pause();
+                }
             }
-            if(orc_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
-                orc_hop.getSecond().pause();
-            }
-            if(orc2_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
-                orc2_hop.getFirst().pause();
-            }
-            if(orc2_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
-                orc2_hop.getSecond().pause();
-            }
+
+
+//            if(orc2_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
+//                orc2_hop.getFirst().pause();
+//            }
+//            if(orc2_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
+//                orc2_hop.getSecond().pause();
+//            }
             pauseMenuPane.setVisible(true);
         });
 
@@ -329,18 +347,28 @@ public class GamePlay {
             if(hero_hop.getSecond().getStatus()== Animation.Status.PAUSED) {
                 hero_hop.getSecond().play();
             }
-            if(orc_hop.getFirst().getStatus()== Animation.Status.PAUSED) {
-                orc_hop.getFirst().play();
+
+            for(Pair<TranslateTransition, TranslateTransition> orcHop : orcHops){
+                if(orcHop.getFirst().getStatus()== Animation.Status.PAUSED) {
+                    orcHop.getFirst().play();
+                }
+                if(orcHop.getSecond().getStatus()== Animation.Status.PAUSED) {
+                    orcHop.getSecond().play();
+                }
             }
-            if(orc_hop.getSecond().getStatus()== Animation.Status.PAUSED) {
-                orc_hop.getSecond().play();
-            }
-            if(orc2_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
-                orc2_hop.getFirst().play();
-            }
-            if(orc2_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
-                orc2_hop.getSecond().play();
-            }
+
+//            if(orc_hop.getFirst().getStatus()== Animation.Status.PAUSED) {
+//                orc_hop.getFirst().play();
+//            }
+//            if(orc_hop.getSecond().getStatus()== Animation.Status.PAUSED) {
+//                orc_hop.getSecond().play();
+//            }
+//            if(orc2_hop.getFirst().getStatus()== Animation.Status.RUNNING) {
+//                orc2_hop.getFirst().play();
+//            }
+//            if(orc2_hop.getSecond().getStatus()== Animation.Status.RUNNING) {
+//                orc2_hop.getSecond().play();
+//            }
         });
 
         exit_pause.setOnMouseClicked(mouseEvent -> {

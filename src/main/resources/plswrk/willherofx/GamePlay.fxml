@@ -45,7 +45,7 @@
             <Image url="@../../Tree11%20%2350105.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="2192.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="2270.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../orc.png" />
          </image>
