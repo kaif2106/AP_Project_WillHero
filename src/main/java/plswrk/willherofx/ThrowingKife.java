@@ -10,7 +10,7 @@ public class ThrowingKife extends GameElement{
         super(knife_image, null, x, y);
     }
     void throwknife(){
-        TranslateTransition knifethrow = new TranslateTransition(Duration.millis(700));
+        TranslateTransition knifethrow = new TranslateTransition(Duration.millis(1000));
         knifethrow.setNode(getImage());
         knifethrow.setByX(600);
         knifethrow.setCycleCount(1);

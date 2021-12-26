@@ -1,8 +1,10 @@
 package plswrk.willherofx;
 
+import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Polygon;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public abstract class GameElement {
         this.xDistMoved=0;
     }
 
-    public TranslateTransition translateLeft(int moveCount, ArrayList<String> pressedKeys){
+    public TranslateTransition translateLeft(int moveCount, ArrayList<String> pressedKeys, Pair<TranslateTransition, TranslateTransition> hero_hop, Polygon dash){
         TranslateTransition move = new TranslateTransition();
         move.setNode(imageView);
         move.setDuration(Duration.millis(0.2));
@@ -35,10 +37,17 @@ public abstract class GameElement {
             if(moveCount==19){
                 this.setCurr_pos_x(this.getCurr_pos_x() - 5);
                 pressedKeys.clear();
+                if (hero_hop.getFirst().getStatus() == Animation.Status.PAUSED) {
+                    hero_hop.getFirst().play();
+                }
+                if (hero_hop.getSecond().getStatus() == Animation.Status.PAUSED) {
+                    hero_hop.getSecond().play();
+                }
+                dash.setVisible(false);
             }
             else{
                 this.setCurr_pos_x(this.getCurr_pos_x() - 5);
-                translateLeft(moveCount+1, pressedKeys).play();
+                translateLeft(moveCount+1, pressedKeys, hero_hop, dash).play();
             }
         });
         //move.play();

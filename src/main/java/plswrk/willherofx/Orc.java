@@ -34,8 +34,9 @@ public class Orc extends Living {
             ));
         }
         timeline.play();
+        setAlive(false);
 //        orc_image.setImage(new Image("/MonsterFatality.png"));
-        System.out.println("Monster Fatality");
+        //System.out.println("Monster Fatality");
     }
 
     @Override

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -43,11 +44,6 @@
       <ImageView fx:id="t3" fitHeight="129.0" fitWidth="88.0" layoutX="765.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Tree11%20%2350105.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="2270.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../orc.png" />
          </image>
       </ImageView>
       <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="1205.0" layoutY="335.0" pickOnBounds="true">
@@ -95,6 +91,18 @@
             <Image url="@../../ThrowingKnife2.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="2270.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../orc.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="orc2" fitHeight="45.0" fitWidth="45.0" layoutX="1774.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../orc.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="moveCounter" layoutX="574.0" layoutY="21.0" prefHeight="45.0" prefWidth="87.0" text="0">
+      </Label>
       <Pane fx:id="endPane" centerShape="false" layoutX="552.0" layoutY="183.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
          <children>
             <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="-28.0" layoutY="6.0" pickOnBounds="true" x="10.0">
@@ -206,10 +214,5 @@
             </Button>
          </children>
       </Pane>
-      <ImageView fx:id="orc2" fitHeight="45.0" fitWidth="45.0" layoutX="1774.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../orc.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
