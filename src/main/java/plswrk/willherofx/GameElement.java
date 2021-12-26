@@ -27,17 +27,17 @@ public abstract class GameElement {
     public TranslateTransition translateLeft(int moveCount, ArrayList<String> pressedKeys){
         TranslateTransition move = new TranslateTransition();
         move.setNode(imageView);
-        move.setDuration(Duration.millis(0.9));
+        move.setDuration(Duration.millis(0.2));
         move.setCycleCount(1);
         move.setAutoReverse(false);
-        move.setByX(-2.5);
+        move.setByX(-5);
         move.setOnFinished(e -> {
-            if(moveCount==39){
-                this.setCurr_pos_x(this.getCurr_pos_x() - 2.5);
+            if(moveCount==19){
+                this.setCurr_pos_x(this.getCurr_pos_x() - 5);
                 pressedKeys.clear();
             }
             else{
-                this.setCurr_pos_x(this.getCurr_pos_x() - 2.5);
+                this.setCurr_pos_x(this.getCurr_pos_x() - 5);
                 translateLeft(moveCount+1, pressedKeys).play();
             }
         });

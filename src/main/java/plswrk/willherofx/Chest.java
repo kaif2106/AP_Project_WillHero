@@ -20,7 +20,6 @@ public abstract class Chest extends GameElement{
 
     public void open() throws URISyntaxException {
         if(!isOpen) {
-            isOpen = true;
             System.out.println("Chest opened");
             AtomicInteger imageIndex = new AtomicInteger(0);
             Timeline coinChestOpenAnimationTimeline = new Timeline(new KeyFrame(Duration.millis(100), eventDispatchChain -> {
@@ -29,11 +28,12 @@ public abstract class Chest extends GameElement{
             ));
             coinChestOpenAnimationTimeline.setCycleCount(getImageList().size());
             coinChestOpenAnimationTimeline.play();
+            isOpen = true;
         }
     }
     public boolean getIsOpen(){
         return isOpen;
     }
 
-    public abstract void on_collision(double x, double y);
+    public abstract void on_collision(Hero hero_obj);
 }

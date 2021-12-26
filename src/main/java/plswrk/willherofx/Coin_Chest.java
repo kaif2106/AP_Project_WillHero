@@ -20,14 +20,21 @@ public class Coin_Chest extends Chest {
     //
 
     @Override
-    public void on_collision(double x, double y) {
-        if(x <= this.getCurr_pos_x() + this.getImage().getFitWidth() && x >= this.getCurr_pos_x()
-                && y <= this.getCurr_pos_y() + this.getImage().getFitHeight() && y >= this.getCurr_pos_y()){
-            try {
-                open();
-            } catch (URISyntaxException ex) {
-                ex.printStackTrace();
-            }
-        }
+    public void on_collision(Hero hero_obj) {
+//        if(x <= this.getCurr_pos_x() + this.getImage().getFitWidth() && x >= this.getCurr_pos_x()-50
+//                && y <= this.getCurr_pos_y() + this.getImage().getFitHeight() && y >= this.getCurr_pos_y()){
+//            try {
+//                open();
+//            } catch (URISyntaxException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+        if(hero_obj.getImage().getBoundsInParent().intersects(getImage().getBoundsInParent())) {
+                    try {
+                        open();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
     }
 }

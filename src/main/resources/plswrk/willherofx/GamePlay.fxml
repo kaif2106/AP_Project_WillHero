@@ -45,12 +45,12 @@
             <Image url="@../../Tree11%20%2350105.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="611.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="orc1" fitHeight="45.0" fitWidth="45.0" layoutX="2192.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../orc.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="weapon_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="1135.0" layoutY="335.0" pickOnBounds="true">
+      <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="1205.0" layoutY="335.0" pickOnBounds="true">
          <image>
             <Image url="@../../wep1.png" />
          </image></ImageView>
@@ -69,7 +69,7 @@
             <Image url="@../../T_Islands_09.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="690.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="weapon_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="676.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../coin1.png" />
          </image>
@@ -90,7 +90,12 @@
             <Image url="@../../hero.png" />
          </image>
       </ImageView>
-      <Pane fx:id="endPane" centerShape="false" layoutX="588.0" layoutY="182.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
+      <ImageView fx:id="knifeImage" fitHeight="83.0" fitWidth="29.0" layoutX="31.0" layoutY="587.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../ThrowingKnife2.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="endPane" centerShape="false" layoutX="552.0" layoutY="183.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
          <children>
             <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="-28.0" layoutY="6.0" pickOnBounds="true" x="10.0">
                <image>
@@ -132,7 +137,7 @@
             </Button>
          </children>
       </Pane>
-      <Pane fx:id="pauseMenuPane" layoutX="570.0" layoutY="184.0" prefHeight="315.0" prefWidth="260.0">
+      <Pane fx:id="pauseMenuPane" layoutX="533.0" layoutY="185.0" prefHeight="315.0" prefWidth="260.0">
          <children>
             <ImageView fx:id="pauseMenu" disable="true" fitHeight="357.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -201,5 +206,10 @@
             </Button>
          </children>
       </Pane>
+      <ImageView fx:id="orc2" fitHeight="45.0" fitWidth="45.0" layoutX="1774.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../orc.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

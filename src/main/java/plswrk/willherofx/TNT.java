@@ -17,11 +17,14 @@ public class TNT extends GameElement implements Obstacle{
         this.range = range;
     }
     @Override
-    public void on_collision(double x, double y){
+    public void on_collision(Hero hero_obj){
         //System.out.println("herox: "+Double.toString(x)+" heroy: "+Double.toString(y));
         //System.out.println("TNTx: "+Double.toString(getCurr_pos_x())+" - "+Double.toString(getCurr_pos_x() + getImage().getFitWidth())+" TNTy: "+Double.toString(getCurr_pos_y()) + " - " + Double.toString(getCurr_pos_y()+getImage().getFitHeight()));
-        if(x <= this.getCurr_pos_x() + this.getImage().getFitWidth() && x >= this.getCurr_pos_x()
-                && y <= this.getCurr_pos_y() + this.getImage().getFitHeight() && y >= this.getCurr_pos_y()){
+//        if(x <= this.getCurr_pos_x() + this.getImage().getFitWidth() && x >= this.getCurr_pos_x()-75
+//                && y <= this.getCurr_pos_y() + this.getImage().getFitHeight() && y >= this.getCurr_pos_y()){
+//            explode();
+//        }
+        if(hero_obj.getImage().getBoundsInParent().intersects(getImage().getBoundsInParent())) {
             explode();
         }
 //        if(this.getImage().intersects(hero.getImage().getBoundsInParent())){
