@@ -1,6 +1,7 @@
 package plswrk.willherofx;
 
 import javafx.animation.Animation;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,23 +29,39 @@ public class Hero extends Living{
 
     private double velocityX;
     private double velocityY;
+    private boolean Alive;
     Hero(ImageView hero_image, List<Image> imageList , double jumpHeight, double moveDist, double x, double y) {
         super(hero_image, imageList, jumpHeight, moveDist, x, y);
+        Alive = true;
     }
 
+    private TranslateTransition dieAni = new TranslateTransition();
+    private RotateTransition dieRot = new RotateTransition();
 
+
+    public boolean isAlive(){
+        return Alive;
+    }
 
     @Override
-    public void on_collision(double x, double y) {
+    public void on_collision(Hero hero_obj) {
 
     }
 
     @Override
     public void die() {
-        try {
-            this.getImage().setImage(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResource("/MonsterFatality.png")).toURI().toString()));
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        Alive = false;
+        dieAni.setNode(getImage());
+        dieAni.setDuration(Duration.millis(3000));
+        dieAni.setCycleCount(1);
+        dieAni.setByY(500);
+        dieRot.setNode(getImage());
+        dieRot.setDuration(Duration.millis(500));
+        dieRot.setCycleCount(6);
+        dieRot.setByAngle(360);
+        Image dieImage = new Image("orcDeath4.png");
+        this.getImage().setImage(dieImage);
+        dieAni.play();
+        dieRot.play();
     }
 }

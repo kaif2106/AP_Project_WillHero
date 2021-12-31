@@ -14,7 +14,7 @@ public class ThrowingKife extends GameElement{
         knifethrow.setNode(getImage());
         knifethrow.setByX(600);
         knifethrow.setCycleCount(1);
-        knifethrow.setOnFinished(actionEvent -> getImage().setVisible(false));
+        knifethrow.setOnFinished(actionEvent -> {getImage().setVisible(false);});
         getImage().setVisible(true);
         knifethrow.play();
     }

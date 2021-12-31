@@ -40,7 +40,7 @@ public class GamePlay {
     Pane pauseMenuPane;
 
     @FXML
-    ImageView pause, pauseMenu;
+    ImageView pause, pauseMenu, axeImg;
 
     @FXML
     Button resume, restart_pause, restart_end, exit_pause, exit_end, save;
@@ -49,7 +49,7 @@ public class GamePlay {
     ImageView hero, orc1, island1, island2, island3, island4, island5, weapon_chest1, coin_chest1, TNT1, knifeIV;
 
     @FXML
-    ImageView t1,t2,t3,t4, orc2;
+    ImageView t1,t2,t3,t4, orc2, axeIV;
 
     @FXML
     Pane endPane;
@@ -59,6 +59,7 @@ public class GamePlay {
 
     @FXML
     Label moveCounter;
+
 
 
     private ArrayList<GameElement> gameElements;
@@ -73,14 +74,17 @@ public class GamePlay {
     private Image knifeImage = new Image("ThrowingKnife2.png");
     private ImageView asd = new ImageView();
     private int mc = 0;
+    private ArrayList<ThrowingKife> knives = new ArrayList<ThrowingKife>();
     //private ImageView newKnifeIV = new ImageView();
 
     public void InitialiseAll_FXML_Objects(Scene scene) {
         hero = (ImageView) scene.lookup("#hero");
         dash = (Polygon) scene.lookup("#dash");
+        axeImg = (ImageView) scene.lookup("#axeImg");
         orc1 = (ImageView) scene.lookup("#orc1");
         orc2 = (ImageView) scene.lookup("#orc2");
         knifeIV = (ImageView) scene.lookup("#knifeImage");
+        axeIV = (ImageView) scene.lookup("#axeIV");
         weapon_chest1 = (ImageView) scene.lookup("#weapon_chest1");
         coin_chest1 = (ImageView) scene.lookup("#coin_chest1");
         TNT1 = (ImageView) scene.lookup("#TNT1");
@@ -114,6 +118,9 @@ public class GamePlay {
         t4 = (ImageView) scene.lookup("#t4");
 
         dash.setVisible(false);
+        axeIV.setVisible(false);
+        axeImg.setVisible(false);
+        knifeIV.setVisible(false);
         pauseMenuPane.setVisible(false);
         endPane.setVisible(false);
         moveCounter.setText(Integer.toString(mc));
@@ -123,7 +130,7 @@ public class GamePlay {
         layout.setBackground(bg);
     }
     public void InitializeAll_ClassObjects() {
-        hero_obj = new Hero(hero, null, 100, 100,hero.getLayoutX(), hero.getLayoutY());
+        hero_obj = new Hero(hero, null, 150, 100,hero.getLayoutX(), hero.getLayoutY());
 
         Island island1_obj = new Island(island1, island1.getLayoutX(), island1.getLayoutY());
         Island island2_obj = new Island(island2, island2.getLayoutX(), island2.getLayoutY());
@@ -226,14 +233,37 @@ public class GamePlay {
                 coin_chest_obj.on_collision(hero_obj);
                 weapon_chest_obj.on_collision(hero_obj);
                 TNT_obj.on_collision(hero_obj);
+                if(!hero_obj.isAlive()){
+                    if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
+                        hero_hop.getFirst().pause();
+                    }
+                    if (hero_hop.getSecond().getStatus() == Animation.Status.RUNNING) {
+                        hero_hop.getSecond().pause();
+                    }
+                }
+                if(hero_obj.getImage().getBoundsInParent().getMinY()>=750){
+                    endPane.setVisible(true);
+                }
 
                 if(weapon_chest_obj.getIsOpen()) {
-                    knifeIV.setVisible(true);
-                }
-                for(Orc orc : orcList){
-                    if(asd.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())) orc.die();
+                    //knifeIV.setVisible(true);
+                    axeImg.setVisible(true);
+
                 }
 
+                for(Orc orc : orcList) {
+                    orc.on_collision(hero_obj);
+                    if(axeIV.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())){
+                        orc.die();
+                    }
+                    for (int i = 0; i < knives.size(); i++) {
+                        if (!knives.get(i).getImage().isVisible()) {
+                            knives.remove(i);
+                            continue;
+                        } else if (knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(orc.getImage().getBoundsInParent()))
+                            orc.die();
+                    }
+                }
 
             }
         };
@@ -243,13 +273,22 @@ public class GamePlay {
             if (e.getCode() == KeyCode.SPACE) {
                 moveCounter.setText(Integer.toString(++mc));
                 pressedKeys.add(e.getText());
-                System.out.println(pressedKeys.size());
+                //System.out.println(pressedKeys.size());
 
-                if (weapon_chest_obj.getIsOpen()) {
-                    asd = newKnife();
-                    layout.getChildren().add(asd);
-                    ThrowingKife knife = new ThrowingKife(asd, hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
-                    knife.throwknife();
+                if (weapon_chest_obj.getIsOpen() && !axeIV.isVisible()) {
+//                    asd = newKnife();
+//                    layout.getChildren().add(asd);
+//                    ThrowingKife knife = new ThrowingKife(asd, hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
+//                    knives.add(knife);
+//                    knife.throwknife();
+
+                    axeIV.setX(hero_obj.getImage().getBoundsInParent().getMaxX()-100);
+                    axeIV.setY(hero_obj.getImage().getBoundsInParent().getCenterY()-150);
+                    axeIV.setFitWidth(25);
+                    axeIV.setFitHeight(90);
+                    axeIV.setVisible(true);
+                    ThrowingAxe axe = new ThrowingAxe(axeIV, hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
+                    axe.throwAxe();
                 }
 
                 if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
@@ -264,7 +303,6 @@ public class GamePlay {
                 for (GameElement gameElement : gameElements) {
                     gameElement.translateLeft(0, pressedKeys, hero_hop, dash).play();
                 }
-
             }
         });
 
@@ -373,11 +411,11 @@ public class GamePlay {
     }
 
     public Pair<TranslateTransition, TranslateTransition> hop(Living character) {
-        TranslateTransition jump = new TranslateTransition(Duration.millis(0.5), character.getImage());
+        TranslateTransition jump = new TranslateTransition(Duration.millis(0.3), character.getImage());
         jump.setByY(-2.5);
         jump.setCycleCount(1);
         jump.setAutoReverse(false);
-        TranslateTransition fall = new TranslateTransition(Duration.millis(0.5), character.getImage());
+        TranslateTransition fall = new TranslateTransition(Duration.millis(0.3), character.getImage());
         fall.setByY(2.5);
         fall.setCycleCount(1);
         jump.setOnFinished(event->{

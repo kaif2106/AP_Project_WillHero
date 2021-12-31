@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="layout" layoutX="-1.0" maxHeight="694.0" maxWidth="1236.0" minHeight="550.0" minWidth="1000.0" prefHeight="694.0" prefWidth="1238.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plswrk.willherofx.GamePlay">
    <children>
@@ -86,7 +87,7 @@
             <Image url="@../../hero.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="knifeImage" fitHeight="83.0" fitWidth="29.0" layoutX="31.0" layoutY="587.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="knifeImage" fitHeight="83.0" fitWidth="29.0" layoutX="31.0" layoutY="587.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../ThrowingKnife2.png" />
          </image>
@@ -96,13 +97,25 @@
             <Image url="@../../orc.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="orc2" fitHeight="45.0" fitWidth="45.0" layoutX="1774.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="orc2" fitHeight="45.0" fitWidth="45.0" layoutX="1735.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../orc.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="axeIV" fitHeight="68.0" fitWidth="29.0" layoutX="131.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../ThrowingAxe.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="axeImg" fitHeight="120.0" fitWidth="47.0" layoutX="70.0" layoutY="592.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../ThrowingAxe.png" />
+         </image>
+      </ImageView>
       <Label fx:id="moveCounter" layoutX="574.0" layoutY="21.0" prefHeight="45.0" prefWidth="87.0" text="0">
-      </Label>
+         <font>
+            <Font size="35.0" />
+         </font></Label>
       <Pane fx:id="endPane" centerShape="false" layoutX="552.0" layoutY="183.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
          <children>
             <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="-28.0" layoutY="6.0" pickOnBounds="true" x="10.0">
