@@ -31,8 +31,7 @@ public class HelloApplication extends Application {
     public static void serialize(String name, GamePlay gamePlay) throws IOException {
         ObjectOutputStream out = null;
         try {
-            out = new ObjectOutputStream(
-                    new FileOutputStream("out.txt"));
+            out = new ObjectOutputStream(new FileOutputStream("out.txt"));
             out.writeObject(gamePlay);
         } finally {
             assert out != null;

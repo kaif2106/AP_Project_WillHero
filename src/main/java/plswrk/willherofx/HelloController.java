@@ -33,12 +33,12 @@ public class HelloController{
     private Stage stage;
     private Scene scene;
     private Parent root;
-
+    GamePlay gamePlay;
     @FXML
     public void switchToGamePlay() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GamePlay.fxml"));
         scene = new Scene(fxmlLoader.load());
-        GamePlay gamePlay = new GamePlay();
+        gamePlay = new GamePlay();
         gamePlay.start(scene);
     }
 
@@ -55,23 +55,21 @@ public class HelloController{
         ObjectInputStream in = null;
         try {
             in = new ObjectInputStream (new FileInputStream("out.txt"));
-            GamePlay gamePlay = (GamePlay) in.readObject();
-            if(gamePlay == null) {
-                System.out.println("GamePlay is null");
-            }
-            else{
-                System.out.println("GamePlay is not null");
-            }
+            gamePlay = (GamePlay) in.readObject();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GamePlay.fxml"));
+            Parent root = fxmlLoader.load();
             GamePlay gamePlay1 = fxmlLoader.getController();
 //            if(gamePlay1 == null) {
 //                System.out.println("GamePlay is null");
 //            }
+//            else{
+//                System.out.println("GamePlay is not null");
+//            }
 //            System.out.println(fxmlLoader.getController()));
-//            gamePlay1.setGameElements(gamePlay.getGameElements());
-//            gamePlay1.setHero_obj(gamePlay.getHero_obj());
-//            scene = new Scene(fxmlLoader.load());
-//            gamePlay.start(scene);
+            gamePlay1.setGameElements(gamePlay.getGameElements());
+            gamePlay1.setHero_obj(gamePlay.getHero_obj());
+            scene = new Scene(root);
+            gamePlay.start(scene);
         } finally{
             in.close();
         }
