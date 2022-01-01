@@ -5,9 +5,15 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class ThrowingAxe extends GameElement {
-    ThrowingAxe(ImageView axe_Image, double x, double y){
-        super(axe_Image, null, x, y);
+public class ThrowingAxe extends WeaponAbs {
+    ThrowingAxe(ImageView axe_Image){
+        super(axe_Image);
+    }
+
+    @Override
+    public void attack() {
+        //if(!getImage().isVisible())
+            throwAxe();
     }
 
     void throwAxe(){

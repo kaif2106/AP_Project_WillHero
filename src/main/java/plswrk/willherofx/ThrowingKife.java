@@ -4,10 +4,10 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class ThrowingKife extends GameElement{
+public class ThrowingKife extends WeaponAbs{
 
-    ThrowingKife(ImageView knife_image, double x, double y) {
-        super(knife_image, null, x, y);
+    ThrowingKife(ImageView knife_image) {
+        super(knife_image);
     }
     void throwknife(){
         TranslateTransition knifethrow = new TranslateTransition(Duration.millis(1000));
@@ -17,5 +17,10 @@ public class ThrowingKife extends GameElement{
         knifethrow.setOnFinished(actionEvent -> {getImage().setVisible(false);});
         getImage().setVisible(true);
         knifethrow.play();
+    }
+
+    @Override
+    public void attack() {
+        throwknife();
     }
 }

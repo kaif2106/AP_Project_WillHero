@@ -49,7 +49,7 @@ public class GamePlay {
     ImageView hero, orc1, island1, island2, island3, island4, island5, weapon_chest1, coin_chest1, TNT1, knifeIV;
 
     @FXML
-    ImageView t1,t2,t3,t4, orc2, axeIV;
+    ImageView t1,t2,t3,t4, orc2, axeIV, weapon_chest2;
 
     @FXML
     Pane endPane;
@@ -64,17 +64,20 @@ public class GamePlay {
 
     private ArrayList<GameElement> gameElements;
     private ArrayList<Island> islands;
+    private ArrayList<Weapon_Chest> weapon_chests = new ArrayList<Weapon_Chest>();
     private Hero hero_obj;
     private ArrayList<Orc> orcList;
     private Orc orc_obj;
     private Orc orc2_obj;
     private Weapon_Chest weapon_chest_obj;
+    private Weapon_Chest weapon_chest_obj2;
     private Coin_Chest coin_chest_obj;
     private TNT TNT_obj;
     private Image knifeImage = new Image("ThrowingKnife2.png");
     private ImageView asd = new ImageView();
     private int mc = 0;
     private ArrayList<ThrowingKife> knives = new ArrayList<ThrowingKife>();
+    private WeaponAbs equippedWeapon;
     //private ImageView newKnifeIV = new ImageView();
 
     public void InitialiseAll_FXML_Objects(Scene scene) {
@@ -84,6 +87,7 @@ public class GamePlay {
         orc1 = (ImageView) scene.lookup("#orc1");
         orc2 = (ImageView) scene.lookup("#orc2");
         knifeIV = (ImageView) scene.lookup("#knifeImage");
+        weapon_chest2 = (ImageView) scene.lookup("#weapon_chest2");
         axeIV = (ImageView) scene.lookup("#axeIV");
         weapon_chest1 = (ImageView) scene.lookup("#weapon_chest1");
         coin_chest1 = (ImageView) scene.lookup("#coin_chest1");
@@ -154,12 +158,17 @@ public class GamePlay {
         trees.add(tree3_obj);
         trees.add(tree4_obj);
 
-        List<Image> Weapon_chest_List = new ArrayList<>();
+        List<Image> Weapon_chest_image_list = new ArrayList<>();
         for(int i=1; i<=11; i++){
-            Weapon_chest_List.add(new Image(String.format("coin%s.png", i)));
+            Weapon_chest_image_list.add(new Image(String.format("coin%s.png", i)));
         }
-        weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_List, new Weapon("Sword", 0, 30.0, new Range(3, 3)), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
-
+        //ArrayList<Weapon_Chest> weapon_chests = new ArrayList<Weapon_Chest>();
+        weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
+        weapon_chest_obj2 = new Weapon_Chest(weapon_chest2, Weapon_chest_image_list, new ThrowingKife(knifeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
+        //weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
+        //weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
+        weapon_chests.add(weapon_chest_obj);
+        weapon_chests.add(weapon_chest_obj2);
         List<Image> orc_deathImages = new ArrayList<>();
         for(int i=1; i<=4; i++) {
             orc_deathImages.add(new Image(String.format("orcDeath%s.png", i)));
@@ -195,6 +204,7 @@ public class GamePlay {
         gameElements.add(TNT_obj);
         gameElements.add(orc_obj);
         gameElements.add(weapon_chest_obj);
+        gameElements.add(weapon_chest_obj2);
         gameElements.add(coin_chest_obj);
         gameElements.add(orc2_obj);
 
@@ -231,7 +241,8 @@ public class GamePlay {
             @Override
             public void handle(long l) {
                 coin_chest_obj.on_collision(hero_obj);
-                weapon_chest_obj.on_collision(hero_obj);
+                for(Weapon_Chest weapon_chest_obj : weapon_chests)
+                    weapon_chest_obj.on_collision(hero_obj);
                 TNT_obj.on_collision(hero_obj);
                 if(!hero_obj.isAlive()){
                     if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
@@ -245,23 +256,36 @@ public class GamePlay {
                     endPane.setVisible(true);
                 }
 
-                if(weapon_chest_obj.getIsOpen()) {
-                    //knifeIV.setVisible(true);
-                    axeImg.setVisible(true);
+                for(Weapon_Chest weapon_chest_obj : weapon_chests) {
 
+                    if (weapon_chest_obj.getIsOpen()) {
+                        //knifeIV.setVisible(true);
+                        //weapon_chest_obj.getWeapon().getImage().setVisible(true);
+                        equippedWeapon = weapon_chest_obj.getWeapon();
+                        if (weapon_chest_obj.getWeapon() instanceof ThrowingAxe) {
+                            axeImg.setVisible(true);
+
+                        } else {
+                            knifeIV.setVisible(true);
+
+                        }
+
+                    }
                 }
 
                 for(Orc orc : orcList) {
-                    orc.on_collision(hero_obj);
-                    if(axeIV.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())){
-                        orc.die();
-                    }
-                    for (int i = 0; i < knives.size(); i++) {
-                        if (!knives.get(i).getImage().isVisible()) {
-                            knives.remove(i);
-                            continue;
-                        } else if (knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(orc.getImage().getBoundsInParent()))
+                    if(orc.isAlive()) {
+                        orc.on_collision(hero_obj);
+                        if (axeIV.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())) {
                             orc.die();
+                        }
+                        for (int i = 0; i < knives.size(); i++) {
+                            if (!knives.get(i).getImage().isVisible()) {
+                                knives.remove(i);
+                                continue;
+                            } else if (knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(orc.getImage().getBoundsInParent()))
+                                orc.die();
+                        }
                     }
                 }
 
@@ -275,21 +299,30 @@ public class GamePlay {
                 pressedKeys.add(e.getText());
                 //System.out.println(pressedKeys.size());
 
-                if (weapon_chest_obj.getIsOpen() && !axeIV.isVisible()) {
-//                    asd = newKnife();
-//                    layout.getChildren().add(asd);
-//                    ThrowingKife knife = new ThrowingKife(asd, hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
-//                    knives.add(knife);
-//                    knife.throwknife();
-
-                    axeIV.setX(hero_obj.getImage().getBoundsInParent().getMaxX()-100);
-                    axeIV.setY(hero_obj.getImage().getBoundsInParent().getCenterY()-150);
-                    axeIV.setFitWidth(25);
-                    axeIV.setFitHeight(90);
-                    axeIV.setVisible(true);
-                    ThrowingAxe axe = new ThrowingAxe(axeIV, hero_obj.getCurr_pos_x(), hero_obj.getCurr_pos_y());
-                    axe.throwAxe();
+                //if (weapon_chest_obj.getIsOpen()) {
+                if(equippedWeapon!=null){
+                    //if(weapon_chest_obj.getWeapon() instanceof ThrowingKife) {
+                    if(equippedWeapon instanceof ThrowingKife){
+                        asd = newKnife();
+                        layout.getChildren().add(asd);
+                        ThrowingKife knife = new ThrowingKife(asd);
+                        knives.add(knife);
+                        knife.throwknife();
+                    }
+                    else {
+                        if(!axeIV.isVisible()) {
+                            axeIV.setX(hero_obj.getImage().getBoundsInParent().getMaxX() - 100);
+                            axeIV.setY(hero_obj.getImage().getBoundsInParent().getCenterY() - 150);
+                            axeIV.setFitWidth(25);
+                            axeIV.setFitHeight(90);
+                            axeIV.setVisible(true);
+                            ThrowingAxe axe = new ThrowingAxe(axeIV);
+                            axe.throwAxe();
+                        }
+                    }
                 }
+
+
 
                 if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
                     hero_hop.getFirst().pause();
