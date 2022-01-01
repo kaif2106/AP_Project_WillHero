@@ -29,6 +29,9 @@ public class Hero extends Living{
     private double velocityX;
     private double velocityY;
     private boolean Alive;
+    private WeaponAbs equippedWeapon;
+    private ThrowingAxe equippedAxe;
+    private ThrowingKife equippedKnife;
     Hero(ImageView hero_image, List<Image> imageList , double jumpHeight, double moveDist, double x, double y) {
         super(hero_image, imageList, jumpHeight, moveDist, x, y);
         Alive = true;
@@ -38,12 +41,34 @@ public class Hero extends Living{
     private RotateTransition dieRot = new RotateTransition();
 
 
+    public WeaponAbs getEquippedWeapon(){
+        return equippedWeapon;
+    }
+
+    public void setEquippedWeapon(WeaponAbs equippedWeapon){
+        this.equippedWeapon = equippedWeapon;
+    }
+
+    public ThrowingKife getEquippedKnife(){
+        return equippedKnife;
+    }
+
+    public void setEquippedKnife(ThrowingKife equippedKnife){
+        this.equippedKnife = equippedKnife;
+    }
+    public ThrowingAxe getEquippedAxe(){
+        return equippedAxe;
+    }
+    public void setEquippedAxe(ThrowingAxe equippedAxe){
+        this.equippedAxe = equippedAxe;
+    }
+
     public boolean isAlive(){
         return Alive;
     }
 
     @Override
-    public void on_collision(Hero hero_obj) {
+    public void on_collision(Living character) {
 
     }
 

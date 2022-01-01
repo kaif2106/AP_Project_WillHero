@@ -21,7 +21,7 @@ public abstract class Living extends GameElement {
         this.xDistMoved = 0;
         this.yDistMoved = 0;
     }
-    public abstract void on_collision(Hero hero_obj);
+    public abstract void on_collision(Living character);
     public abstract void die();
     public double getJumpHeight() {
         return jumpHeight;

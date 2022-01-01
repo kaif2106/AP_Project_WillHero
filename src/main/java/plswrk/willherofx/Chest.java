@@ -20,7 +20,7 @@ public abstract class Chest extends GameElement{
 
     public void open() throws URISyntaxException {
         if(!isOpen) {
-            System.out.println("Chest opened");
+            //System.out.println("Chest opened");
             AtomicInteger imageIndex = new AtomicInteger(0);
             Timeline coinChestOpenAnimationTimeline = new Timeline(new KeyFrame(Duration.millis(100), eventDispatchChain -> {
                 getImage().setImage(getImageList().get(imageIndex.getAndIncrement()));

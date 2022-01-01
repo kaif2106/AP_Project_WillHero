@@ -12,7 +12,7 @@ public class ThrowingKife extends WeaponAbs{
     void throwknife(){
         TranslateTransition knifethrow = new TranslateTransition(Duration.millis(1000));
         knifethrow.setNode(getImage());
-        knifethrow.setByX(600);
+        knifethrow.setByX(400);
         knifethrow.setCycleCount(1);
         knifethrow.setOnFinished(actionEvent -> {getImage().setVisible(false);});
         getImage().setVisible(true);

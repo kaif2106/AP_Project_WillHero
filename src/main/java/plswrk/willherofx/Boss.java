@@ -9,49 +9,40 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Objects;
 
-public class Orc extends Living {
-    Orc(ImageView orc_imageView, List<Image> imageList, double jump_height, double moveDist, double x, double y) {
-        super(orc_imageView, imageList, jump_height, moveDist, x, y);
+public class Boss extends Living{
+    private int health;
+
+    Boss(ImageView image_view, List<Image> imageList, double jumpheight, double movedist, double x, double y){
+        super(image_view, imageList, jumpheight, movedist, x, y);
+        health = 100;
     }
+
     Boolean inAnimation = false;
 
     TranslateTransition orcDash = new TranslateTransition();
+
+    public void hit(int damage){
+        health-=damage;
+        if(health<=0) die();
+    }
+
+    public int getHealth(){
+        return health;
+    }
 
     public void dashKro(Living character){
 
         orcDash.setNode(this.getImage());
         orcDash.setDuration(Duration.millis(500));
-        orcDash.setByX(100);
+        orcDash.setByX(220);
         orcDash.setCycleCount(1);
         orcDash.play();
         orcDash.setOnFinished(actionEvent -> {inAnimation = false;
             if(character instanceof Orc) ((Orc) character).inAnimation = false;});
     }
 
-
-
-    @Override
-    public void die() {
-        Timeline timeline = new Timeline();
-        timeline.setCycleCount(1);
-        timeline.setAutoReverse(false);
-        ImageView orc_imageView = this.getImage();
-        List<Image> orc_transitionList = this.getImageList();
-        for(int i=0; i<orc_transitionList.size(); i++) {
-            int finalI = i;
-            timeline.getKeyFrames().add(new KeyFrame(
-                    Duration.millis(120*(i+1)),
-                    (ActionEvent event) -> orc_imageView.setImage(orc_transitionList.get(finalI))
-            ));
-        }
-        timeline.play();
-        setAlive(false);
-    }
 
     @Override
     public void on_collision(Living character) {
@@ -63,7 +54,7 @@ public class Orc extends Living {
                 double gtop = this.getImage().getBoundsInParent().getMaxY();
                 double hbot = character.getImage().getBoundsInParent().getMinY();
                 double htop = character.getImage().getBoundsInParent().getMaxY();
-                if (!inAnimation && (character instanceof Hero) && ((htop - gbot >= 15) && ((htop <= gtop && hbot >= gbot) || (htop >= gtop && hbot >= gbot)) && character.getImage().getBoundsInParent().getCenterX() > getImage().getBoundsInParent().getMinX())) {
+                if (!inAnimation && (character instanceof Hero) && ((htop - gbot >= 15) && ((htop <= gtop && hbot >= gbot) || (htop >= gtop && hbot >= gbot)) && character.getImage().getBoundsInParent().getMinX() > getImage().getBoundsInParent().getMinX())) {
                     System.out.println("ded here");
                     character.die();
 
@@ -76,5 +67,27 @@ public class Orc extends Living {
                 }
             }
         }
+    }
+
+    @Override
+    public void die() {
+        Timeline timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.setAutoReverse(false);
+        ImageView orc_imageView = this.getImage();
+        List<Image> orc_transitionList = this.getImageList();
+        for(int i=0; i<orc_transitionList.size(); i++) {
+            int finalI = i;
+            timeline.getKeyFrames().add(new KeyFrame(
+                    Duration.millis(120*(i+1)),
+                    (ActionEvent event) -> {
+                        orc_imageView.setImage(orc_transitionList.get(finalI));
+                        orc_imageView.setScaleX(1 - (finalI * 0.1));
+                        orc_imageView.setScaleY(1 - (finalI * 0.1));
+                    }
+            ));
+        }
+        timeline.play();
+        setAlive(false);
     }
 }

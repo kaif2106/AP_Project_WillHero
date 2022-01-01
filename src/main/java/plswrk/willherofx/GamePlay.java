@@ -5,12 +5,10 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
@@ -22,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.scene.text.Font;
@@ -53,6 +52,17 @@ public class GamePlay implements Serializable {
     @FXML
     transient Label moveCounter;
 
+    @FXML
+    transient ImageView island6, island7, island8, island9, island10, island11, island12;
+
+    @FXML
+    transient ImageView orc3, orc4, orc5, orc6, boss, weapon_chest3, weapon_chest4;
+
+    @FXML
+    transient ProgressBar healthBar;
+
+
+
 
 
     private ArrayList<GameElement> gameElements;
@@ -60,17 +70,22 @@ public class GamePlay implements Serializable {
     private ArrayList<Weapon_Chest> weapon_chests = new ArrayList<>();
     private Hero hero_obj;
     private ArrayList<Orc> orcList;
-    private Orc orc_obj;
-    private Orc orc2_obj;
+//    private Orc orc_obj;
+//    private Orc orc2_obj;
     private Weapon_Chest weapon_chest_obj;
     private Weapon_Chest weapon_chest_obj2;
+    private Weapon_Chest weapon_chest_obj3;
+    private Weapon_Chest weapon_chest_obj4;
     private Coin_Chest coin_chest_obj;
     private TNT TNT_obj;
     transient private ImageView knifeIV;
     transient private ImageView asd = new ImageView();
     private int mc = 0;
     private ArrayList<ThrowingKife> knives = new ArrayList<>();
-    private WeaponAbs equippedWeapon;
+    private WeaponAbs equippedKnife;
+    private WeaponAbs equippedAxe;
+    private Boss boss_obj;
+    //private WeaponAbs equippedWeapon;
     //private ImageView newKnifeIV = new ImageView();
 
     public void InitialiseAll_FXML_Objects(Scene scene) {
@@ -79,8 +94,11 @@ public class GamePlay implements Serializable {
         axeImg = (ImageView) scene.lookup("#axeImg");
         orc1 = (ImageView) scene.lookup("#orc1");
         orc2 = (ImageView) scene.lookup("#orc2");
+        healthBar = (ProgressBar) scene.lookup("#healthBar");
         knifeIV = (ImageView) scene.lookup("#knifeImage");
         weapon_chest2 = (ImageView) scene.lookup("#weapon_chest2");
+        weapon_chest3 = (ImageView) scene.lookup("#weapon_chest3");
+        weapon_chest4 = (ImageView) scene.lookup("#weapon_chest4");
         axeIV = (ImageView) scene.lookup("#axeIV");
         weapon_chest1 = (ImageView) scene.lookup("#weapon_chest1");
         coin_chest1 = (ImageView) scene.lookup("#coin_chest1");
@@ -108,6 +126,20 @@ public class GamePlay implements Serializable {
         island3 = (ImageView) scene.lookup("#island3");
         island4 = (ImageView) scene.lookup("#island4");
         island5 = (ImageView) scene.lookup("#island5");
+        island6 = (ImageView) scene.lookup("#island6");
+        island7 = (ImageView) scene.lookup("#island7");
+        island8 = (ImageView) scene.lookup("#island8");
+        island9 = (ImageView) scene.lookup("#island9");
+        island10 = (ImageView) scene.lookup("#island10");
+        island11 = (ImageView) scene.lookup("#island11");
+        island12 = (ImageView) scene.lookup("#island12");
+
+        orc3 = (ImageView) scene.lookup("#orc3");
+        orc4 = (ImageView) scene.lookup("#orc4");
+        orc5 = (ImageView) scene.lookup("#orc5");
+        orc6 = (ImageView) scene.lookup("#orc6");
+        //orc7 = (ImageView) scene.lookup("#orc7");
+        boss = (ImageView) scene.lookup("#boss");
 
         t1 = (ImageView) scene.lookup("#t1");
         t2 = (ImageView) scene.lookup("#t2");
@@ -120,6 +152,8 @@ public class GamePlay implements Serializable {
         knifeIV.setVisible(false);
         pauseMenuPane.setVisible(false);
         endPane.setVisible(false);
+        healthBar.setVisible(false);
+        healthBar.setProgress(1);
         moveCounter.setText(Integer.toString(mc));
         BackgroundSize backgroundSize = new BackgroundSize(1238, 694, false, false, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("newBG.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, backgroundSize);
@@ -134,13 +168,26 @@ public class GamePlay implements Serializable {
         Island island3_obj = new Island(island3, island3.getLayoutX(), island3.getLayoutY());
         Island island4_obj = new Island(island4, island4.getLayoutX(), island4.getLayoutY());
         Island island5_obj = new Island(island5, island5.getLayoutX(), island5.getLayoutY());
+        Island island6_obj = new Island(island6, island6.getLayoutX(), island6.getLayoutY());
+        Island island7_obj = new Island(island7, island7.getLayoutX(), island7.getLayoutY());
+        Island island8_obj = new Island(island8, island8.getLayoutX(), island8.getLayoutY());
+        Island island9_obj = new Island(island9, island9.getLayoutX(), island9.getLayoutY());
+        Island island10_obj = new Island(island10, island10.getLayoutX(), island10.getLayoutY());
+        Island island11_obj = new Island(island11, island11.getLayoutX(), island11.getLayoutY());
+        Island island12_obj = new Island(island12, island12.getLayoutX(), island12.getLayoutY());
         islands = new ArrayList<>();
         islands.add(island1_obj);
         islands.add(island2_obj);
         islands.add(island3_obj);
         islands.add(island4_obj);
         islands.add(island5_obj);
-
+        islands.add(island6_obj);
+        islands.add(island7_obj);
+        islands.add(island8_obj);
+        islands.add(island9_obj);
+        islands.add(island10_obj);
+        islands.add(island11_obj);
+        islands.add(island12_obj);
         Tree tree1_obj = new Tree(t1, t1.getLayoutX(), t1.getLayoutY());
         Tree tree2_obj = new Tree(t2, t2.getLayoutX(), t2.getLayoutY());
         Tree tree3_obj = new Tree(t3, t3.getLayoutX(), t3.getLayoutY());
@@ -158,20 +205,36 @@ public class GamePlay implements Serializable {
         //ArrayList<Weapon_Chest> weapon_chests = new ArrayList<Weapon_Chest>();
         weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
         weapon_chest_obj2 = new Weapon_Chest(weapon_chest2, Weapon_chest_image_list, new ThrowingKife(knifeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
+        weapon_chest_obj3 = new Weapon_Chest(weapon_chest3, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest3.getLayoutX(), weapon_chest3.getLayoutY());
+        weapon_chest_obj4 = new Weapon_Chest(weapon_chest4, Weapon_chest_image_list, new ThrowingKife(knifeIV), weapon_chest4.getLayoutX(), weapon_chest4.getLayoutY());
         //weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
         //weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
         weapon_chests.add(weapon_chest_obj);
         weapon_chests.add(weapon_chest_obj2);
+        weapon_chests.add(weapon_chest_obj3);
+        weapon_chests.add(weapon_chest_obj4);
         List<Image> orc_deathImages = new ArrayList<>();
         for(int i=1; i<=4; i++) {
             orc_deathImages.add(new Image(String.format("orcDeath%s.png", i)));
         }
 
-        orc_obj = new Orc(orc1, orc_deathImages, 100, 0, orc1.getLayoutX(), orc1.getLayoutY());
-        orc2_obj = new Orc(orc2, orc_deathImages, 100, 0, orc2.getLayoutX(), orc2.getLayoutY());
+        Orc orc_obj = new Orc(orc1, orc_deathImages, 100, 0, orc1.getLayoutX(), orc1.getLayoutY());
+        Orc orc2_obj = new Orc(orc2, orc_deathImages, 100, 0, orc2.getLayoutX(), orc2.getLayoutY());
+        Orc orc3_obj = new Orc(orc3, orc_deathImages, 100, 0, orc3.getLayoutX(), orc3.getLayoutY());
+        Orc orc4_obj = new Orc(orc4, orc_deathImages, 100, 0, orc4.getLayoutX(), orc4.getLayoutY());
+        Orc orc5_obj = new Orc(orc5, orc_deathImages, 100, 0, orc5.getLayoutX(), orc5.getLayoutY());
+        Orc orc6_obj = new Orc(orc6, orc_deathImages, 100, 0, orc6.getLayoutX(), orc6.getLayoutY());
+        //Orc orc7_obj = new Orc(orc7, orc_deathImages, 100, 0, orc7.getLayoutX(), orc7.getLayoutY());
         orcList = new ArrayList<>();
         orcList.add(orc_obj);
         orcList.add(orc2_obj);
+        orcList.add(orc3_obj);
+        orcList.add(orc4_obj);
+        orcList.add(orc5_obj);
+        orcList.add(orc6_obj);
+        //orcList.add(orc7_obj);
+
+        boss_obj = new Boss(boss, orc_deathImages, 100, 0, boss.getLayoutX(), boss.getLayoutY());
 
         List<Image> Coin_chest_List = new ArrayList<>();
         for(int i=1; i<=11; i++) {
@@ -190,24 +253,29 @@ public class GamePlay implements Serializable {
         }
         TNT_obj = new TNT(TNT1, TNT_explodeImages, TNT1.getLayoutX(), TNT1.getLayoutY(), new Range(30, 30));
 
+        //healthBar = new ProgressBar();
+
         gameElements = new ArrayList<>();
 
         gameElements.addAll(islands);
         gameElements.addAll(trees);
         gameElements.add(TNT_obj);
-        gameElements.add(orc_obj);
         gameElements.add(weapon_chest_obj);
         gameElements.add(weapon_chest_obj2);
+        gameElements.add(weapon_chest_obj3);
+        gameElements.add(weapon_chest_obj4);
         gameElements.add(coin_chest_obj);
-        gameElements.add(orc2_obj);
-//        gameElements.add(hero_obj);
+        gameElements.addAll(orcList);
+        gameElements.add(boss_obj);
     }
 
-    public ImageView newKnife(){
+    public ImageView newKnife(int yDelta){
         ImageView newKnifeIV = new ImageView();
-        newKnifeIV.setImage(new Image("ThrowingKnife2.png"));
+        int knifeLevelImage = hero_obj.getEquippedWeapon().getLevel();
+
+        newKnifeIV.setImage(new Image(String.format("ThrowingKnife%s.png", knifeLevelImage+1)));
         newKnifeIV.setX(hero_obj.getImage().getBoundsInParent().getMaxX()+45);
-        newKnifeIV.setY(hero_obj.getCurr_pos_y()-15);
+        newKnifeIV.setY(hero_obj.getCurr_pos_y()-yDelta); //-15
         newKnifeIV.setFitWidth(12);
         newKnifeIV.setFitHeight(60);
         newKnifeIV.setRotate(newKnifeIV.getRotate()+90);
@@ -219,6 +287,8 @@ public class GamePlay implements Serializable {
         InitialiseAll_FXML_Objects(scene);
         InitializeAll_ClassObjects();
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
+        Pair<TranslateTransition, TranslateTransition> boss_hop = hop(boss_obj);
+        boss_hop.getFirst().play();
         ArrayList<Pair<TranslateTransition, TranslateTransition>> orcHops = new ArrayList<>();
         for(Orc orc : orcList)
             orcHops.add(hop(orc));
@@ -236,6 +306,7 @@ public class GamePlay implements Serializable {
                 coin_chest_obj.on_collision(hero_obj);
                 for(Weapon_Chest weapon_chest_obj : weapon_chests)
                     weapon_chest_obj.on_collision(hero_obj);
+
                 TNT_obj.on_collision(hero_obj);
                 if(!hero_obj.isAlive()){
                     if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
@@ -248,13 +319,17 @@ public class GamePlay implements Serializable {
                 if(hero_obj.getImage().getBoundsInParent().getMinY()>=750){
                     endPane.setVisible(true);
                 }
+//                if(hero_obj.getImage().getBoundsInParent().intersects(island10.getBoundsInParent())){
+//                    healthBar.setVisible(true);
+//                }
+                if(hero_obj.getImage().getBoundsInParent().getMaxX()+1000 >= boss_obj.getImage().getBoundsInParent().getMinX()){
+                    healthBar.setVisible(true);
+                }
 
                 for(Weapon_Chest weapon_chest_obj : weapon_chests) {
 
                     if (weapon_chest_obj.getIsOpen()) {
-                        //knifeIV.setVisible(true);
-                        //weapon_chest_obj.getWeapon().getImage().setVisible(true);
-                        equippedWeapon = weapon_chest_obj.getWeapon();
+
                         if (weapon_chest_obj.getWeapon() instanceof ThrowingAxe) {
                             axeImg.setVisible(true);
 
@@ -266,38 +341,91 @@ public class GamePlay implements Serializable {
                     }
                 }
 
+                boss_obj.on_collision(hero_obj);
+
+                if(axeIV.isVisible() && axeIV.getBoundsInParent().intersects(boss_obj.getImage().getBoundsInParent())){
+                    boss_obj.hit(25);
+                    healthBar.setProgress(healthBar.getProgress()-0.25);
+
+                    axeIV.setVisible(false);
+                }
+
                 for(Orc orc : orcList) {
-                    if(orc.isAlive()) {orc.on_collision(hero_obj);
-                    if(axeIV.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())){
-                        orc.die();
-                    }
-                    for (int i = 0; i < knives.size(); i++) {
-                        if (!knives.get(i).getImage().isVisible()) {
-                            knives.remove(i);
-                        } else if (knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(orc.getImage().getBoundsInParent()))
-                            orc.die();}
+                    if(orc.isAlive()) {
+                        orc.on_collision(hero_obj);
+                        for(Orc otherOrc : orcList){
+                            if(otherOrc!=orc){
+                                orc.on_collision(otherOrc);
+                            }
+                        }
+                        if(axeIV.isVisible() && axeIV.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())){
+                            orc.die();
+                        }
+
+                        for (int i = 0; i < knives.size(); i++) {
+                            if (!knives.get(i).getImage().isVisible()) {
+                                knives.remove(i);
+                            } else if (knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(orc.getImage().getBoundsInParent())) {
+                                orc.die();
+                            }
+                            else if(knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(boss_obj.getImage().getBoundsInParent())){
+                                boss_obj.hit(15);
+                                healthBar.setProgress(healthBar.getProgress()-0.15);
+                                knives.get(i).getImage().setVisible(false);
+                            }
+                        }
                     }
                 }
+                for (int i = 0; i < knives.size(); i++) {
+                    if (!knives.get(i).getImage().isVisible()) {
+                        knives.remove(i);
+                    }
+                    else if(knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(boss_obj.getImage().getBoundsInParent())){
+                        boss_obj.hit(15);
+                        healthBar.setProgress(healthBar.getProgress()-15);
+                        knives.get(i).getImage().setVisible(false);
+                    }
+                }
+
+
+
+
+
 
             }
         };
         timer.start();
 
         scene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.SPACE) {
+            if (e.getCode() == KeyCode.SPACE && hero_obj.isAlive()) {
                 moveCounter.setText(Integer.toString(++mc));
                 pressedKeys.add(e.getText());
-                //System.out.println(pressedKeys.size());
 
-                //if (weapon_chest_obj.getIsOpen()) {
-                if(equippedWeapon!=null){
-                    //if(weapon_chest_obj.getWeapon() instanceof ThrowingKife) {
-                    if(equippedWeapon instanceof ThrowingKife){
-                        asd = newKnife();
+                if(hero_obj.getEquippedAxe()!=null && hero_obj.getEquippedAxe().getLevel()==2){
+                    Image upImg = new Image("ThrowingAxe2.png");
+                    axeImg.setImage(upImg);
+                }
+                if(hero_obj.getEquippedKnife()!=null && hero_obj.getEquippedKnife().getLevel()==2){
+                    Image upImg = new Image("ThrowingKnife3.png");
+                    knifeIV.setImage(upImg);
+                }
+
+
+                if(hero_obj.getEquippedWeapon()!=null){
+                    if(hero_obj.getEquippedWeapon() instanceof ThrowingKife){
+
+                        asd = newKnife(10);
                         layout.getChildren().add(asd);
                         ThrowingKife knife = new ThrowingKife(asd);
                         knives.add(knife);
                         knife.throwknife();
+                        if(hero_obj.getEquippedWeapon().getLevel()==2){
+                            asd = newKnife(30);
+                            layout.getChildren().add(asd);
+                            ThrowingKife Secondknife = new ThrowingKife(asd);
+                            knives.add(Secondknife);
+                            Secondknife.throwknife();
+                        }
                     }
                     else {
                         if(!axeIV.isVisible()) {
@@ -307,7 +435,13 @@ public class GamePlay implements Serializable {
                             axeIV.setFitHeight(90);
                             axeIV.setVisible(true);
                             ThrowingAxe axe = new ThrowingAxe(axeIV);
-                            axe.throwAxe();
+                            if(hero_obj.getEquippedWeapon().getLevel()==2){
+                                axe.upgradeImage();
+                                axe.throwAxe(300);
+                            }
+                            else {
+                                axe.throwAxe(200);
+                            }
                         }
                     }
                 }
@@ -327,7 +461,18 @@ public class GamePlay implements Serializable {
                     gameElement.translateLeft(0, pressedKeys, hero_hop, dash).play();
                 }
             }
+            if(e.getCode() == KeyCode.DIGIT1){
+                hero_obj.setEquippedWeapon(hero_obj.getEquippedKnife());
+            }
+            if(e.getCode() == KeyCode.DIGIT2){
+                hero_obj.setEquippedWeapon(hero_obj.getEquippedAxe());
+            }
+            if(e.getCode() == KeyCode.DIGIT3){
+                hero_obj.setEquippedWeapon(null);
+            }
         });
+
+
 
         Effect original_effect = pause.getEffect();
         pause.setOnMouseEntered(event -> {
@@ -458,7 +603,7 @@ public class GamePlay implements Serializable {
         fall.setOnFinished(actionEvent -> {
             character.setCurr_pos_y(character.getCurr_pos_y()+2.5);
             if(!character.isAlive()){
-                if(character.getCurr_pos_y() <= 750)
+                if(character.getCurr_pos_y() <= 950)
                     fall.play();
                 return;
             }
@@ -527,13 +672,13 @@ public class GamePlay implements Serializable {
         this.orcList = orcList;
     }
 
-    public void setOrc_obj(Orc orc_obj) {
-        this.orc_obj = orc_obj;
-    }
-
-    public void setOrc2_obj(Orc orc2_obj) {
-        this.orc2_obj = orc2_obj;
-    }
+//    public void setOrc_obj(Orc orc_obj) {
+//        this.orc_obj = orc_obj;
+//    }
+//
+//    public void setOrc2_obj(Orc orc2_obj) {
+//        this.orc2_obj = orc2_obj;
+//    }
 
     public void setWeapon_chest_obj(Weapon_Chest weapon_chest_obj) {
         this.weapon_chest_obj = weapon_chest_obj;
@@ -567,9 +712,9 @@ public class GamePlay implements Serializable {
         this.knives = knives;
     }
 
-    public void setEquippedWeapon(WeaponAbs equippedWeapon) {
-        this.equippedWeapon = equippedWeapon;
-    }
+//    public void setEquippedWeapon(WeaponAbs equippedWeapon) {
+//        this.equippedWeapon = equippedWeapon;
+//    }
 
     public ArrayList<GameElement> getGameElements() {
         return gameElements;
@@ -591,13 +736,13 @@ public class GamePlay implements Serializable {
         return orcList;
     }
 
-    public Orc getOrc_obj() {
-        return orc_obj;
-    }
-
-    public Orc getOrc2_obj() {
-        return orc2_obj;
-    }
+//    public Orc getOrc_obj() {
+//        return orc_obj;
+//    }
+//
+//    public Orc getOrc2_obj() {
+//        return orc2_obj;
+//    }
 
     public Weapon_Chest getWeapon_chest_obj() {
         return weapon_chest_obj;
@@ -631,7 +776,7 @@ public class GamePlay implements Serializable {
         return knives;
     }
 
-    public WeaponAbs getEquippedWeapon() {
-        return equippedWeapon;
-    }
+//    public WeaponAbs getEquippedWeapon() {
+//        return equippedWeapon;
+//    }
 }

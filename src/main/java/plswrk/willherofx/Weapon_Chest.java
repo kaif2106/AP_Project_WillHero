@@ -20,14 +20,28 @@ public class Weapon_Chest extends Chest{
 
     @Override
     public void on_collision(Hero hero_obj) {
-        if(hero_obj.getImage().getBoundsInParent().intersects(getImage().getBoundsInParent())) {
-            try {
-                open();
-                weapon.setOpened(true);
-                weapon.setEquipped(true);
+        if(!getIsOpen()) {
+            if (hero_obj.getImage().getBoundsInParent().intersects(getImage().getBoundsInParent())) {
+                try {
+                    open();
+                    weapon.setOpened(true);
+                    weapon.setEquipped(true);
 
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
+
+                    if(weapon.getClass().equals(ThrowingAxe.class)){
+                        if(hero_obj.getEquippedAxe()!=null) hero_obj.getEquippedAxe().setLevel(2);
+                        else hero_obj.setEquippedAxe((ThrowingAxe) weapon);
+                        hero_obj.setEquippedWeapon(hero_obj.getEquippedAxe());
+                    }
+                    if(weapon.getClass().equals(ThrowingKife.class)){
+                        if(hero_obj.getEquippedKnife()!=null) hero_obj.getEquippedKnife().setLevel(2);
+                        else hero_obj.setEquippedKnife((ThrowingKife) weapon);
+                        hero_obj.setEquippedWeapon(hero_obj.getEquippedKnife());
+                    }
+
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

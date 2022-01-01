@@ -2,6 +2,7 @@ package plswrk.willherofx;
 
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
@@ -13,20 +14,25 @@ public class ThrowingAxe extends WeaponAbs {
     @Override
     public void attack() {
         //if(!getImage().isVisible())
-            throwAxe();
+            //throwAxe();
     }
 
-    void throwAxe(){
+    void upgradeImage(){
+        Image newImage = new Image("ThrowingAxe2.png");
+        getImage().setImage(newImage);
+    }
+
+    void throwAxe(int distance){
         TranslateTransition axeMove = new TranslateTransition();
         axeMove.setNode(getImage());
         axeMove.setDuration(Duration.millis(1000));
         axeMove.setCycleCount(1);
-        axeMove.setByX(300);
+        axeMove.setByX(distance);
         TranslateTransition axeMoveBack = new TranslateTransition();
         axeMoveBack.setNode(getImage());
         axeMoveBack.setDuration(Duration.millis(1000));
         axeMoveBack.setCycleCount(1);
-        axeMoveBack.setByX(-300);
+        axeMoveBack.setByX(-distance);
         axeMoveBack.setOnFinished(actionEvent -> getImage().setVisible(false));
         RotateTransition axeRotate = new RotateTransition();
         axeRotate.setNode(getImage());
