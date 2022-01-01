@@ -17,18 +17,28 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
-
-
+import java.io.ObjectOutputStream;
 
 
 public class HelloApplication extends Application {
     public static Stage Gstage;
     @FXML
-    public Button gameStartButton;
+    transient public Button gameStartButton;
 //    @FXML
 //    public ImageView
-
+    public static void serialize(String name, GamePlay gamePlay) throws IOException {
+        ObjectOutputStream out = null;
+        try {
+            out = new ObjectOutputStream(
+                    new FileOutputStream("out.txt"));
+            out.writeObject(gamePlay);
+        } finally {
+            assert out != null;
+            out.close();
+        }
+    }
     @Override
     public void start(Stage stage) throws IOException {
         Gstage = stage;

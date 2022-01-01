@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -28,43 +29,35 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamePlay {
+public class GamePlay implements Serializable {
     @FXML
-    AnchorPane layout;
+    transient AnchorPane layout;
 
     @FXML
-    Pane pauseMenuPane;
+    transient Pane pauseMenuPane, endPane;
 
     @FXML
-    ImageView pause, pauseMenu, axeImg;
+    transient ImageView pause, pauseMenu, axeImg, hero, orc1, island1, island2, island3, island4, island5, weapon_chest1, coin_chest1, TNT1, t1,t2,t3,t4, orc2, axeIV, knifeImage, weapon_chest2;
 
     @FXML
-    Button resume, restart_pause, restart_end, exit_pause, exit_end, save;
+    transient Button resume, restart_pause, restart_end, exit_pause, exit_end, save;
 
     @FXML
-    ImageView hero, orc1, island1, island2, island3, island4, island5, weapon_chest1, coin_chest1, TNT1, knifeIV;
+    transient Polygon dash;
 
     @FXML
-    ImageView t1,t2,t3,t4, orc2, axeIV, weapon_chest2;
-
-    @FXML
-    Pane endPane;
-
-    @FXML
-    Polygon dash;
-
-    @FXML
-    Label moveCounter;
+    transient Label moveCounter;
 
 
 
     private ArrayList<GameElement> gameElements;
     private ArrayList<Island> islands;
-    private ArrayList<Weapon_Chest> weapon_chests = new ArrayList<Weapon_Chest>();
+    private ArrayList<Weapon_Chest> weapon_chests = new ArrayList<>();
     private Hero hero_obj;
     private ArrayList<Orc> orcList;
     private Orc orc_obj;
@@ -73,10 +66,10 @@ public class GamePlay {
     private Weapon_Chest weapon_chest_obj2;
     private Coin_Chest coin_chest_obj;
     private TNT TNT_obj;
-    private Image knifeImage = new Image("ThrowingKnife2.png");
-    private ImageView asd = new ImageView();
+    transient private ImageView knifeIV;
+    transient private ImageView asd = new ImageView();
     private int mc = 0;
-    private ArrayList<ThrowingKife> knives = new ArrayList<ThrowingKife>();
+    private ArrayList<ThrowingKife> knives = new ArrayList<>();
     private WeaponAbs equippedWeapon;
     //private ImageView newKnifeIV = new ImageView();
 
@@ -176,7 +169,7 @@ public class GamePlay {
 
         orc_obj = new Orc(orc1, orc_deathImages, 100, 0, orc1.getLayoutX(), orc1.getLayoutY());
         orc2_obj = new Orc(orc2, orc_deathImages, 100, 0, orc2.getLayoutX(), orc2.getLayoutY());
-        orcList = new ArrayList<Orc>();
+        orcList = new ArrayList<>();
         orcList.add(orc_obj);
         orcList.add(orc2_obj);
 
@@ -207,12 +200,12 @@ public class GamePlay {
         gameElements.add(weapon_chest_obj2);
         gameElements.add(coin_chest_obj);
         gameElements.add(orc2_obj);
-
+//        gameElements.add(hero_obj);
     }
 
     public ImageView newKnife(){
         ImageView newKnifeIV = new ImageView();
-        newKnifeIV.setImage(knifeImage);
+        newKnifeIV.setImage(new Image("ThrowingKnife2.png"));
         newKnifeIV.setX(hero_obj.getImage().getBoundsInParent().getMaxX()+45);
         newKnifeIV.setY(hero_obj.getCurr_pos_y()-15);
         newKnifeIV.setFitWidth(12);
@@ -274,18 +267,15 @@ public class GamePlay {
                 }
 
                 for(Orc orc : orcList) {
-                    if(orc.isAlive()) {
-                        orc.on_collision(hero_obj);
-                        if (axeIV.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())) {
-                            orc.die();
-                        }
-                        for (int i = 0; i < knives.size(); i++) {
-                            if (!knives.get(i).getImage().isVisible()) {
-                                knives.remove(i);
-                                continue;
-                            } else if (knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(orc.getImage().getBoundsInParent()))
-                                orc.die();
-                        }
+                    if(orc.isAlive()) {orc.on_collision(hero_obj);
+                    if(axeIV.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())){
+                        orc.die();
+                    }
+                    for (int i = 0; i < knives.size(); i++) {
+                        if (!knives.get(i).getImage().isVisible()) {
+                            knives.remove(i);
+                        } else if (knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(orc.getImage().getBoundsInParent()))
+                            orc.die();}
                     }
                 }
 
@@ -444,11 +434,11 @@ public class GamePlay {
     }
 
     public Pair<TranslateTransition, TranslateTransition> hop(Living character) {
-        TranslateTransition jump = new TranslateTransition(Duration.millis(0.3), character.getImage());
+        TranslateTransition jump = new TranslateTransition(Duration.millis(0.1), character.getImage());
         jump.setByY(-2.5);
         jump.setCycleCount(1);
         jump.setAutoReverse(false);
-        TranslateTransition fall = new TranslateTransition(Duration.millis(0.3), character.getImage());
+        TranslateTransition fall = new TranslateTransition(Duration.millis(0.1), character.getImage());
         fall.setByY(2.5);
         fall.setCycleCount(1);
         jump.setOnFinished(event->{
@@ -504,4 +494,144 @@ public class GamePlay {
         return new Pair<>(jump, fall);
     }
 
+    public void SaveGame() {
+        TextInputDialog gamename = new TextInputDialog();
+        gamename.setTitle("Save Game");
+        gamename.setHeaderText("Enter a name for your game");
+        gamename.showAndWait();
+        String name = gamename.getEditor().getText();
+        try {
+            HelloApplication.serialize(name, this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setGameElements(ArrayList<GameElement> gameElements) {
+        this.gameElements = gameElements;
+    }
+
+    public void setIslands(ArrayList<Island> islands) {
+        this.islands = islands;
+    }
+
+    public void setWeapon_chests(ArrayList<Weapon_Chest> weapon_chests) {
+        this.weapon_chests = weapon_chests;
+    }
+
+    public void setHero_obj(Hero hero_obj) {
+        this.hero_obj = hero_obj;
+    }
+
+    public void setOrcList(ArrayList<Orc> orcList) {
+        this.orcList = orcList;
+    }
+
+    public void setOrc_obj(Orc orc_obj) {
+        this.orc_obj = orc_obj;
+    }
+
+    public void setOrc2_obj(Orc orc2_obj) {
+        this.orc2_obj = orc2_obj;
+    }
+
+    public void setWeapon_chest_obj(Weapon_Chest weapon_chest_obj) {
+        this.weapon_chest_obj = weapon_chest_obj;
+    }
+
+    public void setWeapon_chest_obj2(Weapon_Chest weapon_chest_obj2) {
+        this.weapon_chest_obj2 = weapon_chest_obj2;
+    }
+
+    public void setCoin_chest_obj(Coin_Chest coin_chest_obj) {
+        this.coin_chest_obj = coin_chest_obj;
+    }
+
+    public void setTNT_obj(TNT TNT_obj) {
+        this.TNT_obj = TNT_obj;
+    }
+
+    public void setKnifeImage(ImageView knifeImage) {
+        this.knifeImage = knifeImage;
+    }
+
+    public void setAsd(ImageView asd) {
+        this.asd = asd;
+    }
+
+    public void setMc(int mc) {
+        this.mc = mc;
+    }
+
+    public void setKnives(ArrayList<ThrowingKife> knives) {
+        this.knives = knives;
+    }
+
+    public void setEquippedWeapon(WeaponAbs equippedWeapon) {
+        this.equippedWeapon = equippedWeapon;
+    }
+
+    public ArrayList<GameElement> getGameElements() {
+        return gameElements;
+    }
+
+    public ArrayList<Island> getIslands() {
+        return islands;
+    }
+
+    public ArrayList<Weapon_Chest> getWeapon_chests() {
+        return weapon_chests;
+    }
+
+    public Hero getHero_obj() {
+        return hero_obj;
+    }
+
+    public ArrayList<Orc> getOrcList() {
+        return orcList;
+    }
+
+    public Orc getOrc_obj() {
+        return orc_obj;
+    }
+
+    public Orc getOrc2_obj() {
+        return orc2_obj;
+    }
+
+    public Weapon_Chest getWeapon_chest_obj() {
+        return weapon_chest_obj;
+    }
+
+    public Weapon_Chest getWeapon_chest_obj2() {
+        return weapon_chest_obj2;
+    }
+
+    public Coin_Chest getCoin_chest_obj() {
+        return coin_chest_obj;
+    }
+
+    public TNT getTNT_obj() {
+        return TNT_obj;
+    }
+
+    public ImageView getKnifeImage() {
+        return knifeImage;
+    }
+
+    public ImageView getAsd() {
+        return asd;
+    }
+
+    public int getMc() {
+        return mc;
+    }
+
+    public ArrayList<ThrowingKife> getKnives() {
+        return knives;
+    }
+
+    public WeaponAbs getEquippedWeapon() {
+        return equippedWeapon;
+    }
 }

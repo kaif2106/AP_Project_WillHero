@@ -94,5 +94,6 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="load_game" layoutX="357.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#load" text="Load Game" />
    </children>
 </AnchorPane>

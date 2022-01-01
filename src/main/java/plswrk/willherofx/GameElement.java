@@ -7,12 +7,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Polygon;
 import javafx.util.Duration;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class GameElement {
-    private final ImageView imageView;
-    private final List<Image> imageList;
+public abstract class GameElement implements Serializable {
+    transient private final ImageView imageView;
+    transient private final List<Image> imageList;
     private double curr_pos_x;
     private double curr_pos_y;
     private final double moveDist;

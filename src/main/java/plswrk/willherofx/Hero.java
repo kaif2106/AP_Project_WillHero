@@ -26,7 +26,6 @@ import java.util.ResourceBundle;
 
 
 public class Hero extends Living{
-
     private double velocityX;
     private double velocityY;
     private boolean Alive;

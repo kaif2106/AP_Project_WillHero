@@ -17,14 +17,16 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HelloController{
     @FXML
-    private Button gameStartButton, LoadButton;
+    transient private Button gameStartButton, LoadButton;
 //    @FXML
 //    ImageView hero, orc1;
 
@@ -46,5 +48,32 @@ public class HelloController{
         scene = new Scene(fxmlLoader.load());
         HelloApplication.Gstage.setScene(scene);
         HelloApplication.Gstage.show();
+    }
+
+    @FXML
+    public void load() throws IOException, ClassNotFoundException {
+        ObjectInputStream in = null;
+        try {
+            in = new ObjectInputStream (new FileInputStream("out.txt"));
+            GamePlay gamePlay = (GamePlay) in.readObject();
+            if(gamePlay == null) {
+                System.out.println("GamePlay is null");
+            }
+            else{
+                System.out.println("GamePlay is not null");
+            }
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GamePlay.fxml"));
+            GamePlay gamePlay1 = fxmlLoader.getController();
+//            if(gamePlay1 == null) {
+//                System.out.println("GamePlay is null");
+//            }
+//            System.out.println(fxmlLoader.getController()));
+//            gamePlay1.setGameElements(gamePlay.getGameElements());
+//            gamePlay1.setHero_obj(gamePlay.getHero_obj());
+//            scene = new Scene(fxmlLoader.load());
+//            gamePlay.start(scene);
+        } finally{
+            in.close();
+        }
     }
 }

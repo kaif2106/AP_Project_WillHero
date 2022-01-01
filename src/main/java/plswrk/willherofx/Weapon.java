@@ -2,7 +2,9 @@ package plswrk.willherofx;
 
 import javafx.scene.image.ImageView;
 
-public class Weapon {
+import java.io.Serializable;
+
+public class Weapon implements Serializable {
     private final String name;
     private int level;
     private double damage;

@@ -44,7 +44,7 @@
       </ImageView>
       <ImageView fx:id="t3" fitHeight="129.0" fitWidth="88.0" layoutX="765.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Tree11%20%2350105.png" />
+            <Image url="@../../Tree11.png" />
          </image>
       </ImageView>
       <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="1205.0" layoutY="335.0" pickOnBounds="true">
@@ -215,7 +215,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="save" layoutX="155.0" layoutY="93.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="58.0" style="-fx-background-radius: 6px; -fx-border-radius: 10; -fx-border-color: white; -fx-border-width: 3px;" textAlignment="CENTER">
+            <Button fx:id="save" layoutX="155.0" layoutY="93.0" mnemonicParsing="false" onMouseClicked="#SaveGame" prefHeight="59.0" prefWidth="58.0" style="-fx-background-radius: 6px; -fx-border-radius: 10; -fx-border-color: white; -fx-border-width: 3px;" textAlignment="CENTER">
                <padding>
                   <Insets bottom="-2.7" left="-2.7" right="-1.7000000000000002" top="-3.9000000000000004" />
                </padding>

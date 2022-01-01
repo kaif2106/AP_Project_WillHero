@@ -10,7 +10,7 @@ import javafx.util.Duration;
 import java.net.URISyntaxException;
 import java.util.List;
 
-public class TNT extends GameElement implements Obstacle{
+public class TNT extends GameElement implements Obstacle {
     private final Range range;
     TNT(ImageView imageView, List<Image> imageList, double start_pos_x, double start_pos_y, Range range) {
         super(imageView, imageList, start_pos_x, start_pos_y);
@@ -24,7 +24,7 @@ public class TNT extends GameElement implements Obstacle{
 //                && y <= this.getCurr_pos_y() + this.getImage().getFitHeight() && y >= this.getCurr_pos_y()){
 //            explode();
 //        }
-        if(hero_obj.getImage().getBoundsInParent().intersects(getImage().getBoundsInParent())) {
+        if(hero_obj.getImage().getBoundsInParent().intersects(getImage().getBoundsInParent())){
             explode();
         }
 //        if(this.getImage().intersects(hero.getImage().getBoundsInParent())){

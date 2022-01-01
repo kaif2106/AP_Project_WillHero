@@ -3,7 +3,9 @@ package plswrk.willherofx;
 import javafx.animation.SequentialTransition;
 import javafx.scene.image.ImageView;
 
-public abstract class WeaponAbs {
+import java.io.Serializable;
+
+public abstract class WeaponAbs implements Serializable {
     private ImageView image;
     private boolean isEquipped;
     private boolean isOpened;
