@@ -69,15 +69,21 @@ public class HelloController{
 //            }
 //            System.out.println(fxmlLoader.getController()));
 //            System.out.println(gamePlay1.hero.toString());
-            gamePlay1.setGameElements(gamePlay.getGameElements());
-            gamePlay1.setHero_obj(gamePlay.getHero_obj());
+//            gamePlay1.setGameElements(gamePlay.getGameElements());
+//            gamePlay1.setHero_obj(gamePlay.getHero_obj());
             scene = new Scene(root);
             gamePlay1.InitialiseAll_FXML_Objects(scene);
             gamePlay1.InitializeAll_ClassObjects();
             for(int i=0; i<gamePlay.getGameElements().size(); i++){
                 gamePlay1.getGameElements().get(i).getImage().setLayoutX(gamePlay.getGameElements().get(i).getCurr_pos_x());
                 gamePlay1.getGameElements().get(i).getImage().setLayoutY(gamePlay.getGameElements().get(i).getCurr_pos_y());
+                gamePlay1.getGameElements().get(i).setCurr_pos_x(gamePlay.getGameElements().get(i).getCurr_pos_x());
+                gamePlay1.getGameElements().get(i).setCurr_pos_y(gamePlay.getGameElements().get(i).getCurr_pos_y());
             }
+//            gamePlay1.setGameElements(gamePlay.getGameElements());
+            gamePlay1.getHero_obj().setEquippedWeapon(gamePlay.getHero_obj().getEquippedWeapon());
+            gamePlay1.getHero_obj().setEquippedAxe(gamePlay.getHero_obj().getEquippedAxe());
+            gamePlay1.getHero_obj().setEquippedKnife(gamePlay.getHero_obj().getEquippedKnife());
 //            System.out.println(gamePlay.getHero_obj().getCurr_pos_y());
             gamePlay1.start(scene);
         } finally{
