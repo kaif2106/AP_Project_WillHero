@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
@@ -31,7 +32,8 @@ public class HelloApplication extends Application {
     public static void serialize(String name, GamePlay gamePlay) throws IOException {
         ObjectOutputStream out = null;
         try {
-            out = new ObjectOutputStream(new FileOutputStream("out.txt"));
+            System.out.println(name);
+            out = new ObjectOutputStream(new FileOutputStream("src/main/resources/SavedGames/" +name+".txt"));
 //            System.out.println(gamePlay.getHero_obj().getCurr_pos_y());
             out.writeObject(gamePlay);
         } finally {
@@ -48,6 +50,9 @@ public class HelloApplication extends Application {
         Image icon = new Image("icon.png");
         Gstage.getIcons().add(icon);
         Gstage.setScene(scene);
+        ListView<String> listView = (ListView<String>) Gstage.getScene().lookup("#savedGamesList");
+        listView.setVisible(false);
+        listView.setOpacity(0);
         gameStartButton = (Button) Gstage.getScene().lookup("#gameStartButton");
         setEffect(gameStartButton);
         Gstage.show();

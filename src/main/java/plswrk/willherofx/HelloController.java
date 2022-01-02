@@ -2,6 +2,8 @@ package plswrk.willherofx;
 
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,15 +14,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -33,6 +38,9 @@ public class HelloController{
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private String Loadfile;
+    @FXML
+    private ListView<String> listView;
 //    GamePlay gamePlay;
     @FXML
     public void switchToGamePlay() throws IOException {
@@ -56,7 +64,26 @@ public class HelloController{
     public void load() throws IOException, ClassNotFoundException {
         ObjectInputStream in = null;
         try {
-            in = new ObjectInputStream (new FileInputStream("out.txt"));
+            listView = (ListView<String>) HelloApplication.Gstage.getScene().lookup("#savedGamesList");
+            listView.setVisible(true);
+            listView.setOpacity(1);
+            ArrayList<String> savedGames = new ArrayList<>();
+            File[] source = new File("src/main/resources/SavedGames").listFiles();
+            assert source != null;
+            for(File f : source){
+                savedGames.add(f.getName());
+            }
+            listView.getItems().addAll(savedGames);
+            listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+                @Override
+                public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+                    Loadfile = listView.getSelectionModel().getSelectedItem();
+//                myLabel.setText(currentFood);
+                }
+            });
+            System.out.println(Loadfile);
+            in = new ObjectInputStream (new FileInputStream("G:\\Group_25\\src\\main\\resources\\SavedGames\\"+Loadfile));
             GamePlay gamePlay = (GamePlay) in.readObject();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GamePlay.fxml"));
             Parent root = fxmlLoader.load();
@@ -72,29 +99,9 @@ public class HelloController{
             }
 //            gamePlay1.setGameElements(gamePlay.getGameElements());
 
-            if(gamePlay.getHero_obj().getEquippedWeapon() == null){
-                gamePlay1.getHero_obj().setEquippedWeapon(null);
-                System.out.println("wnull");
-            }
-            else{
-                gamePlay1.getHero_obj().setEquippedWeapon(gamePlay.getHero_obj().getEquippedWeapon());
-            }
-
-            if(gamePlay.getHero_obj().getEquippedAxe() == null){
-                gamePlay1.getHero_obj().setEquippedAxe(null);
-                System.out.println("knull");
-            }
-            else{
-                gamePlay1.getHero_obj().setEquippedAxe(gamePlay.getHero_obj().getEquippedAxe());
-            }
-
-            if(gamePlay.getHero_obj().getEquippedKnife() == null){
-                gamePlay1.getHero_obj().setEquippedKnife(null);
-                System.out.println("anull");
-            }
-            else{
-                gamePlay1.getHero_obj().setEquippedKnife(gamePlay.getHero_obj().getEquippedKnife());
-            }
+            gamePlay1.getHero_obj().setEquippedWeapon(gamePlay.getHero_obj().getEquippedWeapon());
+            gamePlay1.getHero_obj().setEquippedAxe(gamePlay.getHero_obj().getEquippedAxe());
+            gamePlay1.getHero_obj().setEquippedKnife(gamePlay.getHero_obj().getEquippedKnife());
             //gamePlay1.getHero_obj().setEquippedAxe(gamePlay.getHero_obj().getEquippedAxe());
             //gamePlay1.getHero_obj().setEquippedKnife(gamePlay.getHero_obj().getEquippedKnife());
 //            System.out.println(gamePlay.getHero_obj().getCurr_pos_y());

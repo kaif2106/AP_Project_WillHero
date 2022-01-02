@@ -172,7 +172,6 @@ public class GamePlay implements Serializable {
     }
     public void InitializeAll_ClassObjects() {
         hero_obj = new Hero(hero, null, 150, 100,hero.getLayoutX(), hero.getLayoutY());
-
         Island island1_obj = new Island(island1, island1.getLayoutX(), island1.getLayoutY());
         Island island2_obj = new Island(island2, island2.getLayoutX(), island2.getLayoutY());
         Island island3_obj = new Island(island3, island3.getLayoutX(), island3.getLayoutY());
@@ -682,9 +681,6 @@ public class GamePlay implements Serializable {
                     temp = true;
                     jump.play();
                 }
-            }
-            else{
-                System.out.println("not found");
             }
             if(!temp && !gameEnd){
                 fall.play();

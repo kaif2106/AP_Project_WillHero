@@ -20,9 +20,6 @@ public class Weapon_Chest extends Chest{
 
     @Override
     public void on_collision(Hero hero_obj) {
-        if(hero_obj.getImage()==null){
-
-        }
         if(!getIsOpen()) {
             if (hero_obj.getImage().getBoundsInParent().intersects(getImage().getBoundsInParent())) {
                 try {
