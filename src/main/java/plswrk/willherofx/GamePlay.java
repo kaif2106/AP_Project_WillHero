@@ -325,27 +325,36 @@ public class GamePlay implements Serializable {
                     healthBar.setVisible(true);
                 }
 
-                for(Weapon_Chest weapon_chest_obj : weapon_chests) {
-
-                    if (weapon_chest_obj.getIsOpen()) {
-
-                        if (weapon_chest_obj.getWeapon() instanceof ThrowingAxe) {
-                            axeImg.setVisible(true);
-
-                        } else {
-                            knifeIV.setVisible(true);
-
-                        }
-
+//                for(Weapon_Chest weapon_chest_obj : weapon_chests) {
+//                    if (weapon_chest_obj.getIsOpen()) {
+//                        if (weapon_chest_obj.getWeapon() instanceof ThrowingAxe) {
+//                            axeImg.setVisible(true);
+//
+//                        } else {
+//                            knifeIV.setVisible(true);
+//                        }
+//                    }
+//                }
+                if(hero_obj.getEquippedAxe()!=null){
+                    if(hero_obj.getEquippedAxe().getLevel()>1){
+//                        axeImg.setVisible(true);
+                        hero_obj.getEquippedAxe().upgradeImage();
+                    }
+                    axeImg.setVisible(true);
+                }
+                if(hero_obj.getEquippedKnife()!=null){
+                    knifeIV.setVisible(true);
+                }
+                if(hero_obj.getEquippedWeapon()!=null){
+                    if(hero_obj.getEquippedWeapon().getLevel()==1){
+                        axeImg.setVisible(true);
                     }
                 }
-
                 boss_obj.on_collision(hero_obj);
 
                 if(axeIV.isVisible() && axeIV.getBoundsInParent().intersects(boss_obj.getImage().getBoundsInParent())){
                     boss_obj.hit(25);
                     healthBar.setProgress(healthBar.getProgress()-0.25);
-
                     axeIV.setVisible(false);
                 }
 
@@ -385,12 +394,6 @@ public class GamePlay implements Serializable {
                         knives.get(i).getImage().setVisible(false);
                     }
                 }
-
-
-
-
-
-
             }
         };
         timer.start();
