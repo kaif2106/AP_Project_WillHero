@@ -296,7 +296,7 @@ public class GamePlay implements Serializable {
 
         newKnifeIV.setImage(new Image(String.format("ThrowingKnife%s.png", knifeLevelImage+1)));
         newKnifeIV.setX(hero_obj.getImage().getBoundsInParent().getMaxX()+45);
-        newKnifeIV.setY(hero_obj.getCurr_pos_y()-yDelta); //-15
+        newKnifeIV.setY(hero_obj.getImage().getBoundsInParent().getMinY()-yDelta); //-15
         newKnifeIV.setFitWidth(12);
         newKnifeIV.setFitHeight(60);
         newKnifeIV.setRotate(newKnifeIV.getRotate()+90);
@@ -583,13 +583,12 @@ public class GamePlay implements Serializable {
         });
 
         respawnButton.setOnMouseClicked(mouseEvent -> {
-            TranslateTransition respawnTransition = new TranslateTransition(Duration.millis(1000));
-            respawnTransition.setNode(hero_obj.getImage());
+            hero_obj.setAlive(true);
+            endPane.setVisible(false);
+            TranslateTransition respawnTransition = new TranslateTransition(Duration.millis(1000), hero_obj.getImage());
             respawnTransition.setToY(-200);
             respawnTransition.setCycleCount(1);
             respawnTransition.setOnFinished(actionEvent -> hero_hop.getSecond().play());
-            hero_obj.setAlive(true);
-            endPane.setVisible(false);
             hero_obj.setCurr_pos_y(hero_obj.getCurr_pos_y()-200);
             respawnTransition.play();
         });
@@ -652,6 +651,7 @@ public class GamePlay implements Serializable {
         fall.setOnFinished(actionEvent -> {
             character.setCurr_pos_y(character.getCurr_pos_y()+2.5);
             if(!character.isAlive()){
+                System.out.println("dead");
                 if(character.getCurr_pos_y() <= 950)
                     fall.play();
                 return;
@@ -670,17 +670,21 @@ public class GamePlay implements Serializable {
             for(Island island : islands){
                 if((island.getImage().getBoundsInParent().getMaxX()) >= character.getImage().getBoundsInParent().getMinX() && island.getImage().getBoundsInParent().getMinX() <= (character.getImage().getBoundsInParent().getMaxX())){
                     targetIsland = island;
+//                    System.out.println("found");
                     break;
                 }
             }
             if(targetIsland != null){
-                if((targetIsland.getCurr_pos_y() > character.getCurr_pos_y()) &&
-                        ((character.getCurr_pos_y() + character.getImage().getFitHeight()) <= (targetIsland.getCurr_pos_y()+2.5)) &&
-                        (targetIsland.getCurr_pos_y() <= (character.getCurr_pos_y() + character.getImage().getFitHeight()))){
+                if((targetIsland.getImage().getBoundsInParent().getMinY() > character.getImage().getBoundsInParent().getMinY()) &&
+                        ((character.getImage().getBoundsInParent().getMaxY()) <= (targetIsland.getImage().getBoundsInParent().getMinY()+2.5)) &&
+                        (targetIsland.getImage().getBoundsInParent().getMinY() <= (character.getImage().getBoundsInParent().getMaxY()))){
                     fall.pause();
                     temp = true;
                     jump.play();
                 }
+            }
+            else{
+                System.out.println("not found");
             }
             if(!temp && !gameEnd){
                 fall.play();
