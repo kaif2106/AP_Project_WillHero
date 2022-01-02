@@ -33,12 +33,14 @@ public class HelloController{
     private Stage stage;
     private Scene scene;
     private Parent root;
-    GamePlay gamePlay;
+//    GamePlay gamePlay;
     @FXML
     public void switchToGamePlay() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GamePlay.fxml"));
         scene = new Scene(fxmlLoader.load());
-        gamePlay = new GamePlay();
+        GamePlay gamePlay = new GamePlay();
+        gamePlay.InitialiseAll_FXML_Objects(scene);
+        gamePlay.InitializeAll_ClassObjects();
         gamePlay.start(scene);
     }
 
@@ -55,7 +57,7 @@ public class HelloController{
         ObjectInputStream in = null;
         try {
             in = new ObjectInputStream (new FileInputStream("out.txt"));
-            gamePlay = (GamePlay) in.readObject();
+            GamePlay gamePlay = (GamePlay) in.readObject();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GamePlay.fxml"));
             Parent root = fxmlLoader.load();
             GamePlay gamePlay1 = fxmlLoader.getController();
@@ -66,11 +68,20 @@ public class HelloController{
 //                System.out.println("GamePlay is not null");
 //            }
 //            System.out.println(fxmlLoader.getController()));
+//            System.out.println(gamePlay1.hero.toString());
             gamePlay1.setGameElements(gamePlay.getGameElements());
             gamePlay1.setHero_obj(gamePlay.getHero_obj());
             scene = new Scene(root);
-            gamePlay.start(scene);
+            gamePlay1.InitialiseAll_FXML_Objects(scene);
+            gamePlay1.InitializeAll_ClassObjects();
+            for(int i=0; i<gamePlay.getGameElements().size(); i++){
+                gamePlay1.getGameElements().get(i).getImage().setLayoutX(gamePlay.getGameElements().get(i).getCurr_pos_x());
+                gamePlay1.getGameElements().get(i).getImage().setLayoutY(gamePlay.getGameElements().get(i).getCurr_pos_y());
+            }
+//            System.out.println(gamePlay.getHero_obj().getCurr_pos_y());
+            gamePlay1.start(scene);
         } finally{
+            assert in != null;
             in.close();
         }
     }

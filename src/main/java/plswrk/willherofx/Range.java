@@ -1,6 +1,8 @@
 package plswrk.willherofx;
 
-public class Range {
+import java.io.Serializable;
+
+public class Range implements Serializable {
     private final int x_range;
     private final int y_range;
 

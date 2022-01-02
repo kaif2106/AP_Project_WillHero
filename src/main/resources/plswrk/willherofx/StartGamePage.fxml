@@ -26,7 +26,7 @@
       </ImageView>
       <ImageView fitHeight="129.0" fitWidth="88.0" layoutX="719.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../Tree11 #50105.png" />
+            <Image url="@../../Tree11.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="202.0" layoutY="316.0" opacity="0.85" pickOnBounds="true" preserveRatio="true">

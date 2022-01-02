@@ -37,8 +37,8 @@ public class Hero extends Living{
         Alive = true;
     }
 
-    private TranslateTransition dieAni = new TranslateTransition();
-    private RotateTransition dieRot = new RotateTransition();
+    transient private TranslateTransition dieAni = new TranslateTransition();
+    transient private RotateTransition dieRot = new RotateTransition();
 
 
     public WeaponAbs getEquippedWeapon(){

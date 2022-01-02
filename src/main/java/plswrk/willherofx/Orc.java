@@ -20,7 +20,7 @@ public class Orc extends Living {
     }
     Boolean inAnimation = false;
 
-    TranslateTransition orcDash = new TranslateTransition();
+    transient TranslateTransition orcDash = new TranslateTransition();
 
     public void dashKro(Living character){
 

@@ -284,8 +284,7 @@ public class GamePlay implements Serializable {
     }
 
     public void start(Scene scene) {
-        InitialiseAll_FXML_Objects(scene);
-        InitializeAll_ClassObjects();
+        System.out.println(hero_obj.isAlive());
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
         Pair<TranslateTransition, TranslateTransition> boss_hop = hop(boss_obj);
         boss_hop.getFirst().play();
@@ -472,7 +471,22 @@ public class GamePlay implements Serializable {
             }
         });
 
-
+        save.setOnMouseClicked(e -> {
+            TextInputDialog gamename = new TextInputDialog();
+            gamename.setTitle("Save Game");
+            gamename.setHeaderText("Enter a name for your game");
+            gamename.showAndWait();
+            String name = gamename.getEditor().getText();
+            if(this.getHero_obj()==null){
+                System.out.println("No hero");
+            }
+            try {
+                System.out.println(hero_obj.getCurr_pos_y());
+                HelloApplication.serialize(name, this);
+            }catch(Exception exception){
+                exception.printStackTrace();
+            }
+        });
 
         Effect original_effect = pause.getEffect();
         pause.setOnMouseEntered(event -> {
@@ -553,6 +567,7 @@ public class GamePlay implements Serializable {
                 e.printStackTrace();
             }
         });
+
 
         weapon_chest_obj.getImage().setOnMouseClicked(mouseEvent -> {
             try {
@@ -637,19 +652,6 @@ public class GamePlay implements Serializable {
         });
 
         return new Pair<>(jump, fall);
-    }
-
-    public void SaveGame() {
-        TextInputDialog gamename = new TextInputDialog();
-        gamename.setTitle("Save Game");
-        gamename.setHeaderText("Enter a name for your game");
-        gamename.showAndWait();
-        String name = gamename.getEditor().getText();
-        try {
-            HelloApplication.serialize(name, this);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
     }
 
     public void setGameElements(ArrayList<GameElement> gameElements) {

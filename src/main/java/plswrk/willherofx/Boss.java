@@ -21,7 +21,7 @@ public class Boss extends Living{
 
     Boolean inAnimation = false;
 
-    TranslateTransition orcDash = new TranslateTransition();
+    transient private TranslateTransition orcDash = new TranslateTransition();
 
     public void hit(int damage){
         health-=damage;

@@ -32,6 +32,7 @@ public class HelloApplication extends Application {
         ObjectOutputStream out = null;
         try {
             out = new ObjectOutputStream(new FileOutputStream("out.txt"));
+//            System.out.println(gamePlay.getHero_obj().getCurr_pos_y());
             out.writeObject(gamePlay);
         } finally {
             assert out != null;
