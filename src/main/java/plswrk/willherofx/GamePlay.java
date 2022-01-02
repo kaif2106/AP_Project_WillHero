@@ -51,7 +51,7 @@ public class GamePlay implements Serializable {
     transient Polygon dash;
 
     @FXML
-    transient Label moveCounter;
+    transient Label moveCounter, timeLabel;
 
     @FXML
     transient ImageView island6, island7, island8, island9, island10, island11, island12;
@@ -94,6 +94,7 @@ public class GamePlay implements Serializable {
     private boolean axeHit = false;
     private boolean firstHit = true;
     private long start, finish;
+    private boolean pauseTimer = false;
 
     public void InitialiseAll_FXML_Objects(Scene scene) {
         hero = (ImageView) scene.lookup("#hero");
@@ -122,6 +123,7 @@ public class GamePlay implements Serializable {
         respawnButton = (Button) scene.lookup("#respawnButton");
         moveCounter  = (Label) scene.lookup("#moveCounter");
         coinCounter = (Label) scene.lookup("#coinCounter");
+        timeLabel = (Label) scene.lookup("#timeLabel");
         HelloApplication.setEffect(resume);
         restart_pause = (Button) scene.lookup("#restart_pause");
         HelloApplication.setEffect(restart_pause);
@@ -168,6 +170,7 @@ public class GamePlay implements Serializable {
         healthBar.setVisible(false);
         healthBar.setProgress(1);
         moveCounter.setText(Integer.toString(mc));
+        timeLabel.setText(Integer.toString(0));
         BackgroundSize backgroundSize = new BackgroundSize(1238, 694, false, false, false, false);
         BackgroundImage backgroundImage = new BackgroundImage(new Image("newBG.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, backgroundSize);
         Background bg = new Background(backgroundImage);
@@ -308,6 +311,7 @@ public class GamePlay implements Serializable {
 
     public void start(Scene scene) {
         System.out.println(hero_obj.isAlive());
+        timeLabel.setText(Long.toString(hero_obj.getDeltaTime()));
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
         Pair<TranslateTransition, TranslateTransition> boss_hop = hop(boss_obj);
         boss_hop.getFirst().play();
@@ -327,6 +331,12 @@ public class GamePlay implements Serializable {
             public void handle(long l) {
                 coinCounter.setText(Integer.toString(hero_obj.getCoins()));
                 coin_chest_obj.on_collision(hero_obj);
+
+                if(!firstHit)
+                    if(!pauseTimer)
+                        timeLabel.setText(Long.toString((long) ((long)(System.nanoTime()/1000000000) - start)+hero_obj.getDeltaTime()));
+                else timeLabel.setText(Long.toString(hero_obj.getDeltaTime()));
+
                 for(Weapon_Chest weapon_chest_obj : weapon_chests)
                     weapon_chest_obj.on_collision(hero_obj);
 
@@ -427,7 +437,8 @@ public class GamePlay implements Serializable {
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE && hero_obj.isAlive()) {
                 if(firstHit){
-                    start = (long)(System.nanoTime()/1e-9);
+                    System.out.println("fh");
+                    start = (long)(System.nanoTime()/1000000000);
                     firstHit = false;
                 }
                 moveCounter.setText(Integer.toString(++mc));
@@ -435,7 +446,7 @@ public class GamePlay implements Serializable {
                 axeHit = false;
 
                 if(!boss_obj.isAlive()){
-                    long totalTime = (long)(System.nanoTime()/1e-9)-start+hero_obj.getDeltaTime();
+                    long totalTime = (long)(System.nanoTime()/1000000000)-start+hero_obj.getDeltaTime();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Game Over");
                     alert.setHeaderText("Game Over");
@@ -522,9 +533,10 @@ public class GamePlay implements Serializable {
         });
 
         save.setOnMouseClicked(e -> {
+            pauseTimer = true;
             if(hero_obj.isAlive()) {
 //                finish = System.nanoTime();
-                hero_obj.setDeltaTime((long)(System.nanoTime()/1e-9) - start);
+                hero_obj.setDeltaTime((long) ((long)(System.nanoTime()/1000000000) - start)+hero_obj.getDeltaTime());
                 TextInputDialog gamename = new TextInputDialog();
                 gamename.setTitle("Save Game");
                 gamename.setHeaderText("Enter a name for your game");
