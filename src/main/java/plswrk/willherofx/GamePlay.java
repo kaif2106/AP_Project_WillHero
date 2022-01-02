@@ -306,7 +306,13 @@ public class GamePlay implements Serializable {
                 for(Weapon_Chest weapon_chest_obj : weapon_chests)
                     weapon_chest_obj.on_collision(hero_obj);
 
-                TNT_obj.on_collision(hero_obj);
+                if(!TNT_obj.isExploded())
+                    TNT_obj.on_collision(hero_obj);
+
+                if(TNT_obj.inDeadly() && hero_obj.getImage().getBoundsInParent().intersects(TNT_obj.getImage().getBoundsInParent())){
+                    hero_obj.die();
+                }
+
                 if(!hero_obj.isAlive()){
                     if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
                         hero_hop.getFirst().pause();
@@ -318,37 +324,16 @@ public class GamePlay implements Serializable {
                 if(hero_obj.getImage().getBoundsInParent().getMinY()>=750){
                     endPane.setVisible(true);
                 }
-//                if(hero_obj.getImage().getBoundsInParent().intersects(island10.getBoundsInParent())){
-//                    healthBar.setVisible(true);
-//                }
+
                 if(hero_obj.getImage().getBoundsInParent().getMaxX()+1000 >= boss_obj.getImage().getBoundsInParent().getMinX()){
                     healthBar.setVisible(true);
                 }
 
-//                for(Weapon_Chest weapon_chest_obj : weapon_chests) {
-//                    if (weapon_chest_obj.getIsOpen()) {
-//                        if (weapon_chest_obj.getWeapon() instanceof ThrowingAxe) {
-//                            axeImg.setVisible(true);
-//
-//                        } else {
-//                            knifeIV.setVisible(true);
-//                        }
-//                    }
-//                }
                 if(hero_obj.getEquippedAxe()!=null){
-                    if(hero_obj.getEquippedAxe().getLevel()>1){
-//                        axeImg.setVisible(true);
-                        hero_obj.getEquippedAxe().upgradeImage();
-                    }
                     axeImg.setVisible(true);
                 }
                 if(hero_obj.getEquippedKnife()!=null){
                     knifeIV.setVisible(true);
-                }
-                if(hero_obj.getEquippedWeapon()!=null){
-                    if(hero_obj.getEquippedWeapon().getLevel()==1){
-                        axeImg.setVisible(true);
-                    }
                 }
                 boss_obj.on_collision(hero_obj);
 
