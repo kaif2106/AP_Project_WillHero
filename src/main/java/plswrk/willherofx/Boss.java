@@ -71,6 +71,7 @@ public class Boss extends Living{
 
     @Override
     public void die() {
+        setAlive(false);
         Timeline timeline = new Timeline();
         timeline.setCycleCount(1);
         timeline.setAutoReverse(false);
@@ -87,13 +88,9 @@ public class Boss extends Living{
                     }
             ));
         }
-        setAlive(false);
+
         timeline.setOnFinished(actionEvent -> {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Game Over");
-                alert.setHeaderText("Game Over");
-                alert.setContentText("You Won!!!");
-                alert.showAndWait();
+            System.out.println("timeline dead");
 //                    endPane.setVisible(true);
         });
         timeline.play();

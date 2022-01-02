@@ -52,8 +52,11 @@ public class HelloController{
 
     @FXML
     public void switchToStartGame()throws IOException {
+
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("StartGamePage.fxml"));
         scene = new Scene(fxmlLoader.load());
+        listView = (ListView<String>) scene.lookup("#savedGamesList");
+        listView.setVisible(false);
         HelloApplication.Gstage.setScene(scene);
         HelloApplication.Gstage.show();
     }

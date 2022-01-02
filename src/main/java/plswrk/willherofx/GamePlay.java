@@ -90,6 +90,7 @@ public class GamePlay implements Serializable {
     private WeaponAbs equippedKnife;
     private WeaponAbs equippedAxe;
     private Boss boss_obj;
+    private boolean axeHit = false;
 
 
     public void InitialiseAll_FXML_Objects(Scene scene) {
@@ -368,11 +369,13 @@ public class GamePlay implements Serializable {
                 }
                 boss_obj.on_collision(hero_obj);
 
-                if(axeIV.isVisible() && axeIV.getBoundsInParent().intersects(boss_obj.getImage().getBoundsInParent())){
+                if(!axeHit && axeIV.getBoundsInParent().intersects(boss_obj.getImage().getBoundsInParent())){
                     boss_obj.hit(25);
                     healthBar.setProgress(healthBar.getProgress()-0.25);
-                    axeIV.setVisible(false);
+                    axeHit = true;
+                    //axeIV.setVisible(false);
                 }
+
 
                 for(Orc orc : orcList) {
                     if(orc.isAlive()) {
@@ -421,6 +424,21 @@ public class GamePlay implements Serializable {
             if (e.getCode() == KeyCode.SPACE && hero_obj.isAlive()) {
                 moveCounter.setText(Integer.toString(++mc));
                 pressedKeys.add(e.getText());
+                axeHit = false;
+
+                if(!boss_obj.isAlive()){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Game Over");
+                    alert.setHeaderText("Game Over");
+                    alert.setContentText("You Won!!!");
+                    alert.showAndWait();
+                    HelloController hc = new HelloController();
+                    try {
+                        hc.switchToStartGame();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
 
                 if(hero_obj.getEquippedAxe()!=null && hero_obj.getEquippedAxe().getLevel()==2){
                     Image upImg = new Image("ThrowingAxe2.png");
@@ -671,7 +689,7 @@ public class GamePlay implements Serializable {
         fall.setOnFinished(actionEvent -> {
             character.setCurr_pos_y(character.getCurr_pos_y()+2.5);
             if(!character.isAlive()){
-                System.out.println("dead");
+                //System.out.println("dead");
                 if(character.getCurr_pos_y() <= 950)
                     fall.play();
                 return;
