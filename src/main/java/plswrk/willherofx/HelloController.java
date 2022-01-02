@@ -113,6 +113,8 @@ public class HelloController{
                     gamePlay1.getHero_obj().setEquippedAxe(gamePlay.getHero_obj().getEquippedAxe());
                     gamePlay1.getHero_obj().setEquippedKnife(gamePlay.getHero_obj().getEquippedKnife());
                     gamePlay1.getHero_obj().setCoins(gamePlay.getHero_obj().getCoins());
+                    gamePlay1.setFirstHit(gamePlay.isFirstHit());
+                    gamePlay1.getHero_obj().setDeltaTime(gamePlay.getHero_obj().getDeltaTime());
                     for(int i=0; i<gamePlay.getCoinsList().size(); i++){
                         gamePlay1.getCoinsList().get(i).getImage().setVisible(!gamePlay.getCoinsList().get(i).isCollected());
                     }

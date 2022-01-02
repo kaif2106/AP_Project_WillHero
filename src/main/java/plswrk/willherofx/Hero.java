@@ -32,12 +32,14 @@ public class Hero extends Living{
     private WeaponAbs equippedWeapon;
     private ThrowingAxe equippedAxe;
     private ThrowingKife equippedKnife;
+    private long deltaTime;
     Hero(ImageView hero_image, List<Image> imageList , double jumpHeight, double moveDist, double x, double y) {
         super(hero_image, imageList, jumpHeight, moveDist, x, y);
         coinsInt = 0;
         equippedWeapon = null;
         equippedAxe=null;
         equippedKnife=null;
+        deltaTime = 0;
     }
 
     transient private TranslateTransition dieAni = new TranslateTransition();
@@ -93,5 +95,13 @@ public class Hero extends Living{
         this.getImage().setImage(dieImage);
         dieAni.play();
         dieRot.play();
+    }
+
+    public long getDeltaTime() {
+        return deltaTime;
+    }
+
+    public void setDeltaTime(long deltaTime) {
+        this.deltaTime = deltaTime;
     }
 }

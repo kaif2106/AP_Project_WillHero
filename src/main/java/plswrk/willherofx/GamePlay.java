@@ -30,6 +30,7 @@ import javafx.scene.text.FontWeight;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,8 @@ public class GamePlay implements Serializable {
     private WeaponAbs equippedAxe;
     private Boss boss_obj;
     private boolean axeHit = false;
-
+    private boolean firstHit = true;
+    private long start, finish;
 
     public void InitialiseAll_FXML_Objects(Scene scene) {
         hero = (ImageView) scene.lookup("#hero");
@@ -341,7 +343,9 @@ public class GamePlay implements Serializable {
                         coin.collect();
                     }
                 }
-
+                if(boss_obj.getImage().getBoundsInParent().getMaxY()>=750){
+                    boss_obj.die();
+                }
 
                 if(!hero_obj.isAlive()){
                     if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
@@ -422,16 +426,22 @@ public class GamePlay implements Serializable {
 
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE && hero_obj.isAlive()) {
+                if(firstHit){
+                    start = (long)(System.nanoTime()/1e-9);
+                    firstHit = false;
+                }
                 moveCounter.setText(Integer.toString(++mc));
                 pressedKeys.add(e.getText());
                 axeHit = false;
 
                 if(!boss_obj.isAlive()){
+                    long totalTime = (long)(System.nanoTime()/1e-9)-start+hero_obj.getDeltaTime();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Game Over");
                     alert.setHeaderText("Game Over");
                     alert.setContentText("You Won!!!");
                     alert.showAndWait();
+
                     HelloController hc = new HelloController();
                     try {
                         hc.switchToStartGame();
@@ -513,6 +523,8 @@ public class GamePlay implements Serializable {
 
         save.setOnMouseClicked(e -> {
             if(hero_obj.isAlive()) {
+//                finish = System.nanoTime();
+                hero_obj.setDeltaTime((long)(System.nanoTime()/1e-9) - start);
                 TextInputDialog gamename = new TextInputDialog();
                 gamename.setTitle("Save Game");
                 gamename.setHeaderText("Enter a name for your game");
@@ -860,4 +872,12 @@ public class GamePlay implements Serializable {
 //    public WeaponAbs getEquippedWeapon() {
 //        return equippedWeapon;
 //    }
+
+    public boolean isFirstHit() {
+        return firstHit;
+    }
+
+    public void setFirstHit(boolean firstHit) {
+        this.firstHit = firstHit;
+    }
 }

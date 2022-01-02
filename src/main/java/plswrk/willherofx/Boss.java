@@ -56,7 +56,6 @@ public class Boss extends Living{
                 double hbot = character.getImage().getBoundsInParent().getMinY();
                 double htop = character.getImage().getBoundsInParent().getMaxY();
                 if (!inAnimation && (character instanceof Hero) && ((htop - gbot >= 15) && ((htop <= gtop && hbot >= gbot) || (htop >= gtop && hbot >= gbot)) && character.getImage().getBoundsInParent().getMinX() > getImage().getBoundsInParent().getMinX())) {
-                    System.out.println("ded here");
                     character.die();
                 } else {
                     if (!inAnimation && character.getImage().getBoundsInParent().getMaxX() > this.getImage().getBoundsInParent().getMinX() && !orcDash.getStatus().equals(Animation.Status.RUNNING)) {
@@ -88,11 +87,6 @@ public class Boss extends Living{
                     }
             ));
         }
-
-        timeline.setOnFinished(actionEvent -> {
-            System.out.println("timeline dead");
-//                    endPane.setVisible(true);
-        });
         timeline.play();
 
     }
