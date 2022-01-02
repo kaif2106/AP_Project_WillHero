@@ -31,12 +31,12 @@ public class Weapon_Chest extends Chest{
                     weapon.setEquipped(true);
 
 
-                    if(weapon.getClass().equals(ThrowingAxe.class)){
+                    if(weapon instanceof ThrowingAxe){
                         if(hero_obj.getEquippedAxe()!=null) hero_obj.getEquippedAxe().setLevel(2);
                         else hero_obj.setEquippedAxe((ThrowingAxe) weapon);
                         hero_obj.setEquippedWeapon(hero_obj.getEquippedAxe());
                     }
-                    if(weapon.getClass().equals(ThrowingKife.class)){
+                    else{
                         if(hero_obj.getEquippedKnife()!=null) hero_obj.getEquippedKnife().setLevel(2);
                         else hero_obj.setEquippedKnife((ThrowingKife) weapon);
                         hero_obj.setEquippedWeapon(hero_obj.getEquippedKnife());

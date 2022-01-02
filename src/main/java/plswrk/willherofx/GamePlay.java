@@ -44,7 +44,7 @@ public class GamePlay implements Serializable {
     transient ImageView pause, pauseMenu, axeImg, hero, orc1, island1, island2, island3, island4, island5, weapon_chest1, coin_chest1, TNT1, t1,t2,t3,t4, orc2, axeIV, knifeImage, weapon_chest2;
 
     @FXML
-    transient Button resume, restart_pause, restart_end, exit_pause, exit_end, save;
+    transient Button resume, restart_pause, restart_end, exit_pause, exit_end, save, respawnButton;
 
     @FXML
     transient Polygon dash;
@@ -61,17 +61,22 @@ public class GamePlay implements Serializable {
     @FXML
     transient ProgressBar healthBar;
 
+    @FXML
+    transient Label coinCounter;
+
+    @FXML
+    transient ImageView coin1, coin2, coin3, coin4;
+
 
 
 
 
     private ArrayList<GameElement> gameElements;
     private ArrayList<Island> islands;
+    private ArrayList<Coin> coinsList;
     private ArrayList<Weapon_Chest> weapon_chests = new ArrayList<>();
     private Hero hero_obj;
     private ArrayList<Orc> orcList;
-//    private Orc orc_obj;
-//    private Orc orc2_obj;
     private Weapon_Chest weapon_chest_obj;
     private Weapon_Chest weapon_chest_obj2;
     private Weapon_Chest weapon_chest_obj3;
@@ -85,8 +90,7 @@ public class GamePlay implements Serializable {
     private WeaponAbs equippedKnife;
     private WeaponAbs equippedAxe;
     private Boss boss_obj;
-    //private WeaponAbs equippedWeapon;
-    //private ImageView newKnifeIV = new ImageView();
+
 
     public void InitialiseAll_FXML_Objects(Scene scene) {
         hero = (ImageView) scene.lookup("#hero");
@@ -94,6 +98,10 @@ public class GamePlay implements Serializable {
         axeImg = (ImageView) scene.lookup("#axeImg");
         orc1 = (ImageView) scene.lookup("#orc1");
         orc2 = (ImageView) scene.lookup("#orc2");
+        coin1 = (ImageView) scene.lookup("#coin1");
+        coin2 = (ImageView) scene.lookup("#coin2");
+        coin3 = (ImageView) scene.lookup("#coin3");
+        coin4 = (ImageView) scene.lookup("#coin4");
         healthBar = (ProgressBar) scene.lookup("#healthBar");
         knifeIV = (ImageView) scene.lookup("#knifeImage");
         weapon_chest2 = (ImageView) scene.lookup("#weapon_chest2");
@@ -108,7 +116,9 @@ public class GamePlay implements Serializable {
         endPane = (Pane) scene.lookup("#endPane");
         pause = (ImageView) scene.lookup("#pause");
         resume = (Button) scene.lookup("#resume");
+        respawnButton = (Button) scene.lookup("#respawnButton");
         moveCounter  = (Label) scene.lookup("#moveCounter");
+        coinCounter = (Label) scene.lookup("#coinCounter");
         HelloApplication.setEffect(resume);
         restart_pause = (Button) scene.lookup("#restart_pause");
         HelloApplication.setEffect(restart_pause);
@@ -207,8 +217,6 @@ public class GamePlay implements Serializable {
         weapon_chest_obj2 = new Weapon_Chest(weapon_chest2, Weapon_chest_image_list, new ThrowingKife(knifeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
         weapon_chest_obj3 = new Weapon_Chest(weapon_chest3, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest3.getLayoutX(), weapon_chest3.getLayoutY());
         weapon_chest_obj4 = new Weapon_Chest(weapon_chest4, Weapon_chest_image_list, new ThrowingKife(knifeIV), weapon_chest4.getLayoutX(), weapon_chest4.getLayoutY());
-        //weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
-        //weapon_chest_obj = new Weapon_Chest(weapon_chest1, Weapon_chest_image_list, new ThrowingAxe(axeIV), weapon_chest1.getLayoutX(), weapon_chest1.getLayoutY());
         weapon_chests.add(weapon_chest_obj);
         weapon_chests.add(weapon_chest_obj2);
         weapon_chests.add(weapon_chest_obj3);
@@ -236,6 +244,18 @@ public class GamePlay implements Serializable {
 
         boss_obj = new Boss(boss, orc_deathImages, 100, 0, boss.getLayoutX(), boss.getLayoutY());
 
+        Coin coin1_obj = new Coin(coin1, coin1.getLayoutX(), coin1.getLayoutY());
+        Coin coin2_obj = new Coin(coin2, coin2.getLayoutX(), coin2.getLayoutY());
+        Coin coin3_obj = new Coin(coin3, coin3.getLayoutX(), coin3.getLayoutY());
+        Coin coin4_obj = new Coin(coin4, coin4.getLayoutX(), coin4.getLayoutY());
+
+        coinsList = new ArrayList<Coin>();
+        coinsList.add(coin1_obj);
+        coinsList.add(coin2_obj);
+        coinsList.add(coin3_obj);
+        coinsList.add(coin4_obj);
+
+
         List<Image> Coin_chest_List = new ArrayList<>();
         for(int i=1; i<=11; i++) {
             Coin_chest_List.add(new Image(String.format("wep%s.png", i)));
@@ -259,6 +279,7 @@ public class GamePlay implements Serializable {
 
         gameElements.addAll(islands);
         gameElements.addAll(trees);
+        gameElements.addAll(coinsList);
         gameElements.add(TNT_obj);
         gameElements.add(weapon_chest_obj);
         gameElements.add(weapon_chest_obj2);
@@ -302,6 +323,7 @@ public class GamePlay implements Serializable {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                coinCounter.setText(Integer.toString(hero_obj.getCoins()));
                 coin_chest_obj.on_collision(hero_obj);
                 for(Weapon_Chest weapon_chest_obj : weapon_chests)
                     weapon_chest_obj.on_collision(hero_obj);
@@ -312,6 +334,13 @@ public class GamePlay implements Serializable {
                 if(TNT_obj.inDeadly() && hero_obj.getImage().getBoundsInParent().intersects(TNT_obj.getImage().getBoundsInParent())){
                     hero_obj.die();
                 }
+                for(Coin coin : coinsList){
+                    if(coin.getImage().isVisible() && hero_obj.getImage().getBoundsInParent().intersects(coin.getImage().getBoundsInParent())){
+                        hero_obj.setCoins(hero_obj.getCoins()+20);
+                        coin.getImage().setVisible(false);
+                    }
+                }
+
 
                 if(!hero_obj.isAlive()){
                     if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
@@ -330,9 +359,11 @@ public class GamePlay implements Serializable {
                 }
 
                 if(hero_obj.getEquippedAxe()!=null){
+
                     axeImg.setVisible(true);
                 }
                 if(hero_obj.getEquippedKnife()!=null){
+                    //System.out.println(hero_obj.getEquippedKnife().toString());
                     knifeIV.setVisible(true);
                 }
                 boss_obj.on_collision(hero_obj);
@@ -352,6 +383,8 @@ public class GamePlay implements Serializable {
                             }
                         }
                         if(axeIV.isVisible() && axeIV.getBoundsInParent().intersects(orc.getImage().getBoundsInParent())){
+                            //coinsInt+=20;
+                            hero_obj.setCoins(hero_obj.getCoins()+25);
                             orc.die();
                         }
 
@@ -359,6 +392,7 @@ public class GamePlay implements Serializable {
                             if (!knives.get(i).getImage().isVisible()) {
                                 knives.remove(i);
                             } else if (knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(orc.getImage().getBoundsInParent())) {
+                                hero_obj.setCoins(hero_obj.getCoins()+25);
                                 orc.die();
                             }
                             else if(knives.get(i).getImage().isVisible() && knives.get(i).getImage().getBoundsInParent().intersects(boss_obj.getImage().getBoundsInParent())){
@@ -548,6 +582,18 @@ public class GamePlay implements Serializable {
             }
         });
 
+        respawnButton.setOnMouseClicked(mouseEvent -> {
+            TranslateTransition respawnTransition = new TranslateTransition(Duration.millis(1000));
+            respawnTransition.setNode(hero_obj.getImage());
+            respawnTransition.setToY(-200);
+            respawnTransition.setCycleCount(1);
+            respawnTransition.setOnFinished(actionEvent -> hero_hop.getSecond().play());
+            hero_obj.setAlive(true);
+            endPane.setVisible(false);
+            hero_obj.setCurr_pos_y(hero_obj.getCurr_pos_y()-200);
+            respawnTransition.play();
+        });
+
         exit_end.setOnMouseClicked(mouseEvent -> {
             try {
                 new HelloApplication().start(HelloApplication.Gstage);
@@ -612,13 +658,15 @@ public class GamePlay implements Serializable {
             }
             boolean gameEnd = false;
             if(character == hero_obj){
-                if (character.getCurr_pos_y() + character.getImage().getFitHeight() >= 750) {
+                if (character.getImage().getBoundsInParent().getMinY() + character.getImage().getFitHeight() >= 750) {
+                    System.out.println("y");
                     endPane.setVisible(true);
                     gameEnd = true;
                 }
             }
             boolean temp = false;
             Island targetIsland = null;
+            //character.setCurr_pos_y(character.getImage().getBoundsInParent().getMinX());
             for(Island island : islands){
                 if((island.getImage().getBoundsInParent().getMaxX()) >= character.getImage().getBoundsInParent().getMinX() && island.getImage().getBoundsInParent().getMinX() <= (character.getImage().getBoundsInParent().getMaxX())){
                     targetIsland = island;

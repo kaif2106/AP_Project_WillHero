@@ -61,16 +61,6 @@ public class HelloController{
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("GamePlay.fxml"));
             Parent root = fxmlLoader.load();
             GamePlay gamePlay1 = fxmlLoader.getController();
-//            if(gamePlay1 == null) {
-//                System.out.println("GamePlay is null");
-//            }
-//            else{
-//                System.out.println("GamePlay is not null");
-//            }
-//            System.out.println(fxmlLoader.getController()));
-//            System.out.println(gamePlay1.hero.toString());
-//            gamePlay1.setGameElements(gamePlay.getGameElements());
-//            gamePlay1.setHero_obj(gamePlay.getHero_obj());
             scene = new Scene(root);
             gamePlay1.InitialiseAll_FXML_Objects(scene);
             gamePlay1.InitializeAll_ClassObjects();
@@ -81,9 +71,32 @@ public class HelloController{
                 gamePlay1.getGameElements().get(i).setCurr_pos_y(gamePlay.getGameElements().get(i).getCurr_pos_y());
             }
 //            gamePlay1.setGameElements(gamePlay.getGameElements());
-            gamePlay1.getHero_obj().setEquippedWeapon(gamePlay.getHero_obj().getEquippedWeapon());
-            gamePlay1.getHero_obj().setEquippedAxe(gamePlay.getHero_obj().getEquippedAxe());
-            gamePlay1.getHero_obj().setEquippedKnife(gamePlay.getHero_obj().getEquippedKnife());
+
+            if(gamePlay.getHero_obj().getEquippedWeapon() == null){
+                gamePlay1.getHero_obj().setEquippedWeapon(null);
+                System.out.println("wnull");
+            }
+            else{
+                gamePlay1.getHero_obj().setEquippedWeapon(gamePlay.getHero_obj().getEquippedWeapon());
+            }
+
+            if(gamePlay.getHero_obj().getEquippedAxe() == null){
+                gamePlay1.getHero_obj().setEquippedAxe(null);
+                System.out.println("knull");
+            }
+            else{
+                gamePlay1.getHero_obj().setEquippedAxe(gamePlay.getHero_obj().getEquippedAxe());
+            }
+
+            if(gamePlay.getHero_obj().getEquippedKnife() == null){
+                gamePlay1.getHero_obj().setEquippedKnife(null);
+                System.out.println("anull");
+            }
+            else{
+                gamePlay1.getHero_obj().setEquippedKnife(gamePlay.getHero_obj().getEquippedKnife());
+            }
+            //gamePlay1.getHero_obj().setEquippedAxe(gamePlay.getHero_obj().getEquippedAxe());
+            //gamePlay1.getHero_obj().setEquippedKnife(gamePlay.getHero_obj().getEquippedKnife());
 //            System.out.println(gamePlay.getHero_obj().getCurr_pos_y());
             gamePlay1.start(scene);
         } finally{

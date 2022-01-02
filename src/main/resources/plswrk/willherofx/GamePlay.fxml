@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Polygon?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="layout" layoutX="-1.0" maxHeight="694.0" maxWidth="1236.0" minHeight="550.0" minWidth="1000.0" prefHeight="694.0" prefWidth="1238.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plswrk.willherofx.GamePlay">
    <children>
@@ -48,7 +47,7 @@
             <Image url="@../../Tree11.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="1205.0" layoutY="335.0" pickOnBounds="true">
+      <ImageView fx:id="coin_chest1" fitHeight="56.0" fitWidth="82.0" layoutX="1241.0" layoutY="335.0" pickOnBounds="true">
          <image>
             <Image url="@../../wep1.png" />
          </image></ImageView>
@@ -172,7 +171,11 @@
             <Image url="@../../ThrowingAxe.png" />
          </image>
       </ImageView>
-      <Polygon fx:id="dash" fill="#ff4242" layoutX="156.0" layoutY="287.0" opacity="0.91" points="-8.800003051757812, 43.600006103515625, 49.99998474121094, 50.0, 49.99998474121094, 37.199981689453125" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <ImageView fx:id="coin1" fitHeight="30.0" fitWidth="29.0" layoutX="1830.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Coin.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="axeImg" fitHeight="120.0" fitWidth="47.0" layoutX="70.0" layoutY="592.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../ThrowingAxe.png" />
@@ -183,16 +186,21 @@
             <Image url="@../../ThrowingKnife2.png" />
          </image>
       </ImageView>
+      <Polygon fx:id="dash" fill="#ff4242" layoutX="156.0" layoutY="287.0" opacity="0.91" points="-8.800003051757812, 43.600006103515625, 49.99998474121094, 50.0, 49.99998474121094, 37.199981689453125" stroke="TRANSPARENT" strokeType="INSIDE" />
       <ImageView fx:id="hero" fitHeight="30.0" fitWidth="54.0" layoutX="197.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../hero.png" />
          </image>
       </ImageView>
       <ProgressBar fx:id="healthBar" layoutX="375.0" layoutY="63.0" prefHeight="22.0" prefWidth="451.0" progress="1.0" />
+      <Label fx:id="coinCounter" layoutX="103.0" layoutY="35.0" text="0" />
       <Label fx:id="moveCounter" layoutX="592.0" layoutY="14.0" prefHeight="45.0" prefWidth="87.0" text="0">
-         <font>
-            <Font size="33.0" />
-         </font></Label>
+         </Label>
+      <ImageView fitHeight="49.0" fitWidth="45.0" layoutX="30.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Coin.png" />
+         </image>
+      </ImageView>
       <Pane fx:id="endPane" centerShape="false" layoutX="552.0" layoutY="183.0" prefHeight="357.0" prefWidth="226.0" scaleShape="false">
          <children>
             <ImageView fx:id="GameOver" fitHeight="97.0" fitWidth="260.0" layoutX="-28.0" layoutY="6.0" pickOnBounds="true" x="10.0">
@@ -233,6 +241,7 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="respawnButton" layoutX="25.0" layoutY="350.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="178.0" text="Respawn for 200 coins" />
          </children>
       </Pane>
       <Pane fx:id="pauseMenuPane" layoutX="533.0" layoutY="185.0" prefHeight="315.0" prefWidth="260.0">
@@ -304,5 +313,20 @@
             </Button>
          </children>
       </Pane>
+      <ImageView fx:id="coin2" fitHeight="30.0" fitWidth="29.0" layoutX="2504.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Coin.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="coin3" fitHeight="30.0" fitWidth="29.0" layoutX="3287.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Coin.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="coin4" fitHeight="30.0" fitWidth="29.0" layoutX="4775.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Coin.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

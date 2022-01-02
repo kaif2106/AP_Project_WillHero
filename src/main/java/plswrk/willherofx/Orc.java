@@ -64,8 +64,11 @@ public class Orc extends Living {
                 double hbot = character.getImage().getBoundsInParent().getMinY();
                 double htop = character.getImage().getBoundsInParent().getMaxY();
                 if (!inAnimation && (character instanceof Hero) && ((htop - gbot >= 15) && ((htop <= gtop && hbot >= gbot) || (htop >= gtop && hbot >= gbot)) && character.getImage().getBoundsInParent().getCenterX() > getImage().getBoundsInParent().getMinX())) {
-                    System.out.println("ded here");
+                    //System.out.println("ded here");
                     character.die();
+                    if( character instanceof Hero){
+                        ((Hero) character).setCoins(((Hero) character).getCoins()+25);
+                    }
 
                 } else {
                     if (!inAnimation && character.getImage().getBoundsInParent().getMaxX() > this.getImage().getBoundsInParent().getMinX() && !orcDash.getStatus().equals(Animation.Status.RUNNING)) {

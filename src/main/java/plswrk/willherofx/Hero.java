@@ -29,16 +29,28 @@ public class Hero extends Living{
     private double velocityX;
     private double velocityY;
     private boolean Alive;
+    private int coinsInt;
     private WeaponAbs equippedWeapon;
     private ThrowingAxe equippedAxe;
     private ThrowingKife equippedKnife;
     Hero(ImageView hero_image, List<Image> imageList , double jumpHeight, double moveDist, double x, double y) {
         super(hero_image, imageList, jumpHeight, moveDist, x, y);
         Alive = true;
+        coinsInt = 0;
+        equippedWeapon = null;
+        equippedAxe=null;
+        equippedKnife=null;
     }
 
     transient private TranslateTransition dieAni = new TranslateTransition();
     transient private RotateTransition dieRot = new RotateTransition();
+
+    int getCoins(){
+        return coinsInt;
+    }
+    void setCoins(int x){
+        coinsInt = x;
+    }
 
 
     public WeaponAbs getEquippedWeapon(){
