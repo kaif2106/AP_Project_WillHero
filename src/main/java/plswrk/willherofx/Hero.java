@@ -28,14 +28,12 @@ import java.util.ResourceBundle;
 public class Hero extends Living{
     private double velocityX;
     private double velocityY;
-    private boolean Alive;
     private int coinsInt;
     private WeaponAbs equippedWeapon;
     private ThrowingAxe equippedAxe;
     private ThrowingKife equippedKnife;
     Hero(ImageView hero_image, List<Image> imageList , double jumpHeight, double moveDist, double x, double y) {
         super(hero_image, imageList, jumpHeight, moveDist, x, y);
-        Alive = true;
         coinsInt = 0;
         equippedWeapon = null;
         equippedAxe=null;
@@ -75,10 +73,6 @@ public class Hero extends Living{
         this.equippedAxe = equippedAxe;
     }
 
-    public boolean isAlive(){
-        return Alive;
-    }
-
     @Override
     public void on_collision(Living character) {
 
@@ -86,7 +80,7 @@ public class Hero extends Living{
 
     @Override
     public void die() {
-        Alive = false;
+        setAlive(false);
         dieAni.setNode(getImage());
         dieAni.setDuration(Duration.millis(3000));
         dieAni.setCycleCount(1);

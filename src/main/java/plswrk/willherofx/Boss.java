@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -57,7 +58,6 @@ public class Boss extends Living{
                 if (!inAnimation && (character instanceof Hero) && ((htop - gbot >= 15) && ((htop <= gtop && hbot >= gbot) || (htop >= gtop && hbot >= gbot)) && character.getImage().getBoundsInParent().getMinX() > getImage().getBoundsInParent().getMinX())) {
                     System.out.println("ded here");
                     character.die();
-
                 } else {
                     if (!inAnimation && character.getImage().getBoundsInParent().getMaxX() > this.getImage().getBoundsInParent().getMinX() && !orcDash.getStatus().equals(Animation.Status.RUNNING)) {
                         inAnimation = true;
@@ -87,7 +87,16 @@ public class Boss extends Living{
                     }
             ));
         }
-        timeline.play();
         setAlive(false);
+        timeline.setOnFinished(actionEvent -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Game Over");
+                alert.setHeaderText("Game Over");
+                alert.setContentText("You Won!!!");
+                alert.showAndWait();
+//                    endPane.setVisible(true);
+        });
+        timeline.play();
+
     }
 }

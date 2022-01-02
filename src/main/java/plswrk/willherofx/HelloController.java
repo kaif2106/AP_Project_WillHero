@@ -109,7 +109,15 @@ public class HelloController{
                     gamePlay1.getHero_obj().setEquippedWeapon(gamePlay.getHero_obj().getEquippedWeapon());
                     gamePlay1.getHero_obj().setEquippedAxe(gamePlay.getHero_obj().getEquippedAxe());
                     gamePlay1.getHero_obj().setEquippedKnife(gamePlay.getHero_obj().getEquippedKnife());
-
+                    gamePlay1.getHero_obj().setCoins(gamePlay.getHero_obj().getCoins());
+                    for(int i=0; i<gamePlay.getCoinsList().size(); i++){
+                        gamePlay1.getCoinsList().get(i).getImage().setVisible(!gamePlay.getCoinsList().get(i).isCollected());
+                    }
+                    for(int i=0; i<gamePlay.getOrcList().size(); i++){
+                        if(!gamePlay.getOrcList().get(i).isAlive()){
+                            gamePlay1.getOrcList().get(i).die();
+                        }
+                    }
                     gamePlay1.start(scene);
                 }
             });

@@ -337,6 +337,7 @@ public class GamePlay implements Serializable {
                     if(coin.getImage().isVisible() && hero_obj.getImage().getBoundsInParent().intersects(coin.getImage().getBoundsInParent())){
                         hero_obj.setCoins(hero_obj.getCoins()+20);
                         coin.getImage().setVisible(false);
+                        coin.collect();
                     }
                 }
 
@@ -350,9 +351,9 @@ public class GamePlay implements Serializable {
                     }
                 }
                 if(hero_obj.getImage().getBoundsInParent().getMinY()>=750){
+                    hero_obj.setAlive(false);
                     endPane.setVisible(true);
                 }
-
                 if(hero_obj.getImage().getBoundsInParent().getMaxX()+1000 >= boss_obj.getImage().getBoundsInParent().getMinX()){
                     healthBar.setVisible(true);
                 }
@@ -493,19 +494,28 @@ public class GamePlay implements Serializable {
         });
 
         save.setOnMouseClicked(e -> {
-            TextInputDialog gamename = new TextInputDialog();
-            gamename.setTitle("Save Game");
-            gamename.setHeaderText("Enter a name for your game");
-            gamename.showAndWait();
-            String name = gamename.getEditor().getText();
-            if(this.getHero_obj()==null){
-                System.out.println("No hero");
+            if(hero_obj.isAlive()) {
+                TextInputDialog gamename = new TextInputDialog();
+                gamename.setTitle("Save Game");
+                gamename.setHeaderText("Enter a name for your game");
+                gamename.showAndWait();
+                String name = gamename.getEditor().getText();
+                if (this.getHero_obj() == null) {
+                    System.out.println("No hero");
+                }
+                try {
+                    System.out.println(hero_obj.getCurr_pos_y());
+                    HelloApplication.serialize(name, this);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
             }
-            try {
-                System.out.println(hero_obj.getCurr_pos_y());
-                HelloApplication.serialize(name, this);
-            }catch(Exception exception){
-                exception.printStackTrace();
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Game Over");
+                alert.setHeaderText("Game Over");
+                alert.setContentText("You died. You can't Save!!! Try Respawing!!! ");
+                alert.showAndWait();
             }
         });
 
@@ -582,14 +592,25 @@ public class GamePlay implements Serializable {
         });
 
         respawnButton.setOnMouseClicked(mouseEvent -> {
-            hero_obj.setAlive(true);
-            endPane.setVisible(false);
-            TranslateTransition respawnTransition = new TranslateTransition(Duration.millis(1000), hero_obj.getImage());
-            respawnTransition.setToY(-200);
-            respawnTransition.setCycleCount(1);
-            respawnTransition.setOnFinished(actionEvent -> hero_hop.getSecond().play());
-            hero_obj.setCurr_pos_y(hero_obj.getCurr_pos_y()-200);
-            respawnTransition.play();
+            if(hero_obj.getCoins()>=200) {
+                hero_obj.setCoins(hero_obj.getCoins()-200);
+                hero_obj.setAlive(true);
+                endPane.setVisible(false);
+                TranslateTransition respawnTransition = new TranslateTransition(Duration.millis(1000), hero_obj.getImage());
+                respawnTransition.setToY(-200);
+                respawnTransition.setCycleCount(1);
+                respawnTransition.setOnFinished(actionEvent -> hero_hop.getSecond().play());
+                hero_obj.setCurr_pos_y(hero_obj.getCurr_pos_y() - 200);
+                hero_obj.getImage().setImage(hero.getImage());
+                respawnTransition.play();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Game Over");
+                alert.setHeaderText("Game Over");
+                alert.setContentText("You don't have enough Coins!!! ");
+                alert.showAndWait();
+            }
         });
 
         exit_end.setOnMouseClicked(mouseEvent -> {
@@ -659,6 +680,7 @@ public class GamePlay implements Serializable {
             if(character == hero_obj){
                 if (character.getImage().getBoundsInParent().getMinY() + character.getImage().getFitHeight() >= 750) {
                     System.out.println("y");
+                    hero_obj.setAlive(false);
                     endPane.setVisible(true);
                     gameEnd = true;
                 }
@@ -814,6 +836,9 @@ public class GamePlay implements Serializable {
         return knives;
     }
 
+    public ArrayList<Coin> getCoinsList() {
+        return coinsList;
+    }
 //    public WeaponAbs getEquippedWeapon() {
 //        return equippedWeapon;
 //    }

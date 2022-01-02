@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="layout" layoutX="-1.0" maxHeight="694.0" maxWidth="1236.0" minHeight="550.0" minWidth="1000.0" prefHeight="694.0" prefWidth="1238.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="plswrk.willherofx.GamePlay">
    <children>
@@ -241,7 +242,11 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="respawnButton" layoutX="25.0" layoutY="350.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="178.0" text="Respawn for 200 coins" />
+            <Button fx:id="respawnButton" layoutX="14.0" layoutY="350.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="210.0" style="-fx-background-color: #3eb2ff; -fx-border-color: white; -fx-border-radius: 15px; -fx-border-width: 3px; -fx-background-radius: 15px;" text="Respawn: 200 coins" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="17.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <Pane fx:id="pauseMenuPane" layoutX="533.0" layoutY="185.0" prefHeight="315.0" prefWidth="260.0">
