@@ -1,23 +1,16 @@
 package plswrk.willherofx;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -27,14 +20,11 @@ public class HelloApplication extends Application {
     public static Stage Gstage;
     @FXML
     transient public Button gameStartButton;
-//    @FXML
-//    public ImageView
+
     public static void serialize(String name, GamePlay gamePlay) throws IOException {
         ObjectOutputStream out = null;
         try {
-            System.out.println(name);
             out = new ObjectOutputStream(new FileOutputStream("src/main/resources/SavedGames/" +name+".txt"));
-//            System.out.println(gamePlay.getHero_obj().getCurr_pos_y());
             out.writeObject(gamePlay);
         } finally {
             assert out != null;
@@ -66,9 +56,7 @@ public class HelloApplication extends Application {
             shadow.setHeight(32.68);
             button.setEffect(shadow);
         });
-        button.setOnMouseExited(event -> {
-            button.setEffect(original_effect);
-        });
+        button.setOnMouseExited(event -> button.setEffect(original_effect));
     }
     public static void main(String[] args) {
         launch();

@@ -14,10 +14,6 @@ public class Weapon_Chest extends Chest{
         this.weapon = weapon;
     }
 
-    public WeaponAbs getWeapon() {
-        return weapon;
-    }
-
     @Override
     public void on_collision(Hero hero_obj) {
         if(!getIsOpen()) {

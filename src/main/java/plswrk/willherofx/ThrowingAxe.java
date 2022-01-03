@@ -13,8 +13,6 @@ public class ThrowingAxe extends WeaponAbs {
 
     @Override
     public void attack() {
-        //if(!getImage().isVisible())
-            //throwAxe();
     }
 
     void upgradeImage(){

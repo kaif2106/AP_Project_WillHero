@@ -56,7 +56,6 @@ public class Orc extends Living {
     @Override
     public void on_collision(Living character) {
         if(character.isAlive()){
-            ImageView heroimg = character.getImage();
 
             if(character.getImage().getBoundsInParent().intersects(this.getImage().getBoundsInParent())) {
                 double gbot = this.getImage().getBoundsInParent().getMinY();
@@ -64,7 +63,6 @@ public class Orc extends Living {
                 double hbot = character.getImage().getBoundsInParent().getMinY();
                 double htop = character.getImage().getBoundsInParent().getMaxY();
                 if (!inAnimation && (character instanceof Hero) && ((htop - gbot >= 15) && ((htop <= gtop && hbot >= gbot) || (htop >= gtop && hbot >= gbot)) && character.getImage().getBoundsInParent().getCenterX() > getImage().getBoundsInParent().getMinX())) {
-                    //System.out.println("ded here");
                     character.die();
                     if( character instanceof Hero){
                         ((Hero) character).setCoins(((Hero) character).getCoins()+25);

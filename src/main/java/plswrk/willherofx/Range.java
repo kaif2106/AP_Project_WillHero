@@ -10,12 +10,4 @@ public class Range implements Serializable {
         x_range = x;
         y_range = y;
     }
-
-    public int getX_range() {
-        return x_range;
-    }
-
-    public int getY_range() {
-        return y_range;
-    }
 }

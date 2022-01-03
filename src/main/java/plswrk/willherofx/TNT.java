@@ -2,16 +2,12 @@ package plswrk.willherofx;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import java.net.URISyntaxException;
-import java.security.Key;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicIntegerArray;
 
 public class TNT extends GameElement implements Obstacle {
     private final Range range;
@@ -26,10 +22,6 @@ public class TNT extends GameElement implements Obstacle {
 
     public boolean isExploded() {
         return exploded;
-    }
-
-    public void setExploded(boolean exploded) {
-        this.exploded = exploded;
     }
 
     public boolean inDeadly(){
@@ -69,7 +61,4 @@ public class TNT extends GameElement implements Obstacle {
         timeline.play();
     }
 
-    public Range getRange() {
-        return range;
-    }
 }

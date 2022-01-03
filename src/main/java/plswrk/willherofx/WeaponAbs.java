@@ -1,6 +1,5 @@
 package plswrk.willherofx;
 
-import javafx.animation.SequentialTransition;
 import javafx.scene.image.ImageView;
 
 import java.io.Serializable;
@@ -10,8 +9,6 @@ public abstract class WeaponAbs implements Serializable {
     private boolean isEquipped;
     private boolean isOpened;
     private int level;
-    private int range;
-    transient private SequentialTransition transitions;
 
     WeaponAbs(ImageView image){
         this.image = image;
@@ -32,14 +29,6 @@ public abstract class WeaponAbs implements Serializable {
 
     void setEquipped(boolean x){
         isEquipped = x;
-    }
-
-    boolean getOpened(){
-        return isOpened;
-    }
-
-    boolean getEquipped(){
-        return isEquipped;
     }
 
     public ImageView getImage(){

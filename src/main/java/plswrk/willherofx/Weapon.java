@@ -1,6 +1,5 @@
 package plswrk.willherofx;
 
-import javafx.scene.image.ImageView;
 
 import java.io.Serializable;
 

@@ -2,12 +2,10 @@ package plswrk.willherofx;
 
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -15,25 +13,15 @@ import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -310,7 +298,6 @@ public class GamePlay implements Serializable {
     }
 
     public void start(Scene scene) {
-        System.out.println(hero_obj.isAlive());
         timeLabel.setText(Long.toString(hero_obj.getDeltaTime()));
         Pair<TranslateTransition, TranslateTransition> hero_hop = hop(hero_obj);
         Pair<TranslateTransition, TranslateTransition> boss_hop = hop(boss_obj);
@@ -379,7 +366,6 @@ public class GamePlay implements Serializable {
                     axeImg.setVisible(true);
                 }
                 if(hero_obj.getEquippedKnife()!=null){
-                    //System.out.println(hero_obj.getEquippedKnife().toString());
                     knifeIV.setVisible(true);
                 }
                 boss_obj.on_collision(hero_obj);
@@ -438,7 +424,6 @@ public class GamePlay implements Serializable {
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE && hero_obj.isAlive()) {
                 if(firstHit){
-                    System.out.println("fh");
                     start = (long)(System.nanoTime()/1000000000);
                     firstHit = false;
                 }
@@ -557,11 +542,7 @@ public class GamePlay implements Serializable {
                 gamename.setHeaderText("Enter a name for your game");
                 gamename.showAndWait();
                 String name = gamename.getEditor().getText();
-                if (this.getHero_obj() == null) {
-                    System.out.println("No hero");
-                }
                 try {
-                    System.out.println(hero_obj.getCurr_pos_y());
                     HelloApplication.serialize(name, this);
                 } catch (Exception exception) {
                     exception.printStackTrace();
@@ -728,7 +709,6 @@ public class GamePlay implements Serializable {
         fall.setOnFinished(actionEvent -> {
             character.setCurr_pos_y(character.getCurr_pos_y()+2.5);
             if(!character.isAlive()){
-                //System.out.println("dead");
                 if(character.getCurr_pos_y() <= 950)
                     fall.play();
                 return;
@@ -736,7 +716,6 @@ public class GamePlay implements Serializable {
             boolean gameEnd = false;
             if(character == hero_obj){
                 if (character.getImage().getBoundsInParent().getMinY() + character.getImage().getFitHeight() >= 750) {
-                    System.out.println("y");
                     hero_obj.setAlive(false);
                     endPane.setVisible(true);
                     gameEnd = true;
@@ -744,11 +723,9 @@ public class GamePlay implements Serializable {
             }
             boolean temp = false;
             Island targetIsland = null;
-            //character.setCurr_pos_y(character.getImage().getBoundsInParent().getMinX());
             for(Island island : islands){
                 if((island.getImage().getBoundsInParent().getMaxX()) >= character.getImage().getBoundsInParent().getMinX() && island.getImage().getBoundsInParent().getMinX() <= (character.getImage().getBoundsInParent().getMaxX())){
                     targetIsland = island;
-//                    System.out.println("found");
                     break;
                 }
             }
@@ -896,9 +873,6 @@ public class GamePlay implements Serializable {
     public ArrayList<Coin> getCoinsList() {
         return coinsList;
     }
-//    public WeaponAbs getEquippedWeapon() {
-//        return equippedWeapon;
-//    }
 
     public boolean isFirstHit() {
         return firstHit;
@@ -906,5 +880,13 @@ public class GamePlay implements Serializable {
 
     public void setFirstHit(boolean firstHit) {
         this.firstHit = firstHit;
+    }
+
+    public Label getMoveCounter() {
+        return moveCounter;
+    }
+
+    public void setMoveCounter(Label moveCounter) {
+        this.moveCounter = moveCounter;
     }
 }
