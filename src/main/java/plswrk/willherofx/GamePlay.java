@@ -27,11 +27,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class GamePlay implements Serializable {
@@ -67,10 +71,6 @@ public class GamePlay implements Serializable {
 
     @FXML
     transient ImageView coin1, coin2, coin3, coin4;
-
-
-
-
 
     private ArrayList<GameElement> gameElements;
     private ArrayList<Island> islands;
@@ -332,11 +332,11 @@ public class GamePlay implements Serializable {
                 coinCounter.setText(Integer.toString(hero_obj.getCoins()));
                 coin_chest_obj.on_collision(hero_obj);
 
-                if(!firstHit)
-                    if(!pauseTimer)
-                        timeLabel.setText(Long.toString((long) ((long)(System.nanoTime()/1000000000) - start)+hero_obj.getDeltaTime()));
+                if(!firstHit) {
+                    if (!pauseTimer)
+                        timeLabel.setText(Long.toString((long) ((long) (System.nanoTime() / 1000000000) - start) + hero_obj.getDeltaTime()));
+                }
                 else timeLabel.setText(Long.toString(hero_obj.getDeltaTime()));
-
                 for(Weapon_Chest weapon_chest_obj : weapon_chests)
                     weapon_chest_obj.on_collision(hero_obj);
 
@@ -358,6 +358,7 @@ public class GamePlay implements Serializable {
                 }
 
                 if(!hero_obj.isAlive()){
+                    pauseTimer = true;
                     if (hero_hop.getFirst().getStatus() == Animation.Status.RUNNING) {
                         hero_hop.getFirst().pause();
                     }
@@ -447,11 +448,25 @@ public class GamePlay implements Serializable {
 
                 if(!boss_obj.isAlive()){
                     long totalTime = (long)(System.nanoTime()/1000000000)-start+hero_obj.getDeltaTime();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Game Over");
-                    alert.setHeaderText("Game Over");
-                    alert.setContentText("You Won!!!");
-                    alert.showAndWait();
+                    hero_obj.setTotalTime(totalTime);
+
+
+                    TextInputDialog gamename = new TextInputDialog();
+                    gamename.setTitle("Game Over");
+                    gamename.setHeaderText("You Won!!! Enter your Name");
+                    gamename.showAndWait();
+                    String name = gamename.getEditor().getText();
+                    BufferedWriter gameData = null;
+                    try {
+                        gameData = new BufferedWriter(new FileWriter("Game_Records.txt", true));
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                        Date date = new Date();
+                        gameData.write(name + "\t" + hero_obj.getTotalTime() + "\t" + formatter.format(date));
+                        gameData.newLine();
+                        gameData.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
 
                     HelloController hc = new HelloController();
                     try {

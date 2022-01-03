@@ -33,6 +33,7 @@ public class Hero extends Living{
     private ThrowingAxe equippedAxe;
     private ThrowingKife equippedKnife;
     private long deltaTime;
+    private long totalTime;
     Hero(ImageView hero_image, List<Image> imageList , double jumpHeight, double moveDist, double x, double y) {
         super(hero_image, imageList, jumpHeight, moveDist, x, y);
         coinsInt = 0;
@@ -40,6 +41,7 @@ public class Hero extends Living{
         equippedAxe=null;
         equippedKnife=null;
         deltaTime = 0;
+        totalTime=0;
     }
 
     transient private TranslateTransition dieAni = new TranslateTransition();
@@ -103,5 +105,13 @@ public class Hero extends Living{
 
     public void setDeltaTime(long deltaTime) {
         this.deltaTime = deltaTime;
+    }
+
+    public long getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(long totalTime) {
+        this.totalTime = totalTime;
     }
 }

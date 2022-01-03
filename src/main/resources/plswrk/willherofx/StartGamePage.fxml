@@ -96,10 +96,15 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="load_game" layoutX="547.0" layoutY="378.0" mnemonicParsing="false" onMouseClicked="#load" prefHeight="56.0" prefWidth="179.0" style="-fx-background-color: LightGreen; -fx-border-color: Yellow; -fx-border-radius: 22px; -fx-background-radius: 22px; -fx-border-width: 5px;" text="Load Game" textAlignment="CENTER">
+      <Button fx:id="load_game" layoutX="538.0" layoutY="378.0" mnemonicParsing="false" onMouseClicked="#load" prefHeight="56.0" prefWidth="201.0" style="-fx-background-color: LightGreen; -fx-border-color: Yellow; -fx-border-radius: 22px; -fx-background-radius: 22px; -fx-border-width: 5px;" text="Load Game" textAlignment="CENTER">
          <font>
             <Font name="Arial Rounded MT Bold" size="22.0" />
          </font></Button>
-      <ListView fx:id="savedGamesList" layoutX="372.0" layoutY="128.0" prefHeight="357.0" prefWidth="591.0" />
+      <ListView fx:id="savedGamesList" disable="true" layoutX="351.0" layoutY="183.0" opacity="0.0" prefHeight="357.0" prefWidth="591.0" />
+      <Button fx:id="leaderBoard" layoutX="538.0" layoutY="459.0" mnemonicParsing="false" onMouseClicked="#showScores" prefHeight="56.0" prefWidth="201.0" style="-fx-background-color: LightGreen; -fx-border-color: Yellow; -fx-border-radius: 22px; -fx-background-radius: 22px; -fx-border-width: 5px;" text="Leaderboard" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="22.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

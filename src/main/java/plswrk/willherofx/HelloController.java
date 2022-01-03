@@ -20,12 +20,11 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.awt.*;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -127,8 +126,54 @@ public class HelloController{
                 }
             });
         } finally{
-            assert in[0] != null;
-            in[0].close();
+            if(in[0]!=null) {
+                in[0].close();
+            }
+        }
+    }
+
+    @FXML
+    public static void showScores() throws IOException
+    {
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("Game_Records.txt"));
+
+            LinkedList<Player_Date> playerRecords = new LinkedList<>();
+            String curr_player = br.readLine();
+
+            while (curr_player != null)
+            {
+                String[] playerDetail = curr_player.split("\t");
+                String name = playerDetail[0];
+                int score = Integer.parseInt(playerDetail[1]);
+                String date = playerDetail[2];
+                playerRecords.add(new Player_Date(score, name, date));
+                curr_player = br.readLine();
+            }
+            playerRecords.sort(new ScoreCompare());
+            BufferedWriter gameDataWriter = new BufferedWriter(new FileWriter("Game_Records.txt"));
+            for (Player_Date player : playerRecords)
+            {
+                gameDataWriter.write(player.getName());
+                gameDataWriter.write("\t" + player.getScore());
+                gameDataWriter.write("\t" + player.getDate());
+                gameDataWriter.newLine();
+            }
+
+            br.close();
+            gameDataWriter.close();
+            File file = new File("Game_Records.txt");
+            if(!Desktop.isDesktopSupported())
+            {
+                System.out.println("not supported");
+                return;
+            }
+            Desktop desktop = Desktop.getDesktop();
+            if(file.exists())
+                desktop.open(file);
+        }
+        catch (FileNotFoundException exception) {
+            System.out.println("File Not Found!");
         }
     }
 }
