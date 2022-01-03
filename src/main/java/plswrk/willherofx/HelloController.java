@@ -133,7 +133,7 @@ public class HelloController{
     }
 
     @FXML
-    public static void showScores() throws IOException
+    public void showScores() throws IOException
     {
         try{
             BufferedReader br = new BufferedReader(new FileReader("Game_Records.txt"));
